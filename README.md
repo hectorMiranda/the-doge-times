@@ -1,13 +1,13 @@
-# Welcome!
+# The doge times repo!
 ## What is this repo for?
 This repo contains all the articles referred at www.thedogetimes.com, please refer to the content section to identify the folder with instructions on how to set up the mini projects.
 
 ## Contents
 
-- Starting your crypto journey.
-    - Getting started
-    - Cryptography
-        - Hash functions
+- Journey to the moon (video game)
+    - Unity
+    - Python
+    - three.js
 
 ## License
 
