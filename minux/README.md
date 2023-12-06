@@ -1,11 +1,17 @@
 
-# CryptoFluxMonitor
+# DogeDataHub
 
 ## Introduction
-CryptoFluxMonitor is a Python-based microservice designed to fetch real-time cryptocurrency prices and Dogecoin-related news, exposing them through a RESTful API.
+DogeDataHub is a Python-based microservice designed to fetch real-time cryptocurrency prices, Dogecoin-related news, and provide comprehensive Dogecoin data, exposing them through a RESTful API. This service integrates with the Twitter API and implements caching for enhanced performance.
 
 ## Environment Setup
-Ensure Python 3 is installed. Set up a virtual environment and install required libraries. Set up environment variables for the Twitter bearer token, cache duration, and admin bearer token.
+Ensure Python 3 is installed. Set up a virtual environment and install required libraries. Set up environment variables for the Twitter bearer token, cache duration, admin bearer token, and additional configuration as required by DogeDataHub.
+
+## Features
+- RESTful API for fetching real-time cryptocurrency prices.
+- Integration with Twitter API for Dogecoin-related news.
+- Caching mechanism for improved performance.
+- Extended endpoints for comprehensive Dogecoin data analysis.
 
 ## Installation
 
@@ -36,12 +42,24 @@ export ADMIN_BEARER_TOKEN='your-admin-bearer-token'
 ```
 
 ## Running the Program
+To run DogeDataHub, execute:
 ```bash
-python3 crypto_flux_monitor.py
+python3 DogeDataHub.py
 ```
 
 ## API Endpoints
+DogeDataHub offers the following endpoints:
+
+- `/currentPrice`: Fetch the current price of Dogecoin.
 - `/prices`: Fetches current prices of Bitcoin and Dogecoin.
+- `/priceHistory`: Retrieve historical price data for Dogecoin.
+- `/marketCap`: Access market capitalization details of Dogecoin.
+- `/tradingVolume`: Fetch trading volume data of Dogecoin.
+- `/exchangeRates`: Obtain exchange rates of Dogecoin against various currencies.
+- `/transactions`: View recent transaction data in the Dogecoin network.
+- `/networkStats`: Get statistics about the Dogecoin network.
+- `/blockInfo`: Retrieve information about specific blocks in the Dogecoin blockchain.
+- `/walletInfo`: Fetch data about specific Dogecoin wallets.
 - `/dogecoin-news`: Aggregates news related to Dogecoin from Twitter.
 - `/flush`: Flushes the current cache, requires an admin bearer token defined as an environment variable.
 

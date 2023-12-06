@@ -4,7 +4,6 @@ from flask_caching import Cache
 import tweepy
 import os
 import requests
-from datetime import datetime
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='DogeDataHub API',
@@ -27,7 +26,73 @@ def get_crypto_price(coin):
     return response.json()
 
 # Prices endpoint
-@ns.route('/prices')
+
+# Renamed and modified /currentPrice endpoint
+@ns.route('/currentPrice')
+class CurrentPrice(Resource):
+    @cache.cached(timeout=cache_duration)
+    def get(self):
+        dogecoin_price = get_crypto_price('dogecoin')
+        return jsonify(dogecoin=dogecoin_price['dogecoin']['usd'])
+
+# Implementing the new endpoints with basic structure
+
+# Endpoint: /priceHistory
+@ns.route('/priceHistory')
+class PriceHistory(Resource):
+    def get(self):
+        # Placeholder for fetching historical price data
+        return {"message": "Price history data not implemented yet."}
+
+# Endpoint: /marketCap
+@ns.route('/marketCap')
+class MarketCap(Resource):
+    def get(self):
+        # Placeholder for fetching market cap data
+        return {"message": "Market Cap data not implemented yet."}
+
+# Endpoint: /tradingVolume
+@ns.route('/tradingVolume')
+class TradingVolume(Resource):
+    def get(self):
+        # Placeholder for fetching trading volume data
+        return {"message": "Trading Volume data not implemented yet."}
+
+# Endpoint: /exchangeRates
+@ns.route('/exchangeRates')
+class ExchangeRates(Resource):
+    def get(self):
+        # Placeholder for fetching exchange rates data
+        return {"message": "Exchange Rates data not implemented yet."}
+
+# Endpoint: /transactions
+@ns.route('/transactions')
+class Transactions(Resource):
+    def get(self):
+        # Placeholder for fetching transactions data
+        return {"message": "Transactions data not implemented yet."}
+
+# Endpoint: /networkStats
+@ns.route('/networkStats')
+class NetworkStats(Resource):
+    def get(self):
+        # Placeholder for fetching network statistics
+        return {"message": "Network Stats data not implemented yet."}
+
+# Endpoint: /blockInfo
+@ns.route('/blockInfo')
+class BlockInfo(Resource):
+    def get(self):
+        # Placeholder for fetching block information
+        return {"message": "Block Info data not implemented yet."}
+
+# Endpoint: /walletInfo
+@ns.route('/walletInfo')
+class WalletInfo(Resource):
+    def get(self):
+        # Placeholder for fetching wallet information
+        return {"message": "Wallet Info data not implemented yet."}
+
 class Prices(Resource):
     @cache.cached(timeout=cache_duration)
     def get(self):
@@ -63,90 +128,6 @@ class DogecoinNews(Resource):
             return {"news": news, "meta": meta}
         except Exception as e:
             return {"error": str(e)}, 500
-
-
-
-
-
-# Utility function for fetching historical data, news, etc.
-def fetch_data(url, params=None):
-    response = requests.get(url, params=params)
-    return response.json()
-
-@ns.route('/currentPrice')
-class CurrentPrice(Resource):
-    def get(self):
-        # Fetch and return the current price of Dogecoin
-        return get_crypto_price('dogecoin')
-
-@ns.route('/priceHistory')
-class PriceHistory(Resource):
-    def get(self):
-        # Extract parameters for date range and time interval
-        start_date = request.args.get('start_date')
-        end_date = request.args.get('end_date')
-        interval = request.args.get('interval', 'daily')
-        # Fetch and return historical price data
-        url = "API_URL_FOR_HISTORICAL_DATA"
-        params = {'start_date': start_date, 'end_date': end_date, 'interval': interval}
-        return fetch_data(url, params)
-
-@ns.route('/marketCap')
-class MarketCap(Resource):
-    def get(self):
-        # Placeholder for fetching market cap data
-        # Replace with actual implementation
-        return {"message": "Market Cap data not implemented yet."}
-
-@ns.route('/tradingVolume')
-class TradingVolume(Resource):
-    def get(self):
-        # Placeholder for fetching trading volume data
-        # Replace with actual implementation
-        return {"message": "Trading Volume data not implemented yet."}
-
-@ns.route('/news')
-class News(Resource):
-    def get(self):
-        # Placeholder for fetching Dogecoin-related news
-        # Replace with actual implementation
-        return {"message": "News data not implemented yet."}
-
-@ns.route('/exchangeRates')
-class ExchangeRates(Resource):
-    def get(self):
-        # Placeholder for fetching Dogecoin exchange rates
-        # Replace with actual implementation
-        return {"message": "Exchange Rates data not implemented yet."}
-
-@ns.route('/transactions')
-class Transactions(Resource):
-    def get(self):
-        # Placeholder for fetching Dogecoin transactions data
-        # Replace with actual implementation
-        return {"message": "Transactions data not implemented yet."}
-
-@ns.route('/networkStats')
-class NetworkStats(Resource):
-    def get(self):
-        # Placeholder for fetching Dogecoin network statistics
-        # Replace with actual implementation
-        return {"message": "Network Stats data not implemented yet."}
-
-@ns.route('/blockInfo')
-class BlockInfo(Resource):
-    def get(self):
-        # Placeholder for fetching information about Dogecoin blocks
-        # Replace with actual implementation
-        return {"message": "Block Info data not implemented yet."}
-
-@ns.route('/walletInfo')
-class WalletInfo(Resource):
-    def get(self):
-        # Placeholder for fetching information about Dogecoin wallets
-        # Replace with actual implementation
-        return {"message": "Wallet Info data not implemented yet."}
-
 
 if __name__ == '__main__':
     app.run(debug=True)
