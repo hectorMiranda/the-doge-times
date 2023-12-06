@@ -44,7 +44,7 @@ export ADMIN_BEARER_TOKEN='your-admin-bearer-token'
 ## Running the Program
 To run DogeDataHub, execute:
 ```bash
-python3 DogeDataHub.py
+python3 api_server.py
 ```
 
 ## API Endpoints
