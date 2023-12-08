@@ -9,7 +9,7 @@ SCREEN_WIDTH = int(display_width * 0.8)
 SCREEN_HEIGHT = int(display_height * 0.8)
 
 
-SCREEN_TITLE = "Doge 2D Platformer"
+SCREEN_TITLE = "Journey to the Moon"
 PLAYER_SCALING = 0.5
 GRAVITY = 1
 PLAYER_MOVEMENT_SPEED = 5
@@ -18,15 +18,56 @@ SPRITE_NATIVE_SIZE = 128
 SPRITE_SCALING = 0.5
 SPRITE_SIZE_WIDTH = 128 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
 SPRITE_SIZE_HEIGHT = 126 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
-
-
 SPRITE_IDLE_FRAMES = 6
 SPRITE_RUN_FRAMES = 6
-
-# Constants to determine sprite facing direction
 LEFT_FACING = 0
 RIGHT_FACING = 1
 
+class LandingView(arcade.View):
+    def on_show(self):
+        arcade.set_background_color(arcade.color.BLACK)
+
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text("Journey to the moon!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                         arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text("Press ESC to continue", SCREEN_WIDTH-100, 50,
+                         arcade.color.WHITE, font_size=10, anchor_x="center")
+
+    def on_key_press(self, key, _modifiers):
+        if key == arcade.key.ESCAPE:
+            game_view = GameView()
+            self.window.show_view(game_view)
+
+
+class GameView(arcade.View):
+    def __init__(self):
+        super().__init__()
+        self.score = 0
+        self.lives = 3
+        self.player_sprite = PlayerCharacter()
+        # (other initializations for the game view)
+
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.LEFT:
+            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+        elif key == arcade.key.RIGHT:
+            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+
+    def on_key_release(self, key, modifiers):
+        if key == arcade.key.LEFT or key == arcade.key.RIGHT:
+            self.player_sprite.change_x = 0
+
+    def on_update(self, delta_time):
+        self.player_sprite.update()
+        self.player_sprite.update_animation(delta_time)
+
+    def on_draw(self):
+        arcade.start_render()
+        self.player_sprite.draw()
+        arcade.draw_text(f"Score: {self.score}", 10, SCREEN_HEIGHT - 20, arcade.color.WHITE, 14)
+        arcade.draw_text(f"Lives: {self.lives}", SCREEN_WIDTH - 80, SCREEN_HEIGHT - 20, arcade.color.WHITE, 14)
+        # (rest of the drawing code for the game view)
 
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
@@ -151,10 +192,13 @@ class JourneyToTheMoon(arcade.Window):
         self.physics_engine.update()
         self.player_sprite.update_animation(delta_time)
 
+
 def main():
-    window = JourneyToTheMoon(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-    window.setup()
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    start_view = LandingView()
+    window.show_view(start_view)
     arcade.run()
 
 if __name__ == "__main__":
     main()
+
