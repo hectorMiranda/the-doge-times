@@ -1,62 +1,117 @@
 import arcade
 
-# Constants for the game
+# Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Doge 2D Platformer"
-PLAYER_SCALING = 1
+
+# Player constants
+PLAYER_SCALING = 0.5
 GRAVITY = 1
 PLAYER_MOVEMENT_SPEED = 5
-PLAYER_JUMP_SPEED = 14
+PLAYER_JUMP_SPEED = 20
 
-# Path to the player's texture files
-PLAYER_IDLE_TEXTURE = '../artwork/sprites/PlayerIdle.png'
-PLAYER_RUN_TEXTURE = '../artwork/sprites/PlayerRun.png'
+# Sprite constants - adjust the numbers based on your sprite sheet
+SPRITE_NATIVE_SIZE = 128
+SPRITE_SCALING = 0.5
+SPRITE_SIZE_WIDTH = 128 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
+SPRITE_SIZE_HEIGHT = 126 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
 
-class Player(arcade.Sprite):
+
+# Assuming the idle and run sprites are on a grid in the image file,
+# provide the correct rows and columns
+SPRITE_IDLE_FRAMES = 2
+SPRITE_RUN_FRAMES = 8
+
+# Constants to determine sprite facing direction
+LEFT_FACING = 0
+RIGHT_FACING = 1
+
+
+class PlayerCharacter(arcade.Sprite):
     def __init__(self):
+        # Set up parent class
         super().__init__()
 
-        # Load textures for idle standing
-        self.idle_texture = arcade.load_texture(PLAYER_IDLE_TEXTURE)
-        self.texture = self.idle_texture
+        # Load textures for idle
+        self.idle_textures = []
+        for i in range(SPRITE_IDLE_FRAMES):
+            texture = arcade.load_texture("../artwork/sprites//PlayerIdle.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+            self.idle_textures.append(texture)
 
         # Load textures for running
-        self.run_textures = [arcade.load_texture(PLAYER_RUN_TEXTURE, x=i*32, y=0, width=32, height=32) for i in range(8)]
+        self.run_textures = []
+        for i in range(SPRITE_RUN_FRAMES):
+            self.run_textures.append(texture)
+
+        # By default, face right
+        self.character_face_direction = 1 #arcade.Sprite.RIGHT_FACING
+
+        # Set the initial texture
+        self.texture = self.idle_textures[0]
 
         # Track our state
+        self.jumping = False
+        self.is_running = False
         self.cur_texture = 0
-        self.scale = PLAYER_SCALING
 
     def update_animation(self, delta_time: float = 1/60):
-        # Running animation
-        if self.change_x != 0:
+        # Figure out if we're standing still, and set our texture appropriately
+        if self.change_x == 0:
             self.cur_texture += 1
-            if self.cur_texture >= 8:
+            if self.cur_texture > 3 * len(self.idle_textures):
                 self.cur_texture = 0
-            self.texture = self.run_textures[self.cur_texture]
+            self.texture = self.idle_textures[(self.cur_texture // 3)-1]
         else:
-            self.texture = self.idle_texture
+            # We're moving
+            self.cur_texture += 1
+            if self.cur_texture > 3 * len(self.run_textures):
+                self.cur_texture = 0
+            self.texture = self.run_textures[self.cur_texture // 3]
+
 
 class MyGame(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
+        # Sprite lists
+        self.player_list = None
+        self.wall_list = None
+
+        # Set up the player
         self.player_sprite = None
+
+        # Physics engine
         self.physics_engine = None
 
-        arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
-
     def setup(self):
-        self.player_sprite = Player()
-        self.player_sprite.center_x = SCREEN_WIDTH // 2
-        self.player_sprite.center_y = 128
+        # Set up the game
+        self.player_list = arcade.SpriteList()
+        self.wall_list = arcade.SpriteList(use_spatial_hash=True)
 
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, platforms=None, gravity_constant=GRAVITY)
+        # Set up the player
+        self.player_sprite = PlayerCharacter()
+        self.player_sprite.center_x = 64
+        self.player_sprite.center_y = 128
+        self.player_list.append(self.player_sprite)
+
+        # Create the ground
+        # This should be replaced with your own logic to place platforms
+        for x in range(0, SCREEN_WIDTH, SPRITE_SIZE_WIDTH):
+            wall = arcade.Sprite(":resources:images/tiles/grassMid.png", SPRITE_SCALING)
+            wall.center_x = x
+            wall.center_y = 32
+            self.wall_list.append(wall)
+
+        # Set up the physics engine
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
+                                                             self.wall_list,
+                                                             gravity_constant=GRAVITY)
 
     def on_draw(self):
         arcade.start_render()
-        self.player_sprite.draw()
+        self.wall_list.draw()
+        self.player_list.draw()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
