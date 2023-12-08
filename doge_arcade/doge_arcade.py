@@ -1,27 +1,27 @@
 import arcade
+import pathlib
 
-# Constants
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+
+
+display_width, display_height = arcade.get_display_size()
+
+SCREEN_WIDTH = int(display_width * 0.8)
+SCREEN_HEIGHT = int(display_height * 0.8)
+
+
 SCREEN_TITLE = "Doge 2D Platformer"
-
-# Player constants
 PLAYER_SCALING = 0.5
 GRAVITY = 1
 PLAYER_MOVEMENT_SPEED = 5
 PLAYER_JUMP_SPEED = 20
-
-# Sprite constants - adjust the numbers based on your sprite sheet
 SPRITE_NATIVE_SIZE = 128
 SPRITE_SCALING = 0.5
 SPRITE_SIZE_WIDTH = 128 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
 SPRITE_SIZE_HEIGHT = 126 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
 
 
-# Assuming the idle and run sprites are on a grid in the image file,
-# provide the correct rows and columns
-SPRITE_IDLE_FRAMES = 2
-SPRITE_RUN_FRAMES = 8
+SPRITE_IDLE_FRAMES = 6
+SPRITE_RUN_FRAMES = 6
 
 # Constants to determine sprite facing direction
 LEFT_FACING = 0
@@ -36,13 +36,14 @@ class PlayerCharacter(arcade.Sprite):
         # Load textures for idle
         self.idle_textures = []
         for i in range(SPRITE_IDLE_FRAMES):
-            texture = arcade.load_texture("../artwork/sprites//PlayerIdle.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
-            self.idle_textures.append(texture)
+            idle_texture = arcade.load_texture("../assets/sprites//PlayerIdle.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+            self.idle_textures.append(idle_texture)
 
         # Load textures for running
         self.run_textures = []
         for i in range(SPRITE_RUN_FRAMES):
-            self.run_textures.append(texture)
+            run_texture = arcade.load_texture("../assets/sprites//PlayerRun.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+            self.run_textures.append(run_texture)
 
         # By default, face right
         self.character_face_direction = 1 #arcade.Sprite.RIGHT_FACING
@@ -67,12 +68,30 @@ class PlayerCharacter(arcade.Sprite):
             self.cur_texture += 1
             if self.cur_texture > 3 * len(self.run_textures):
                 self.cur_texture = 0
-            self.texture = self.run_textures[self.cur_texture // 3]
+            self.texture = self.run_textures[(self.cur_texture // 3)-1]
 
+ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 
-class MyGame(arcade.Window):
+class JourneyToTheMoon(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+
+        self.coins = None
+        self.background = None
+        self.walls = None
+        self.ladders = None
+        self.goals = None
+        self.enemies = None
+        self.score = 0
+        self.level = 1
+
+        self.coin_sound = arcade.load_sound(
+            str(ASSETS_PATH / "sounds" / "collectable.wav")
+        )
+        self.jump_sound = arcade.load_sound(
+            str(ASSETS_PATH / "sounds" / "bark.wav")
+        )
+        
 
         # Sprite lists
         self.player_list = None
@@ -83,6 +102,8 @@ class MyGame(arcade.Window):
 
         # Physics engine
         self.physics_engine = None
+
+
 
     def setup(self):
         # Set up the game
@@ -131,7 +152,7 @@ class MyGame(arcade.Window):
         self.player_sprite.update_animation(delta_time)
 
 def main():
-    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    window = JourneyToTheMoon(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
     window.setup()
     arcade.run()
 
