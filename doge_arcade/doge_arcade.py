@@ -1,23 +1,11 @@
 import arcade
 import pathlib
+import constants
 
 display_width, display_height = arcade.get_display_size()
-
 SCREEN_WIDTH = int(display_width * 0.8)
 SCREEN_HEIGHT = int(display_height * 0.8)
-SCREEN_TITLE = "Journey to the Moon"
-PLAYER_SCALING = 0.5
-GRAVITY = 1
-PLAYER_MOVEMENT_SPEED = 5
-PLAYER_JUMP_SPEED = 20
-SPRITE_NATIVE_SIZE = 128
-SPRITE_SCALING = 0.5
-SPRITE_SIZE_WIDTH = 128 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
-SPRITE_SIZE_HEIGHT = 126 #int(SPRITE_NATIVE_SIZE * SPRITE_SCALING)
-SPRITE_IDLE_FRAMES = 6
-SPRITE_RUN_FRAMES = 6
-LEFT_FACING = 0
-RIGHT_FACING = 1
+ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 
 class LandingView(arcade.View):
     def on_show(self):
@@ -31,8 +19,7 @@ class LandingView(arcade.View):
                          arcade.color.ORANGE, font_size=20, anchor_x="center")                         
         arcade.draw_text("Press any key to continue", SCREEN_WIDTH-100, 50,
                          arcade.color.WHITE, font_size=10, anchor_x="center")
-        arcade.draw_texture_rectangle(350, 450, 400, 400, arcade.load_texture("../assets/UI/doge_mining.png"))
-
+        arcade.draw_texture_rectangle(350, 450, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
 
     def on_key_press(self, key, _modifiers):
         if key:
@@ -47,9 +34,9 @@ class GameView(arcade.View):
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
-            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+            self.player_sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
-            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+            self.player_sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
@@ -72,14 +59,14 @@ class PlayerCharacter(arcade.Sprite):
 
         # Load textures for idle
         self.idle_textures = []
-        for i in range(SPRITE_IDLE_FRAMES):
-            idle_texture = arcade.load_texture("../assets/sprites/PlayerIdle.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+        for i in range(constants.SPRITE_IDLE_FRAMES):
+            idle_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=i*constants.SPRITE_SIZE_WIDTH, y=0, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
             self.idle_textures.append(idle_texture)
 
         # Load textures for running
         self.run_textures = []
-        for i in range(SPRITE_RUN_FRAMES):
-            run_texture = arcade.load_texture("../assets/sprites/PlayerRun.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+        for i in range(constants.SPRITE_RUN_FRAMES):
+            run_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=i*constants.SPRITE_SIZE_WIDTH, y=0, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
             self.run_textures.append(run_texture)
 
         # By default, face right
@@ -107,7 +94,6 @@ class PlayerCharacter(arcade.Sprite):
                 self.cur_texture = 0
             self.texture = self.run_textures[(self.cur_texture // 3)-1]
 
-ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 
 class JourneyToTheMoon(arcade.Window):
     def __init__(self, width, height, title):
@@ -149,19 +135,16 @@ class JourneyToTheMoon(arcade.Window):
 
         # Set up the player
         self.player_sprite = PlayerCharacter()
-        self.player_sprite.center_x = 64
+        self.player_sprite.center_x = 128
         self.player_sprite.center_y = 128
         self.player_list.append(self.player_sprite)
 
-        # Create the ground
-        # This should be replaced with your own logic to place platforms
-        for x in range(0, SCREEN_WIDTH, SPRITE_SIZE_WIDTH):
-            wall = arcade.Sprite(":resources:images/tiles/grassMid.png", SPRITE_SCALING)
+        for x in range(0, SCREEN_WIDTH, constants.SPRITE_SIZE_WIDTH):
+            wall = arcade.Sprite(":resources:images/tiles/grassMid.png", constants.SPRITE_SCALING)
             wall.center_x = x
             wall.center_y = 32
             self.wall_list.append(wall)
 
-        # Set up the physics engine
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
                                                              self.wall_list,
                                                              gravity_constant=GRAVITY)
@@ -174,11 +157,11 @@ class JourneyToTheMoon(arcade.Window):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
             if self.physics_engine.can_jump():
-                self.player_sprite.change_y = PLAYER_JUMP_SPEED
+                self.player_sprite.change_y = constants.PLAYER_JUMP_SPEED
         elif key == arcade.key.LEFT:
-            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+            self.player_sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
-            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+            self.player_sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
@@ -190,7 +173,7 @@ class JourneyToTheMoon(arcade.Window):
 
 
 def main():
-    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, constants.SCREEN_TITLE)
     start_view = LandingView()
     window.show_view(start_view)
     arcade.run()
