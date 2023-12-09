@@ -9,7 +9,7 @@ ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 
 class LandingView(arcade.View):
     def on_show(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
 
     def on_draw(self):
         arcade.start_render()
@@ -54,23 +54,21 @@ class GameView(arcade.View):
 
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
-        # Set up parent class
         super().__init__()
 
-        # Load textures for idle
+        self.position = (100,50)
+
         self.idle_textures = []
         for i in range(constants.SPRITE_IDLE_FRAMES):
             idle_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=i*constants.SPRITE_SIZE_WIDTH, y=0, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
             self.idle_textures.append(idle_texture)
 
-        # Load textures for running
         self.run_textures = []
         for i in range(constants.SPRITE_RUN_FRAMES):
             run_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=i*constants.SPRITE_SIZE_WIDTH, y=0, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
             self.run_textures.append(run_texture)
 
-        # By default, face right
-        self.character_face_direction = 1 #arcade.Sprite.RIGHT_FACING
+        self.character_face_direction = constants.RIGHT_FACING
 
         # Set the initial texture
         self.texture = self.idle_textures[0]
