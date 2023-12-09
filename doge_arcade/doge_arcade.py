@@ -1,14 +1,10 @@
 import arcade
 import pathlib
 
-
-
 display_width, display_height = arcade.get_display_size()
 
 SCREEN_WIDTH = int(display_width * 0.8)
 SCREEN_HEIGHT = int(display_height * 0.8)
-
-
 SCREEN_TITLE = "Journey to the Moon"
 PLAYER_SCALING = 0.5
 GRAVITY = 1
@@ -31,22 +27,23 @@ class LandingView(arcade.View):
         arcade.start_render()
         arcade.draw_text("Journey to the moon!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                          arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Press ESC to continue", SCREEN_WIDTH-100, 50,
+        arcade.draw_text("arcade edition!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 -35,
+                         arcade.color.ORANGE, font_size=20, anchor_x="center")                         
+        arcade.draw_text("Press any key to continue", SCREEN_WIDTH-100, 50,
                          arcade.color.WHITE, font_size=10, anchor_x="center")
+        arcade.draw_texture_rectangle(350, 450, 400, 400, arcade.load_texture("../assets/UI/doge_mining.png"))
+
 
     def on_key_press(self, key, _modifiers):
-        if key == arcade.key.ESCAPE:
+        if key:
             game_view = GameView()
             self.window.show_view(game_view)
-
-
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
         self.score = 0
         self.lives = 3
         self.player_sprite = PlayerCharacter()
-        # (other initializations for the game view)
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
@@ -67,7 +64,6 @@ class GameView(arcade.View):
         self.player_sprite.draw()
         arcade.draw_text(f"Score: {self.score}", 10, SCREEN_HEIGHT - 20, arcade.color.WHITE, 14)
         arcade.draw_text(f"Lives: {self.lives}", SCREEN_WIDTH - 80, SCREEN_HEIGHT - 20, arcade.color.WHITE, 14)
-        # (rest of the drawing code for the game view)
 
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
@@ -77,13 +73,13 @@ class PlayerCharacter(arcade.Sprite):
         # Load textures for idle
         self.idle_textures = []
         for i in range(SPRITE_IDLE_FRAMES):
-            idle_texture = arcade.load_texture("../assets/sprites//PlayerIdle.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+            idle_texture = arcade.load_texture("../assets/sprites/PlayerIdle.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
             self.idle_textures.append(idle_texture)
 
         # Load textures for running
         self.run_textures = []
         for i in range(SPRITE_RUN_FRAMES):
-            run_texture = arcade.load_texture("../assets/sprites//PlayerRun.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+            run_texture = arcade.load_texture("../assets/sprites/PlayerRun.png", x=i*SPRITE_SIZE_WIDTH, y=0, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
             self.run_textures.append(run_texture)
 
         # By default, face right
