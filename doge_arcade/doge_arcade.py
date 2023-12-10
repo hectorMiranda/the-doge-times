@@ -56,6 +56,9 @@ class PlayerCharacter(arcade.Sprite):
     def __init__(self):
         super().__init__()
 
+        self.facing_direction = constants.RIGHT_FACING
+
+
         self.position = (100,50)
 
         self.idle_textures = []
@@ -85,6 +88,13 @@ class PlayerCharacter(arcade.Sprite):
             self.scale *= 0.5
 
     def update_animation(self, delta_time: float = 1/60):
+        # Figure out if we need to flip face left or right
+        if self.change_x < 0 and self.facing_direction == constants.RIGHT_FACING:
+            self.facing_direction = constants.LEFT_FACING
+        elif self.change_x > 0 and self.facing_direction == constants.LEFT_FACING:
+            self.facing_direction = constants.RIGHT_FACING
+
+
         # Figure out if we're standing still, and set our texture appropriately
         if self.change_x == 0:
             self.cur_texture += 1
