@@ -19,7 +19,7 @@ class LandingView(arcade.View):
                          arcade.color.ORANGE, font_size=20, anchor_x="center")                         
         arcade.draw_text("Press any key to continue", SCREEN_WIDTH-100, 50,
                          arcade.color.WHITE, font_size=10, anchor_x="center")
-        arcade.draw_texture_rectangle(350, 450, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
+        arcade.draw_texture_rectangle(SCREEN_WIDTH / 5, SCREEN_HEIGHT / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
 
     def on_key_press(self, key, _modifiers):
         if key:
@@ -78,6 +78,12 @@ class PlayerCharacter(arcade.Sprite):
         self.is_running = False
         self.cur_texture = 0
 
+        def zoom_in(self):
+            self.scale *= 2
+
+        def zoom_out(self):
+            self.scale *= 0.5
+
     def update_animation(self, delta_time: float = 1/60):
         # Figure out if we're standing still, and set our texture appropriately
         if self.change_x == 0:
@@ -134,13 +140,23 @@ class JourneyToTheMoon(arcade.Window):
         # Set up the player
         self.player_sprite = PlayerCharacter()
         self.player_sprite.center_x = 128
-        self.player_sprite.center_y = 128
+        self.player_sprite.center_y = 126
         self.player_list.append(self.player_sprite)
 
-        for x in range(0, SCREEN_WIDTH, constants.SPRITE_SIZE_WIDTH):
-            wall = arcade.Sprite(":resources:images/tiles/grassMid.png", constants.SPRITE_SCALING)
+        for x in range(0, SCREEN_WIDTH, 64):
+            wall = arcade.Sprite(":resources:images/tiles/grassMid.png", SPRITE_SCALING_BOX)
             wall.center_x = x
-            wall.center_y = 32
+            wall.center_y = 350
+            self.wall_list.append(wall)
+
+        coordinate_list = [[512, 96], [256, 96], [768, 96]]
+
+        for coordinate in coordinate_list:
+            # Add a crate on the ground
+            wall = arcade.Sprite(
+                ":resources:images/tiles/boxCrate_double.png", TILE_SCALING
+            )
+            wall.position = coordinate
             self.wall_list.append(wall)
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
@@ -148,9 +164,10 @@ class JourneyToTheMoon(arcade.Window):
                                                              gravity_constant=GRAVITY)
 
     def on_draw(self):
-        arcade.start_render()
+        arcade.clear()
         self.wall_list.draw()
         self.player_list.draw()
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -160,6 +177,10 @@ class JourneyToTheMoon(arcade.Window):
             self.player_sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
+        elif key == arcade.key.Z:
+            self.player.zoom_in()
+        elif key == arcade.key.X:
+            self.player.zoom_out()
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
