@@ -1,6 +1,8 @@
 import arcade
 import pathlib
 import constants
+import random
+import time
 
 display_width, display_height = arcade.get_display_size()
 SCREEN_WIDTH = int(display_width * 0.8)
@@ -8,23 +10,55 @@ SCREEN_HEIGHT = int(display_height * 0.8)
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 
 class LandingView(arcade.View):
+    
+    def __init__(self):
+        super().__init__()
+        self.loading_bar_width = 0
+        self.total_loading_time = 4 
+        self.start_time = time.time()
+        self.loading_complete = False
+        self.text_visible = True
+        self.blink_timer = 0  
+        
     def on_show(self):
         arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
 
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text("Journey to the moon!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                         arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("arcade edition!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 -35,
-                         arcade.color.ORANGE, font_size=20, anchor_x="center")                         
-        arcade.draw_text("Press any key to continue", SCREEN_WIDTH-100, 50,
-                         arcade.color.WHITE, font_size=10, anchor_x="center")
+        arcade.draw_text("Journey to the moon!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text("python arcade edition!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 -35, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
+        
+        progress_bar_x = SCREEN_WIDTH / 2
+        progress_bar_y = SCREEN_HEIGHT / 3
         arcade.draw_texture_rectangle(SCREEN_WIDTH / 5, SCREEN_HEIGHT / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
+        arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
+ 
+        if self.loading_complete and self.text_visible:
+            message = arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+        elif not self.loading_complete:
+            message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+   
+    def on_update(self, delta_time):
+        # Update loading bar width
+        if not self.loading_complete:
+            elapsed_time = time.time() - self.start_time
+            self.loading_bar_width = (elapsed_time / self.total_loading_time) * SCREEN_WIDTH
 
-    def on_key_press(self, key, _modifiers):
-        if key:
-            game_view = GameView()
-            self.window.show_view(game_view)
+            if elapsed_time >= self.total_loading_time:
+                self.loading_complete = True
+
+        # Blinking effect for "Press any key" text
+        if self.loading_complete:
+            self.blink_timer += delta_time
+            if self.blink_timer > 0.5:  # Toggle visibility every 0.5 seconds
+                self.text_visible = not self.text_visible
+                self.blink_timer = 0
+
+    def on_key_press(self, key, modifiers):
+        if self.loading_complete:
+            self.window.show_view(GameView())
+            
+            
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
@@ -111,7 +145,7 @@ class PlayerCharacter(arcade.Sprite):
 
 class JourneyToTheMoon(arcade.Window):
     def __init__(self, width, height, title):
-        super().__init__(width, height, title)
+        super().__init__(width, height, title, resizable=True)
 
         self.coins = None
         self.background = None
