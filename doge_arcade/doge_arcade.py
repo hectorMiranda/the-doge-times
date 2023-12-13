@@ -14,7 +14,7 @@ class LandingView(arcade.View):
     def __init__(self):
         super().__init__()
         self.loading_bar_width = 0
-        self.total_loading_time = 4 
+        self.total_loading_time = 1 
         self.start_time = time.time()
         self.loading_complete = False
         self.text_visible = True
@@ -39,15 +39,13 @@ class LandingView(arcade.View):
             message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
    
     def on_update(self, delta_time):
-        # Update loading bar width
         if not self.loading_complete:
             elapsed_time = time.time() - self.start_time
             self.loading_bar_width = (elapsed_time / self.total_loading_time) * SCREEN_WIDTH
-
+            
             if elapsed_time >= self.total_loading_time:
                 self.loading_complete = True
 
-        # Blinking effect for "Press any key" text
         if self.loading_complete:
             self.blink_timer += delta_time
             if self.blink_timer > 0.5:  # Toggle visibility every 0.5 seconds
@@ -63,7 +61,7 @@ class GameView(arcade.View):
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.lives = 3
+        self.lives = 100
         self.player_sprite = PlayerCharacter()
 
     def on_key_press(self, key, modifiers):
@@ -90,20 +88,35 @@ class PlayerCharacter(arcade.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.facing_direction = constants.RIGHT_FACING
-
-
-        self.position = (100,50)
+        self.facing_direction = constants.LEFT_FACING
+        self.position = (SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
 
         self.idle_textures = []
-        for i in range(constants.SPRITE_IDLE_FRAMES):
-            idle_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=i*constants.SPRITE_SIZE_WIDTH, y=0, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
-            self.idle_textures.append(idle_texture)
+        sprite_count = 0  # Counter to track the number of sprites loaded
+
+        for row in range(6):  # 6 rows
+            for col in range(7):  # 7 columns
+                if sprite_count >= constants.SPRITE_IDLE_FRAMES: 
+                    break
+                idle_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=col * constants.SPRITE_SIZE_WIDTH, y=row * constants.SPRITE_SIZE_HEIGHT, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
+                self.idle_textures.append(idle_texture)
+                sprite_count += 1
+        
+        print(f"Idle textures: {len(self.idle_textures)}")
 
         self.run_textures = []
-        for i in range(constants.SPRITE_RUN_FRAMES):
-            run_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=i*constants.SPRITE_SIZE_WIDTH, y=0, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
-            self.run_textures.append(run_texture)
+        sprite_count = 0 
+        
+        for row in range(5):  # 5 rows
+            for col in range(6):  # 7 columns
+                if sprite_count >= constants.SPRITE_RUN_FRAMES: 
+                    break
+
+                run_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * constants.SPRITE_SIZE_WIDTH, y=row * constants.SPRITE_SIZE_HEIGHT, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
+                self.run_textures.append(run_texture)
+                sprite_count += 1
+                
+        print(f"run textures: {len(self.run_textures)}")
 
         self.character_face_direction = constants.RIGHT_FACING
 
