@@ -57,10 +57,16 @@ class LandingView(arcade.View):
                 self.blink_timer = 0
 
     def on_key_press(self, key, modifiers):
-        if self.loading_complete:
+        print(key)
+        if key == arcade.key.ESCAPE:  # Check for ESC key
+            modal_view = ConfirmExitView(self)  
+            self.window.show_view(modal_view)
+        elif self.loading_complete:
             game = GameView()
             game.setup()
             self.window.show_view(game)
+            
+        
             
             
 class GameView(arcade.View):
@@ -103,8 +109,8 @@ class GameView(arcade.View):
             self.player_sprite.zoom_out()
         elif key == arcade.key.R:
             self.restart_game()
-        if key == arcade.key.ESCAPE:
-            pause_view = ConfirmExitView(self.current_view)
+        elif key == arcade.key.ESCAPE:
+            pause_view = ConfirmExitView(self.window.current_view)
             self.show_view(pause_view)
 
     def on_key_release(self, key, modifiers):
@@ -242,35 +248,40 @@ class ConfirmExitView(arcade.View):
         super().__init__()
         self.return_view = return_view
         self.ui_manager = arcade.gui.UIManager()
+        
+        display_width, display_height = arcade.get_display_size()
+
 
         # Exit button
         self.exit_button = ActionButton(
             action=lambda: arcade.close_window(),
             text="Exit",
-            center_x=SCREEN_WIDTH / 2 - 100,
-            center_y=SCREEN_HEIGHT / 2 - 50,
+            center_x=display_width / 2 - 100,
+            center_y=display_height / 2 - 50,
             width=100,
             height=40
         )
-        self.ui_manager.add_ui_element(self.exit_button)
+        self.ui_manager.add(self.exit_button)
 
         # Cancel button
         self.cancel_button = ActionButton(
             action=lambda: self.window.show_view(self.return_view),
             text="Cancel",
-            center_x=SCREEN_WIDTH / 2 + 100,
-            center_y=SCREEN_HEIGHT / 2 - 50,
+            center_x=display_width / 2 + 100,
+            center_y=display_height / 2 - 50,
             width=100,
             height=40
         )
-        self.ui_manager.add_ui_element(self.cancel_button)
+        self.ui_manager.add(self.cancel_button)
 
     def on_show(self):
         arcade.set_background_color(arcade.color.BLACK)
 
     def on_draw(self):
+        display_width, display_height = arcade.get_display_size()
+
         arcade.start_render()
-        arcade.draw_text("Are you sure you want to exit?", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50,
+        arcade.draw_text("Are you sure you want to exit?", display_width / 2, display_height / 2 + 50,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
 
     def on_hide_view(self):
