@@ -5,7 +5,6 @@ import constants
 import random
 import time
 
-
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 class LandingView(arcade.View):
     def __init__(self):
@@ -19,7 +18,6 @@ class LandingView(arcade.View):
         
     def on_show(self):
         arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
-
 
     def on_draw(self):
         display_width, display_height = arcade.get_display_size()
@@ -65,10 +63,7 @@ class LandingView(arcade.View):
             game = GameView()
             game.setup()
             self.window.show_view(game)
-            
         
-            
-            
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
@@ -173,10 +168,13 @@ class PlayerCharacter(arcade.Sprite):
         self.position = (200,200)
 
         self.idle_textures = []
-        sprite_count = 0  # Counter to track the number of sprites loaded
+        self.run_textures = []
+        self.spawn_textures = []
 
-        for row in range(6):  # 6 rows
-            for col in range(7):  # 7 columns
+        sprite_count = 0 
+
+        for row in range(6):  
+            for col in range(7):
                 if sprite_count >= constants.SPRITE_IDLE_FRAMES: 
                     break
                 idle_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=col * constants.SPRITE_SIZE_WIDTH, y=row * constants.SPRITE_SIZE_HEIGHT, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
@@ -185,11 +183,10 @@ class PlayerCharacter(arcade.Sprite):
         
         print(f"Idle textures: {len(self.idle_textures)}")
 
-        self.run_textures = []
         sprite_count = 0 
         
-        for row in range(5):  # 5 rows
-            for col in range(6):  # 7 columns
+        for row in range(5):  
+            for col in range(6): 
                 if sprite_count >= constants.SPRITE_RUN_FRAMES: 
                     break
 
@@ -198,6 +195,23 @@ class PlayerCharacter(arcade.Sprite):
                 sprite_count += 1
                 
         print(f"run textures: {len(self.run_textures)}")
+        
+        
+        sprite_count = 0 
+        
+        for row in range(4): 
+            for col in range(5):  
+                if sprite_count >= constants.SPRITE_SPAWN_FRAMES: 
+                    break
+
+                spawn_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerSpawn.png"), x=col * constants.SPRITE_SIZE_WIDTH, y=row * constants.SPRITE_SIZE_HEIGHT, width=constants.SPRITE_SIZE_WIDTH, height=constants.SPRITE_SIZE_HEIGHT)
+                self.spawn_textures.append(spawn_texture)
+                sprite_count += 1
+                
+        print(f"spawn textures: {len(self.run_textures)}")
+        
+        
+        
         self.character_face_direction = constants.RIGHT_FACING
 
         # Set the initial texture
