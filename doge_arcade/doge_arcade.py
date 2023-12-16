@@ -90,21 +90,21 @@ class LandingView(arcade.View):
         self.loading_complete = False
         self.text_visible = True
         self.blink_timer = 0  
+        self.display_width, self.display_height = arcade.get_display_size()
+
         
     def on_show(self):
         arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
 
     def on_draw(self):
-        display_width, display_height = arcade.get_display_size()
-
         arcade.start_render()
         
-        arcade.draw_text("Journey to the moon!", display_width / 2, display_height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("python arcade edition!", display_width / 2, display_height / 2 -35, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
+        arcade.draw_text("Journey to the moon!", self.display_width / 2, self.display_height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text("python arcade edition!", self.display_width / 2, self.display_height / 2 -35, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
         
-        progress_bar_x = display_width / 2
-        progress_bar_y = display_height / 3
-        arcade.draw_texture_rectangle(display_width / 5, display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
+        progress_bar_x = self.display_width / 2
+        progress_bar_y = self.display_height / 3
+        arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
         arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
  
         if self.loading_complete and self.text_visible:
@@ -113,12 +113,10 @@ class LandingView(arcade.View):
             message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
    
     def on_update(self, delta_time):
-        display_width, display_height = arcade.get_display_size()
 
         if not self.loading_complete:
             elapsed_time = time.time() - self.start_time
-            arcade.get_display_size()
-            self.loading_bar_width = (elapsed_time / self.total_loading_time) * display_width
+            self.loading_bar_width = (elapsed_time / self.total_loading_time) * self.display_width
             
             if elapsed_time >= self.total_loading_time:
                 self.loading_complete = True
