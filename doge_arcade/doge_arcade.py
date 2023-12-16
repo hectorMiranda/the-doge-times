@@ -16,8 +16,20 @@ class StatusBar:
         self.stat_boxes = []
         self.box_width = constants.BOX_WIDTH      
         self.box_height = constants.BOX_HEIGHT
-        
-        
+        self.point_list = [
+            (0, 0),  # Bottom left
+            (screen_width, 0),  # Bottom right
+            (screen_width, bar_height),  # Top right
+            (0, bar_height),  # Top left
+        ]
+        # Define gradient colors for each corner
+        self.color_list = [
+            arcade.color.BLUE,  # Bottom left
+            arcade.color.LIGHT_BLUE,  # Bottom right
+            arcade.color.DARK_BLUE,  # Top right
+            arcade.color.MIDNIGHT_BLUE  # Top left
+        ]
+        self.gradient_rectangle = arcade.create_rectangle_filled_with_colors(self.point_list, self.color_list)
 
     def add_stat_box(self, text):
         self.stat_boxes.append({'text': text})
@@ -37,14 +49,7 @@ class StatusBar:
             stat_box['y'] = self.bar_height / 2
 
     def draw(self):
-        # Draw the main status bar
-        arcade.draw_rectangle_filled(center_x=self.screen_width / 2, 
-                                     center_y=self.bar_height / 2, 
-                                     width=self.screen_width, 
-                                     height=self.bar_height, 
-                                     color=arcade.color.BLACK)
-
-        # Draw each stat box
+        self.gradient_rectangle.draw()
         for stat_box in self.stat_boxes:
             # Draw the box
             arcade.draw_rectangle_filled(center_x=stat_box['x'], center_y=stat_box['y'],
@@ -54,12 +59,10 @@ class StatusBar:
                                           width=self.box_width, height=self.box_height,
                                           color=arcade.color.WHITE, border_width=2)
 
-            # Draw the text
             text_x = stat_box['x'] - self.box_width / 2 + 10
             text_y = stat_box['y'] - 10
             arcade.draw_text(stat_box['text'], start_x=text_x, start_y=text_y, 
                              color=arcade.color.WHITE, font_size=17, font_name="Kenney Future")
-
 
 
 class SharedData:
@@ -78,10 +81,6 @@ class SharedData:
                 SharedData.doge_price = 'N/A (offline)'
                 print(f"Exception details: {e}")
                 
-    
-
-
-
 class LandingView(arcade.View):
     def __init__(self):
         super().__init__()
