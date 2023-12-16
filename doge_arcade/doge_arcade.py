@@ -141,9 +141,6 @@ class LandingView(arcade.View):
             self.window.show_view(game)
         
 class GameView(arcade.View):
-    
-
-    
     def __init__(self):
         super().__init__()
         self.score = 0
@@ -238,10 +235,7 @@ class GameView(arcade.View):
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
-        # arcade.draw_text(f"Score: {self.score}", 10, self.display_width - 20, arcade.color.WHITE, 14)
-        # arcade.draw_text(f"Lives: {self.lives}", self.display_width - 80, self.display_height - 20, arcade.color.WHITE, 14)
-        # arcade.draw_rectangle_filled(center_x=self.display_width/2, center_y=10, width=self.display_width, height=35, color=arcade.color.BLACK)
-        # arcade.draw_text(f"Doge Price: {SharedData.doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
+        self.status_bar.update_stat_box(0,f"Doge Price: {SharedData.doge_price}")
         self.player_sprite.draw()
         self.wall_list.draw()
         self.player_list.draw()        
