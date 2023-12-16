@@ -6,8 +6,24 @@ import constants
 import random
 import time
 
-
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
+
+
+class SharedData:
+    doge_price= "Loading..."
+
+    def get_doge_price(delta_time):
+            try:
+                response = requests.get('http://localhost:5000/currentPrice')
+                response.raise_for_status()
+                SharedData.doge_price = response.json()['dogecoin']
+                print(f"Current Dogecoin price: {SharedData.doge_price}")
+            except Exception as e:
+                SharedData.doge_price = 'N/A (offline)'
+                print(f"Exception details: {e}")
+
+
+
 class LandingView(arcade.View):
     def __init__(self):
         super().__init__()
@@ -81,6 +97,8 @@ class GameView(arcade.View):
         self.enemies = None
         self.score = 0
         self.level = 1
+        self.doge_price = "Loading..."
+
         
         self.coin_sound = arcade.load_sound(
             str(ASSETS_PATH / "sounds" / "collectable.wav")
@@ -120,11 +138,7 @@ class GameView(arcade.View):
         self.player_sprite.update()
         self.player_sprite.update_animation(delta_time)
 
-    def get_doge_price(self):
-        # Placeholder for API request to fetch Dogecoin price
-        response = requests.get('http://localhost:5000/currentPrice')
-        data = response.json()
-        return data['dogecoin'] 
+    
         
         
         
@@ -172,7 +186,7 @@ class GameView(arcade.View):
         arcade.draw_rectangle_filled(center_x=display_width/2, center_y=10, width=display_width, height=35, color=arcade.color.BLACK)
 
         # Fetch and display Dogecoin price
-        doge_price = self.get_doge_price()
+        doge_price = SharedData.doge_price
         arcade.draw_text(f"Doge Price: {doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
 
         # Draw right side bar
@@ -188,7 +202,6 @@ class GameView(arcade.View):
         if self.physics_engine:
             self.physics_engine.update()
             self.player_sprite.update_animation(delta_time)
-
         
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
@@ -278,7 +291,6 @@ class PlayerCharacter(arcade.Sprite):
                 self.cur_texture = 0
             self.texture = self.run_textures[(self.cur_texture // 3)-1]
 
-
 class ActionButton(arcade.gui.UIFlatButton):
     def __init__(self, action, text, center_x, center_y, width, height):
         super().__init__(text, center_x=center_x, center_y=center_y, width=width, height=height)
@@ -336,6 +348,10 @@ def main():
     window = arcade.Window(display_width, display_height, constants.SCREEN_TITLE, resizable=True)
     start_view = LandingView()
     window.show_view(start_view)
+    
+    arcade.schedule(SharedData.get_doge_price, 5.0)  # Call every 5 seconds
+
+    
     arcade.run()
 
 if __name__ == "__main__":
