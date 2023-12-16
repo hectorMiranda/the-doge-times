@@ -98,6 +98,8 @@ class GameView(arcade.View):
         self.score = 0
         self.level = 1
         self.doge_price = "Loading..."
+        self.background = arcade.load_texture("../assets/backgrounds/launchpad.png")
+
 
         
         self.coin_sound = arcade.load_sound(
@@ -160,7 +162,7 @@ class GameView(arcade.View):
             wall.center_y = 90
             self.wall_list.append(wall)
 
-        coordinate_list = [[512, 200], [256, 300], [768, 400]]
+        coordinate_list = [[200, 180], [300, 300], [400, 400], [500, 400], [600, 400]]
 
         for coordinate in coordinate_list:
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", constants.TILE_SCALING)
@@ -171,32 +173,18 @@ class GameView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
-
         display_width, display_height = arcade.get_display_size()
-
-      
+        arcade.draw_texture_rectangle(center_x=display_width / 2, center_y=display_height / 2, width=display_width, height=display_height, texture=self.background)
         arcade.draw_text(f"Score: {self.score}", 10, display_width - 20, arcade.color.WHITE, 14)
         arcade.draw_text(f"Lives: {self.lives}", display_width - 80, display_height - 20, arcade.color.WHITE, 14)
-
-
-        arcade.start_render()
-        self.player_sprite.draw()
-        
-        # Draw bottom menu bar
         arcade.draw_rectangle_filled(center_x=display_width/2, center_y=10, width=display_width, height=35, color=arcade.color.BLACK)
-
-        # Fetch and display Dogecoin price
-        doge_price = SharedData.doge_price
-        arcade.draw_text(f"Doge Price: {doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
+        arcade.draw_text(f"Doge Price: {SharedData.doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
+        self.player_sprite.draw()
 
         # Draw right side bar
-        #arcade.draw_rectangle_filled(display_width - display_width*0.1, center_y=display_height, width=display_width*0.2, height=display_height, color=arcade.color.BLACK)
-        
+        #arcade.draw_rectangle_filled(display_width - display_width*0.1, center_y=display_height, width=display_width*0.2, height=display_height, color=arcade.color.BLACK)        
         self.wall_list.draw()
-        self.player_list.draw()
-
-        
-        
+        self.player_list.draw()        
         
     def on_update(self, delta_time):
         if self.physics_engine:
