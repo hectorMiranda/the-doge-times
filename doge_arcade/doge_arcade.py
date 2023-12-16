@@ -14,8 +14,8 @@ class StatusBar:
         self.screen_width = screen_width
         self.bar_height = bar_height
         self.stat_boxes = []
-        self.box_width = 400  
-        self.box_height = 50  
+        self.box_width = constants.BOX_WIDTH      
+        self.box_height = constants.BOX_HEIGHT
         
         
 
@@ -159,8 +159,8 @@ class GameView(arcade.View):
         
         self.status_bar = StatusBar(screen_width=self.display_width)        
         self.status_bar.add_stat_box(f"Doge Price: {SharedData.doge_price}")
-        self.status_bar.add_stat_box("Lives: 3")
-        self.status_bar.add_stat_box("Coins: 3")
+        self.status_bar.add_stat_box("Lives: NA")
+        self.status_bar.add_stat_box("Coins: NA")
 
         
         self.coin_sound = arcade.load_sound(
@@ -199,11 +199,7 @@ class GameView(arcade.View):
 
     def on_update(self, delta_time):
         self.player_sprite.update()
-        self.player_sprite.update_animation(delta_time)
-
-    
-        
-        
+        self.player_sprite.update_animation(delta_time)  
         
     def restart_game(self):
         self.window.show_view(LandingView())
