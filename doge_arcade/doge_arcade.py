@@ -8,9 +8,65 @@ import time
 
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 
+            
+class StatusBar:
+    def __init__(self, screen_width, bar_height=80):
+        self.screen_width = screen_width
+        self.bar_height = bar_height
+        self.stat_boxes = []
+        self.box_width = 400  
+        self.box_height = 50  
+        
+        
+
+    def add_stat_box(self, text):
+        self.stat_boxes.append({'text': text})
+        self._layout_stat_boxes()
+
+    def update_stat_box(self, index, new_text):
+        if 0 <= index < len(self.stat_boxes):
+            self.stat_boxes[index]['text'] = new_text
+
+    def _layout_stat_boxes(self):
+        num_boxes = len(self.stat_boxes)
+        total_box_width = num_boxes * self.box_width
+        start_x = (self.screen_width - total_box_width) / 2 + self.box_width / 2
+
+        for i, stat_box in enumerate(self.stat_boxes):
+            stat_box['x'] = start_x + i * self.box_width
+            stat_box['y'] = self.bar_height / 2
+
+    def draw(self):
+        # Draw the main status bar
+        arcade.draw_rectangle_filled(center_x=self.screen_width / 2, 
+                                     center_y=self.bar_height / 2, 
+                                     width=self.screen_width, 
+                                     height=self.bar_height, 
+                                     color=arcade.color.BLACK)
+
+        # Draw each stat box
+        for stat_box in self.stat_boxes:
+            # Draw the box
+            arcade.draw_rectangle_filled(center_x=stat_box['x'], center_y=stat_box['y'],
+                                         width=self.box_width, height=self.box_height,
+                                         color=arcade.color.GRAY)
+            arcade.draw_rectangle_outline(center_x=stat_box['x'], center_y=stat_box['y'],
+                                          width=self.box_width, height=self.box_height,
+                                          color=arcade.color.WHITE, border_width=2)
+
+            # Draw the text
+            text_x = stat_box['x'] - self.box_width / 2 + 10
+            text_y = stat_box['y'] - 10
+            arcade.draw_text(stat_box['text'], start_x=text_x, start_y=text_y, 
+                             color=arcade.color.WHITE, font_size=17, font_name="Kenney Future")
+
+
 
 class SharedData:
     doge_price= "Loading..."
+    
+    display_width, display_height = arcade.get_display_size() # will cause error if called before window is created
+
 
     def get_doge_price(delta_time):
             try:
@@ -21,6 +77,8 @@ class SharedData:
             except Exception as e:
                 SharedData.doge_price = 'N/A (offline)'
                 print(f"Exception details: {e}")
+                
+    
 
 
 
@@ -84,6 +142,7 @@ class LandingView(arcade.View):
         
 class GameView(arcade.View):
     
+
     
     def __init__(self):
         super().__init__()
@@ -97,9 +156,14 @@ class GameView(arcade.View):
         self.enemies = None
         self.score = 0
         self.level = 1
+        self.display_width, self.display_height = arcade.get_display_size()
         self.doge_price = "Loading..."
         self.background = arcade.load_texture("../assets/backgrounds/launchpad.png")
-
+        
+        self.status_bar = StatusBar(screen_width=self.display_width)        
+        self.status_bar.add_stat_box(f"Doge Price: {SharedData.doge_price}")
+        self.status_bar.add_stat_box("Lives: 3")
+        self.status_bar.add_stat_box("Coins: 3")
 
         
         self.coin_sound = arcade.load_sound(
@@ -173,18 +237,15 @@ class GameView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
-        display_width, display_height = arcade.get_display_size()
-        arcade.draw_texture_rectangle(center_x=display_width / 2, center_y=display_height / 2, width=display_width, height=display_height, texture=self.background)
-        arcade.draw_text(f"Score: {self.score}", 10, display_width - 20, arcade.color.WHITE, 14)
-        arcade.draw_text(f"Lives: {self.lives}", display_width - 80, display_height - 20, arcade.color.WHITE, 14)
-        arcade.draw_rectangle_filled(center_x=display_width/2, center_y=10, width=display_width, height=35, color=arcade.color.BLACK)
-        arcade.draw_text(f"Doge Price: {SharedData.doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
+        arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
+        # arcade.draw_text(f"Score: {self.score}", 10, self.display_width - 20, arcade.color.WHITE, 14)
+        # arcade.draw_text(f"Lives: {self.lives}", self.display_width - 80, self.display_height - 20, arcade.color.WHITE, 14)
+        # arcade.draw_rectangle_filled(center_x=self.display_width/2, center_y=10, width=self.display_width, height=35, color=arcade.color.BLACK)
+        # arcade.draw_text(f"Doge Price: {SharedData.doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
         self.player_sprite.draw()
-
-        # Draw right side bar
-        #arcade.draw_rectangle_filled(display_width - display_width*0.1, center_y=display_height, width=display_width*0.2, height=display_height, color=arcade.color.BLACK)        
         self.wall_list.draw()
         self.player_list.draw()        
+        self.status_bar.draw()
         
     def on_update(self, delta_time):
         if self.physics_engine:
