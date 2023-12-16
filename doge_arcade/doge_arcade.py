@@ -1,9 +1,11 @@
+import requests
 import arcade
 import arcade.gui
 import pathlib
 import constants
 import random
 import time
+
 
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
 class LandingView(arcade.View):
@@ -65,6 +67,8 @@ class LandingView(arcade.View):
             self.window.show_view(game)
         
 class GameView(arcade.View):
+    
+    
     def __init__(self):
         super().__init__()
         self.score = 0
@@ -116,11 +120,13 @@ class GameView(arcade.View):
         self.player_sprite.update()
         self.player_sprite.update_animation(delta_time)
 
-    def on_draw(self):
-        arcade.start_render()
-        self.player_sprite.draw()
-        arcade.draw_text(f"Score: {self.score}", 10, SCREEN_HEIGHT - 20, arcade.color.WHITE, 14)
-        arcade.draw_text(f"Lives: {self.lives}", SCREEN_WIDTH - 80, SCREEN_HEIGHT - 20, arcade.color.WHITE, 14)
+    def get_doge_price(self):
+        # Placeholder for API request to fetch Dogecoin price
+        response = requests.get('http://localhost:5000/currentPrice')
+        data = response.json()
+        return data['dogecoin'] 
+        
+        
         
     def restart_game(self):
         self.window.show_view(LandingView())
@@ -137,7 +143,7 @@ class GameView(arcade.View):
         for x in range(0, 600, 128):
             wall = arcade.Sprite(":resources:images/tiles/grassMid.png", constants.SPRITE_SCALING_BOX)
             wall.center_x = x
-            wall.center_y = 0
+            wall.center_y = 90
             self.wall_list.append(wall)
 
         coordinate_list = [[512, 200], [256, 300], [768, 400]]
@@ -151,8 +157,32 @@ class GameView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
+
+        display_width, display_height = arcade.get_display_size()
+
+      
+        arcade.draw_text(f"Score: {self.score}", 10, display_width - 20, arcade.color.WHITE, 14)
+        arcade.draw_text(f"Lives: {self.lives}", display_width - 80, display_height - 20, arcade.color.WHITE, 14)
+
+
+        arcade.start_render()
+        self.player_sprite.draw()
+        
+        # Draw bottom menu bar
+        arcade.draw_rectangle_filled(center_x=display_width/2, center_y=10, width=display_width, height=35, color=arcade.color.BLACK)
+
+        # Fetch and display Dogecoin price
+        doge_price = self.get_doge_price()
+        arcade.draw_text(f"Doge Price: {doge_price}", start_x=10, start_y=6, color=arcade.color.WHITE, font_size=12, font_name="Kenney Future")
+
+        # Draw right side bar
+        #arcade.draw_rectangle_filled(display_width - display_width*0.1, center_y=display_height, width=display_width*0.2, height=display_height, color=arcade.color.BLACK)
+        
         self.wall_list.draw()
         self.player_list.draw()
+
+        
+        
         
     def on_update(self, delta_time):
         if self.physics_engine:
