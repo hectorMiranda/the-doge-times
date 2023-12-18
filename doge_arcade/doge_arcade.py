@@ -152,7 +152,8 @@ class GameView(arcade.View):
         self.level = 1
         self.display_width, self.display_height = arcade.get_display_size()
         self.doge_price = "Loading..."
-        self.background = arcade.load_texture("../assets/backgrounds/launchpad.png")
+        #self.background = arcade.load_texture("../assets/backgrounds/launchpad.png")
+
         
         self.status_bar = StatusBar(screen_width=self.display_width)        
         self.status_bar.add_stat_box(f"Doge Price: {SharedData.doge_price}")
@@ -160,13 +161,10 @@ class GameView(arcade.View):
         self.status_bar.add_stat_box("Coins: NA")
 
         
-        self.coin_sound = arcade.load_sound(
-            str(ASSETS_PATH / "sounds" / "collectable.wav")
-        )
-        self.jump_sound = arcade.load_sound(
-            str(ASSETS_PATH / "sounds" / "bark.wav")
-        )
-        
+        self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
+        self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
+        self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "launchpad.png"))
+     
         self.player_list = None
         self.wall_list = None
         self.player_sprite = None
