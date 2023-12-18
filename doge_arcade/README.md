@@ -1,3 +1,53 @@
+# Doge Arcade Game
+
+## Introduction
+Welcome to Doge Arcade, an 2D platformer game infused with elements from the world of Dogecoin. This edition is a refined adaptation of the 'Journey to the Moon' proof of concept (POC), originally crafted for the Dogecoin Foundation Dogeathon 2022. While the POC was developed in Unity for a WebGL-based gaming experience, Doge Arcade elevates the gameplay with Python's versatile 'arcade' library. At its core, the game seamlessly integrates with the doge_data_hub API, fetching real-time Dogecoin-related data, thereby enriching the gaming experience with dynamic cryptocurrency insights. Join us on this unique and captivating journey, blending the excitement of gaming with the intriguing world of Dogecoin.
+
+## Features
+- **Dynamic Status Bar**: Displays real-time Dogecoin prices, lives, coins collected, and other important game stats.
+- **More features coming soon**
+## Installation
+
+To run Doge Arcade, follow these steps:
+
+1. **Clone the Repository**
+   ```
+   git clone https://github.com/hectorMiranda/the-doge-times
+   ```
+2. **Navigate to the Game Directory**
+   ```
+   cd doge_arcade
+   ```
+3. **Install Dependencies**
+   - Ensure Python 3.11 and pip are installed on your system.
+   - Install the required Python packages:
+     ```
+     pip install -r requirements.txt
+     ```
+
+## Running the Game
+
+To start the game, run:
+
+```
+python doge_arcade.py
+```
+
+## Game Controls
+
+- **Arrow Keys**: Move the character.
+- **Spacebar**: Jump.
+
+## doge_data_hub API 
+
+The game leverages the doge_data_hub API to get dogecoin related data.
+
+## Contributions
+
+Contributions to Doge Arcade are welcome. Please stay tuned to learn about the process for submitting pull requests to us.
+
+## Other relevant information
+
 ../artwork/sprites//PlayerIdle.png
 ../artwork/sprites/PlayerRun.png
 
