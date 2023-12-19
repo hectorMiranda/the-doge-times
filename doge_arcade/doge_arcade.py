@@ -37,9 +37,9 @@ class StatusBar:
         self.menu_item_height = 50
 
         # Using real bitmaps from arcade resources as dummy thumbnails
-        self.add_menu_option("Option 1", self.dummy_action, ":resources:images/tiles/boxCrate_double.png")
-        self.add_menu_option("Option 2", self.dummy_action, ":resources:images/tiles/boxCrate_double.png")
-        self.add_menu_option("Option 3", self.dummy_action, ":resources:images/tiles/boxCrate_double.png")
+        self.add_menu_option("Run", self.dummy_action, "../assets/UI/start.png")
+        self.add_menu_option("Settings", self.dummy_action, "../assets/UI/start.png")
+        self.add_menu_option("Wallet explorer", self.dummy_action, "../assets/UI/wallet.png")
         
         self.menu_button_area = {
             'x': 3,  # X position of the menu button
