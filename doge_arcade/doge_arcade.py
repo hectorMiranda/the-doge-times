@@ -30,6 +30,35 @@ class StatusBar:
             arcade.color.MIDNIGHT_BLUE  # Top left
         ]
         self.gradient_rectangle = arcade.create_rectangle_filled_with_colors(self.point_list, self.color_list)
+        
+        self.menu_open = False
+        self.menu_items = []
+        self.menu_width = 200
+        self.menu_item_height = 50
+
+        # Using real bitmaps from arcade resources as dummy thumbnails
+        self.add_menu_option("Option 1", self.dummy_action, ":resources:images/tiles/boxCrate_double.png")
+        self.add_menu_option("Option 2", self.dummy_action, ":resources:images/tiles/boxCrate_double.png")
+        self.add_menu_option("Option 3", self.dummy_action, ":resources:images/tiles/boxCrate_double.png")
+        
+        self.menu_button_area = {
+            'x': 3,  # X position of the menu button
+            'y': 3,
+            'width': 300,
+            'height': 150
+        }
+        
+    def toggle_menu(self):
+        self.menu_open = not self.menu_open    
+        print(self.menu_open)
+        
+    def dummy_action(self):
+        # Placeholder for an action performed when a menu item is clicked
+        pass
+    
+    def add_menu_option(self, label, action, thumbnail_path):
+        thumbnail = arcade.load_texture(thumbnail_path)
+        self.menu_items.append({'label': label, 'action': action, 'thumbnail': thumbnail})
 
     def add_stat_box(self, text):
         self.stat_boxes.append({'text': text})
@@ -48,6 +77,13 @@ class StatusBar:
             stat_box['x'] = start_x + i * self.box_width
             stat_box['y'] = self.bar_height / 2
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        # Check if the click is within the menu button area
+        if (self.menu_button_area['x'] - self.menu_button_area['width'] / 2 < x < self.menu_button_area['x'] + self.menu_button_area['width'] / 2 and
+                self.menu_button_area['y'] - self.menu_button_area['height'] / 2 < y < self.menu_button_area['y'] + self.menu_button_area['height'] / 2):
+            self.toggle_menu()
+
+
     def draw(self):
         self.gradient_rectangle.draw()
         for stat_box in self.stat_boxes:
@@ -63,6 +99,45 @@ class StatusBar:
             text_y = stat_box['y'] - 10
             arcade.draw_text(stat_box['text'], start_x=text_x, start_y=text_y, 
                              color=arcade.color.WHITE, font_size=17, font_name="Kenney Future")
+
+        arcade.draw_rectangle_filled(center_x=self.menu_button_area['x'],
+                                     center_y=self.menu_button_area['y'],
+                                     width=self.menu_button_area['width'],
+                                     height=self.menu_button_area['height'],
+                                     color=arcade.color.GRAY)
+
+
+        if self.menu_open:
+           # Drawing the menu background
+            menu_height = len(self.menu_items) * self.menu_item_height
+            arcade.draw_rectangle_filled(center_x=self.menu_width / 2,
+                                            center_y=self.bar_height + menu_height / 2,
+                                            width=self.menu_width,
+                                            height=menu_height,
+                                            color=arcade.color.GREEN)
+
+            # Draw each menu item with label and thumbnail
+            for i, item in enumerate(self.menu_items):
+                item_x = 0
+                item_y = self.bar_height + i * self.menu_item_height
+
+                # Drawing item background
+                arcade.draw_rectangle_filled(center_x=item_x + self.menu_width / 2,
+                                                center_y=item_y + self.menu_item_height / 2,
+                                                width=self.menu_width,
+                                                height=self.menu_item_height,
+                                                color=arcade.color.LIGHT_GRAY)
+
+                # Drawing the label
+                arcade.draw_text(item['label'], start_x=item_x + 10, start_y=item_y + 10,
+                                    color=arcade.color.BLACK, font_size=12)
+
+                # Draw the thumbnail
+                arcade.draw_texture_rectangle(center_x=item_x + self.menu_width - 30,
+                                                center_y=item_y + self.menu_item_height / 2,
+                                                width=40, height=40,
+                                                texture=item['thumbnail'])
+
 
 
 class SharedData:
@@ -152,7 +227,6 @@ class GameView(arcade.View):
         self.level = 1
         self.display_width, self.display_height = arcade.get_display_size()
         self.doge_price = "Loading..."
-        #self.background = arcade.load_texture("../assets/backgrounds/launchpad.png")
 
         
         self.status_bar = StatusBar(screen_width=self.display_width)        
@@ -236,6 +310,10 @@ class GameView(arcade.View):
         if self.physics_engine:
             self.physics_engine.update()
             self.player_sprite.update_animation(delta_time)
+            
+    def on_mouse_press(self, x, y, button, modifiers):
+        # Forward the mouse press event to the status bar
+        self.status_bar.on_mouse_press(x, y, button, modifiers)
         
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
