@@ -48,6 +48,19 @@ class StatusBar:
     def update_stat_box(self, index, new_text):
         if 0 <= index < len(self.stat_boxes):
             self.stat_boxes[index]['text'] = new_text
+            
+    def update_menu_item(self, stat_box_index, menu_item_index, new_label, new_action, new_thumbnail_path):
+        if stat_box_index in self.menu_items_per_box and 0 <= menu_item_index < len(self.menu_items_per_box[stat_box_index]):
+            # Load the new thumbnail
+            new_thumbnail = arcade.load_texture(new_thumbnail_path)
+
+            # Update the label, action, and thumbnail of the menu item
+            self.menu_items_per_box[stat_box_index][menu_item_index] = {
+                'label': new_label, 
+                'action': new_action, 
+                'thumbnail': new_thumbnail
+            }
+
 
     def _layout_stat_boxes(self):
         num_boxes = len(self.stat_boxes)
@@ -338,6 +351,7 @@ class GameView(arcade.View):
         arcade.start_render()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"Doge Price: {SharedData.doge_price}")
+        self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.player_sprite.draw()
         self.wall_list.draw()
         self.player_list.draw()        
