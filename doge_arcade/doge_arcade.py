@@ -114,16 +114,16 @@ class StatusBar:
             # Draw the box
             arcade.draw_rectangle_filled(center_x=stat_box['x'], center_y=stat_box['y'],
                                         width=self.box_width, height=self.box_height,
-                                        color=arcade.color.GRAY)
+                                        color=constants.TRANSLUCENT_BACKGROUND_COLOR)
             arcade.draw_rectangle_outline(center_x=stat_box['x'], center_y=stat_box['y'],
                                         width=self.box_width, height=self.box_height,
-                                        color=arcade.color.WHITE, border_width=2)
+                                        color=arcade.color.GRAY, border_width=2)
 
             # Draw the text inside the box
-            text_x = stat_box['x'] - self.box_width / 2 + 10
-            text_y = stat_box['y'] - self.box_height / 2 + 10
+            text_x = stat_box['x'] - self.box_width / 2 + 20
+            text_y = stat_box['y'] - self.box_height / 2 + 15
             arcade.draw_text(stat_box['text'], start_x=text_x, start_y=text_y, 
-                            color=arcade.color.WHITE, font_size=17, font_name="Kenney Future")
+                            color=arcade.color.WHITE, font_size=19, font_name="Kenney Future")
 
         # Draw the menu if it is open and a stat box is selected
         if self.menu_open and self.current_stat_box_index is not None:
@@ -149,7 +149,7 @@ class StatusBar:
                                         center_y=menu_y + menu_height / 2,
                                         width=self.menu_width, 
                                         height=menu_height, 
-                                        color=arcade.color.GRAY)
+                                        color=constants.TRANSLUCENT_BACKGROUND_COLOR)
 
             # Draw each menu item
             for i, item in enumerate(menu_items):
@@ -162,16 +162,16 @@ class StatusBar:
                                             center_y=item_y + item_height / 2,
                                             width=self.menu_width,
                                             height=item_height,
-                                            color=arcade.color.LIGHT_GRAY)
+                                            color=constants.TRANSLUCENT_BACKGROUND_COLOR)
 
                 # Draw the label, positioned within the item
-                label_x = menu_x + 10  # Padding from the left
+                label_x = menu_x + 80  # Padding from the left
                 label_y = item_y + (item_height - 20) / 2  # Vertically center the text
                 arcade.draw_text(item['label'], start_x=label_x, start_y=label_y,
-                                color=arcade.color.BLACK, font_size=12)
+                                color=arcade.color.WHITE, font_size=12)
 
                 # Draw the thumbnail, positioned within the item
-                thumbnail_x = menu_x + self.menu_width - 50  # Near the right edge of the menu
+                thumbnail_x = menu_x + 25  
                 thumbnail_y = item_y + item_height / 2
                 arcade.draw_texture_rectangle(center_x=thumbnail_x,
                                             center_y=thumbnail_y,
@@ -275,6 +275,8 @@ class GameView(arcade.View):
 
         self.status_bar.add_menu_option(0, f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+        #self.status_bar.add_menu_option(0, "Setup wallet", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png")) #TODO: fix 3rd item position bug
+
 
         self.status_bar.add_menu_option(1, "Mana Potion", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(1, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))        
@@ -351,7 +353,7 @@ class GameView(arcade.View):
         arcade.start_render()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"Doge Price: {SharedData.doge_price}")
-        self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+        self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
         self.player_sprite.draw()
         self.wall_list.draw()
         self.player_list.draw()        
