@@ -32,7 +32,7 @@ class StatusBar:
         self.add_menu_option("Wallet explorer", self.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         
         self.menu_button_area = {
-            'x': 0,  # X position of the menu button
+            'x': 0,  
             'y': 0,
             'width': constants.STATUS_START_MENU_ITEM_WIDTH,
             'height': constants.STATUS_START_MENU_ITEM_HEIGHT
@@ -124,10 +124,8 @@ class StatusBar:
                                                 texture=item['thumbnail'])
 
 class SharedData:
-    doge_price= "Loading..."
-    
+    doge_price= "Loading..."    
     display_width, display_height = arcade.get_display_size() # will cause error if called before window is created
-
 
     def get_doge_price(delta_time):
             try:
@@ -169,7 +167,6 @@ class LandingView(arcade.View):
         elif not self.loading_complete:
             arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
             message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
-            
    
     def on_update(self, delta_time):
 
@@ -230,6 +227,7 @@ class GameView(arcade.View):
         if key == arcade.key.UP:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = constants.PLAYER_JUMP_SPEED
+                self.jump_sound.play()
         elif key == arcade.key.LEFT:
             self.player_sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
             self.player_sprite.scale_x = -1  # Flip sprite to face left
