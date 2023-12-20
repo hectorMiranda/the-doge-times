@@ -6,46 +6,36 @@ import constants
 import random
 import time
 
-ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"
-
-            
+ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent / "assets"            
 class StatusBar:
-    def __init__(self, screen_width, bar_height=80):
+    def __init__(self, screen_width, bar_height=50):
         self.screen_width = screen_width
         self.bar_height = bar_height
         self.stat_boxes = []
-        self.box_width = constants.BOX_WIDTH      
-        self.box_height = constants.BOX_HEIGHT
+        self.box_width = constants.STATUS_BAR_ITEM_BOX_WIDTH      
+        self.box_height = constants.STATUS_BAR_ITEM_BOX_HEIGHT
         self.point_list = [
             (0, 0),  # Bottom left
             (screen_width, 0),  # Bottom right
             (screen_width, bar_height),  # Top right
             (0, bar_height),  # Top left
         ]
-        # Define gradient colors for each corner
-        self.color_list = [
-            arcade.color.BLUE,  # Bottom left
-            arcade.color.LIGHT_BLUE,  # Bottom right
-            arcade.color.DARK_BLUE,  # Top right
-            arcade.color.MIDNIGHT_BLUE  # Top left
-        ]
-        self.gradient_rectangle = arcade.create_rectangle_filled_with_colors(self.point_list, self.color_list)
-        
+        self.status_bar = arcade.create_rectangle_filled_with_colors(self.point_list, [arcade.color.BLUE, arcade.color.LIGHT_BLUE, arcade.color.DARK_BLUE, arcade.color.MIDNIGHT_BLUE])        
         self.menu_open = False
         self.menu_items = []
-        self.menu_width = 200
-        self.menu_item_height = 50
+        self.menu_width = constants.STATUS_BAR_MENU_ITEM_WIDTH
+        self.menu_item_height = constants.STATUS_BAR_MENU_ITEM_HEIGHT
 
         # Using real bitmaps from arcade resources as dummy thumbnails
-        self.add_menu_option("Run", self.dummy_action, "../assets/UI/start.png")
-        self.add_menu_option("Settings", self.dummy_action, "../assets/UI/start.png")
-        self.add_menu_option("Wallet explorer", self.dummy_action, "../assets/UI/wallet.png")
+        self.add_menu_option("Run", self.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+        self.add_menu_option("Settings", self.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+        self.add_menu_option("Wallet explorer", self.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         
         self.menu_button_area = {
-            'x': 3,  # X position of the menu button
-            'y': 3,
-            'width': 300,
-            'height': 150
+            'x': 0,  # X position of the menu button
+            'y': 0,
+            'width': constants.STATUS_START_MENU_ITEM_WIDTH,
+            'height': constants.STATUS_START_MENU_ITEM_HEIGHT
         }
         
     def toggle_menu(self):
@@ -53,7 +43,7 @@ class StatusBar:
         print(self.menu_open)
         
     def dummy_action(self):
-        # Placeholder for an action performed when a menu item is clicked
+        print("Dummy action")
         pass
     
     def add_menu_option(self, label, action, thumbnail_path):
@@ -78,14 +68,14 @@ class StatusBar:
             stat_box['y'] = self.bar_height / 2
 
     def on_mouse_press(self, x, y, button, modifiers):
-        # Check if the click is within the menu button area
+        # Start menu
         if (self.menu_button_area['x'] - self.menu_button_area['width'] / 2 < x < self.menu_button_area['x'] + self.menu_button_area['width'] / 2 and
                 self.menu_button_area['y'] - self.menu_button_area['height'] / 2 < y < self.menu_button_area['y'] + self.menu_button_area['height'] / 2):
             self.toggle_menu()
 
 
     def draw(self):
-        self.gradient_rectangle.draw()
+        self.status_bar.draw()
         for stat_box in self.stat_boxes:
             # Draw the box
             arcade.draw_rectangle_filled(center_x=stat_box['x'], center_y=stat_box['y'],
@@ -100,21 +90,16 @@ class StatusBar:
             arcade.draw_text(stat_box['text'], start_x=text_x, start_y=text_y, 
                              color=arcade.color.WHITE, font_size=17, font_name="Kenney Future")
 
-        arcade.draw_rectangle_filled(center_x=self.menu_button_area['x'],
-                                     center_y=self.menu_button_area['y'],
-                                     width=self.menu_button_area['width'],
-                                     height=self.menu_button_area['height'],
+        arcade.draw_rectangle_filled(center_x=self.menu_button_area['x'], center_y=self.menu_button_area['y'],
+                                     width=self.menu_button_area['width'], height=self.menu_button_area['height'],
                                      color=arcade.color.GRAY)
-
 
         if self.menu_open:
            # Drawing the menu background
             menu_height = len(self.menu_items) * self.menu_item_height
-            arcade.draw_rectangle_filled(center_x=self.menu_width / 2,
-                                            center_y=self.bar_height + menu_height / 2,
-                                            width=self.menu_width,
-                                            height=menu_height,
-                                            color=arcade.color.GREEN)
+            
+            arcade.draw_rectangle_filled(center_x=self.menu_width / 2, center_y=self.bar_height + menu_height / 2,
+                                            width=self.menu_width, height=menu_height, color=arcade.color.GREEN)
 
             # Draw each menu item with label and thumbnail
             for i, item in enumerate(self.menu_items):
@@ -137,8 +122,6 @@ class StatusBar:
                                                 center_y=item_y + self.menu_item_height / 2,
                                                 width=40, height=40,
                                                 texture=item['thumbnail'])
-
-
 
 class SharedData:
     doge_price= "Loading..."
@@ -175,17 +158,18 @@ class LandingView(arcade.View):
         arcade.start_render()
         
         arcade.draw_text("Journey to the moon!", self.display_width / 2, self.display_height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("python arcade edition!", self.display_width / 2, self.display_height / 2 -35, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
+        arcade.draw_text("python arcade edition!", self.display_width / 2, self.display_height / 2 -45, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
         
         progress_bar_x = self.display_width / 2
         progress_bar_y = self.display_height / 3
         arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
-        arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
- 
+       
         if self.loading_complete and self.text_visible:
-            message = arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+            message = arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.BLUE, font_size=20, font_name="Kenney Future", anchor_x="center")
         elif not self.loading_complete:
+            arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
             message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+            
    
     def on_update(self, delta_time):
 
@@ -228,13 +212,11 @@ class GameView(arcade.View):
         self.display_width, self.display_height = arcade.get_display_size()
         self.doge_price = "Loading..."
 
-        
         self.status_bar = StatusBar(screen_width=self.display_width)        
         self.status_bar.add_stat_box(f"Doge Price: {SharedData.doge_price}")
         self.status_bar.add_stat_box("Lives: NA")
         self.status_bar.add_stat_box("Coins: NA")
 
-        
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "launchpad.png"))
@@ -250,8 +232,12 @@ class GameView(arcade.View):
                 self.player_sprite.change_y = constants.PLAYER_JUMP_SPEED
         elif key == arcade.key.LEFT:
             self.player_sprite.change_x = -constants.PLAYER_MOVEMENT_SPEED
+            self.player_sprite.scale_x = -1  # Flip sprite to face left
+
         elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = constants.PLAYER_MOVEMENT_SPEED
+            self.player_sprite.scale_x = 1   # Flip sprite to face right
+
         elif key == arcade.key.Z:
             self.player_sprite.zoom_in()
         elif key == arcade.key.X:
@@ -282,13 +268,13 @@ class GameView(arcade.View):
         self.player_sprite.center_y = 126
         self.player_list.append(self.player_sprite)
         
-        for x in range(0, 600, 128):
+        for x in range(0, 800, 128):
             wall = arcade.Sprite(":resources:images/tiles/grassMid.png", constants.SPRITE_SCALING_BOX)
             wall.center_x = x
             wall.center_y = 90
             self.wall_list.append(wall)
 
-        coordinate_list = [[200, 180], [300, 300], [400, 400], [500, 400], [600, 400]]
+        coordinate_list = [[200, 300], [300, 300], [400, 400], [500, 400], [600, 400]]
 
         for coordinate in coordinate_list:
             wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", constants.TILE_SCALING)
@@ -299,7 +285,7 @@ class GameView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
+        #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"Doge Price: {SharedData.doge_price}")
         self.player_sprite.draw()
         self.wall_list.draw()
@@ -320,7 +306,7 @@ class PlayerCharacter(arcade.Sprite):
         super().__init__()
 
         self.facing_direction = constants.LEFT_FACING
-        self.position = (200,200)
+        self.position = (400,400)
 
         self.idle_textures = []
         self.run_textures = []
@@ -364,8 +350,6 @@ class PlayerCharacter(arcade.Sprite):
                 sprite_count += 1
                 
         print(f"spawn textures: {len(self.run_textures)}")
-        
-        
         
         self.character_face_direction = constants.RIGHT_FACING
 
@@ -460,10 +444,7 @@ def main():
     window = arcade.Window(display_width, display_height, constants.SCREEN_TITLE, resizable=True)
     start_view = LandingView()
     window.show_view(start_view)
-    
-    arcade.schedule(SharedData.get_doge_price, 5.0)  # Call every 5 seconds
-
-    
+    arcade.schedule(SharedData.get_doge_price, constants.DOGE_DATA_HUB_CALLING_INTERVAL) 
     arcade.run()
 
 if __name__ == "__main__":
