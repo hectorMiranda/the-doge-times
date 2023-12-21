@@ -349,6 +349,12 @@ class GameView(arcade.View):
         self.enemies = None
         self.level = 1
         self.display_width, self.display_height = arcade.get_display_size()
+        self.sky_color = arcade.color.SKY_BLUE
+        self.hill_colors = [arcade.color.GREEN_YELLOW, arcade.color.FOREST_GREEN, arcade.color.DARK_OLIVE_GREEN]
+        self.clouds = self.create_clouds(10)
+
+        
+        
         self.doge_price = "Loading..."
         
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
@@ -368,12 +374,65 @@ class GameView(arcade.View):
 
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
-        self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "launchpad.png"))
+        self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
      
         self.player_list = None
         self.wall_list = None
         self.player_sprite = None
         self.physics_engine = None
+        
+    def create_clouds(self, num_clouds=5):
+        clouds = []
+        for _ in range(num_clouds):  
+            cloud_width = random.randrange(100, 200)
+            cloud_height = random.randrange(50, 100)
+            x = random.randrange(0, self.display_width)
+            y = random.randrange(int(self.display_height / 2), self.display_height)
+            speed = random.random() * 0.5  # Cloud speed (0.0 - 0.5)
+            clouds.append({'x': x, 'y': y, 'width': cloud_width, 'height': cloud_height, 'speed': speed})
+        return clouds    
+        
+        
+    def draw_sky(self):
+        arcade.draw_lrtb_rectangle_filled(0, self.display_width, self.display_height, self.display_height / 2, self.sky_color)
+    
+    def draw_hills(self):
+        # Draw the hills
+        hill_bottom = 0
+        hill_top = self.display_height / 3
+        for color in self.hill_colors:
+            # Points for the hill polygons
+            hill_points = [
+                (0, hill_bottom),
+                (self.display_width / 4, hill_top),
+                (self.display_width / 2, hill_bottom),
+                (3 * self.display_width / 4, hill_top),
+                (self.display_width, hill_bottom),
+                (self.display_width, 0),
+                (0, 0)
+            ]
+            arcade.draw_polygon_filled(hill_points, color)
+            # Move the hill range up for the next hill
+            hill_bottom += self.display_height / 12
+            hill_top += self.display_height / 12
+
+    def draw_clouds(self):
+        cloud_color = arcade.color.LIGHT_GRAY
+        for cloud in self.clouds:
+            # Draw each cloud with 3 ellipses
+            for _ in range(3):
+                offset_x = random.randrange(-cloud['width'] // 3, cloud['width'] // 3)
+                offset_y = random.randrange(-cloud['height'] // 3, cloud['height'] // 3)
+                arcade.draw_ellipse_filled(cloud['x'] + offset_x, cloud['y'] + offset_y, cloud['width'], cloud['height'], cloud_color)
+
+    def update_clouds(self, delta_time):
+        for cloud in self.clouds:
+            # Move the cloud to the right slowly
+            cloud['x'] += cloud['speed']
+            # If the cloud has moved past the right edge, wrap around to the left
+            if cloud['x'] > self.display_width + cloud['width']:
+                cloud['x'] = -cloud['width']
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -410,6 +469,8 @@ class GameView(arcade.View):
         self.window.show_view(LandingView())
     
     def setup(self):
+
+
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
 
@@ -435,6 +496,10 @@ class GameView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
+        self.draw_sky()
+        self.draw_hills()
+        self.draw_clouds()
+        self.update_clouds(1/60)
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{SharedData.doge_price}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
@@ -442,6 +507,7 @@ class GameView(arcade.View):
         self.wall_list.draw()
         self.player_list.draw()        
         self.status_bar.on_draw()
+        
         
     def on_update(self, delta_time):
         if self.physics_engine:
