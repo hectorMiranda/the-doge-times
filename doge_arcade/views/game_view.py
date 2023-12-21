@@ -84,6 +84,28 @@ class GameView(arcade.View):
                                     width=self.display_width, 
                                     height=hill_height, 
                                     texture=trees_texture)
+        
+    def draw_house(self):
+        house_bottom = 0
+        house_height = self.display_height /1
+        house_texture = arcade.load_texture(str(ASSETS_PATH / "environment" / "doge_house.png"))
+        center_y = house_bottom + house_height / 2
+        arcade.draw_texture_rectangle(center_x=self.display_width / 2, 
+                                    center_y=center_y, 
+                                    width=self.display_width, 
+                                    height=house_height, 
+                                    texture=house_texture)
+        
+    def draw_tree(self):
+        tree_bottom = 200
+        tree_height = 600
+        tree_texture = arcade.load_texture(str(ASSETS_PATH / "environment" / "tree_0.png"))
+        center_y = tree_bottom + tree_height / 2
+        arcade.draw_texture_rectangle(center_x=350, 
+                                    center_y=500, 
+                                    width=600, 
+                                    height=tree_height, 
+                                    texture=tree_texture)
 
 
     def draw_clouds(self):
@@ -154,13 +176,13 @@ class GameView(arcade.View):
             wall.center_y = 0
             self.wall_list.append(wall)
 
-        coordinate_list = [[300, 70], [380, 70], [460, 70], [540, 70]]
+        # coordinate_list = [[800, 70], [880, 70], [960, 70], [1040, 70]]
 
-        for coordinate in coordinate_list:
-            wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "bushes_0.png"), .1)
-            wall.position = coordinate
+        # for coordinate in coordinate_list:
+        #     wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "bushes_0.png"), .1)
+        #     wall.position = coordinate
             
-            self.wall_list.append(wall)
+        #     self.wall_list.append(wall)
         
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.wall_list, gravity_constant=GRAVITY)
 
@@ -168,6 +190,8 @@ class GameView(arcade.View):
         arcade.start_render()
         #self.draw_sky()
         self.draw_hills()
+        self.draw_house()
+        self.draw_tree()
         # self.draw_clouds()
         # self.update_clouds(1/60)
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
