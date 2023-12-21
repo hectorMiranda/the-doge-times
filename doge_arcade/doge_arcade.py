@@ -27,7 +27,6 @@ class StatusBar:
             self.menu_open = True  # Open the menu
             self.current_stat_box_index = stat_box_index
         else:
-            # Toggle the menu state if the same stat box is clicked again
             self.menu_open = not self.menu_open
             self.current_stat_box_index = None if not self.menu_open else stat_box_index
 
@@ -43,8 +42,9 @@ class StatusBar:
         thumbnail = arcade.load_texture(thumbnail_path)
         self.menu_items_per_box[stat_box_index].append({'label': label, 'action': action, 'thumbnail': thumbnail})
 
-    def add_stat_box(self, text):
-        self.stat_boxes.append({'text': text})
+    def add_stat_box(self, text, thumbnail_path=None):
+        thumbnail = arcade.load_texture(thumbnail_path) if thumbnail_path else None
+        self.stat_boxes.append({'text': text, 'thumbnail': thumbnail})
         self._layout_stat_boxes()
 
     def update_stat_box(self, index, new_text):
@@ -53,10 +53,8 @@ class StatusBar:
             
     def update_menu_item(self, stat_box_index, menu_item_index, new_label, new_action, new_thumbnail_path):
         if stat_box_index in self.menu_items_per_box and 0 <= menu_item_index < len(self.menu_items_per_box[stat_box_index]):
-            # Load the new thumbnail
             new_thumbnail = arcade.load_texture(new_thumbnail_path)
 
-            # Update the label, action, and thumbnail of the menu item
             self.menu_items_per_box[stat_box_index][menu_item_index] = {
                 'label': new_label, 
                 'action': new_action, 
@@ -104,7 +102,7 @@ class StatusBar:
         start_x = (self.screen_width - total_box_width) / 2 + self.box_width / 2
 
         # Calculate the x position of each box
-        x = (start_x + index * (self.box_width + spacing)) - 200 #TODO: fix this hack
+        x = (start_x + index * (self.box_width + spacing)) - self.box_width/2 
         y = self.bar_height / 2  # Centered vertically in the status bar
         print ("_get_stat_box_position", x, y, self.box_width, self.box_height)
         return (x, y, self.box_width, self.box_height)
@@ -120,12 +118,19 @@ class StatusBar:
             arcade.draw_rectangle_outline(center_x=stat_box['x'], center_y=stat_box['y'],
                                         width=self.box_width, height=self.box_height,
                                         color=arcade.color.GRAY, border_width=2)
+            
+             # Draw the thumbnail if it exists
+            if stat_box['thumbnail']:
+                thumbnail_x = stat_box['x'] - self.box_width / 2 + 30
+                thumbnail_y = stat_box['y']
+                arcade.draw_texture_rectangle(thumbnail_x, thumbnail_y, width=35, height=35, texture=stat_box['thumbnail'])
 
-            # Draw the text inside the box
-            text_x = stat_box['x'] - self.box_width / 2 + 20
+            # Adjust text position to accommodate thumbnail
+            text_x = stat_box['x'] - self.box_width / 2 + 60  # Adjust this position based on thumbnail size
             text_y = stat_box['y'] - self.box_height / 2 + 15
             arcade.draw_text(stat_box['text'], start_x=text_x, start_y=text_y, 
-                            color=arcade.color.WHITE, font_size=19, font_name="Kenney Future")
+                             color=arcade.color.WHITE, font_size=19, font_name="Kenney Future")
+
 
         # Draw the menu if it is open and a stat box is selected
         if self.menu_open and self.current_stat_box_index is not None:
@@ -141,7 +146,6 @@ class StatusBar:
 
 
             # Draw the menu background
-            #menu_height = (len(menu_items) * self.menu_item_height)-self.menu_item_height
             menu_height = len(menu_items) * self.menu_item_height -self.menu_item_height if len(menu_items) > 1 else len(menu_items) * self.menu_item_height
 
             print("menu_x and menu_y", menu_x, menu_y)
@@ -348,12 +352,12 @@ class GameView(arcade.View):
         self.doge_price = "Loading..."
         
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
-        self.status_bar.add_stat_box("Health")
-        self.status_bar.add_stat_box("Mana")
-        self.status_bar.add_stat_box("Lives: NA")
-        self.status_bar.add_stat_box("Coins: NA")
+        self.status_bar.add_stat_box("Doge stats", str(ASSETS_PATH / "UI" / "price.png"))
+        self.status_bar.add_stat_box("Settings", str(ASSETS_PATH / "UI" / "settings.png"))
+        self.status_bar.add_stat_box("Lives: NA", str(ASSETS_PATH / "UI" / "start.png"))
+        self.status_bar.add_stat_box("Coins: NA", str(ASSETS_PATH / "UI" / "coin.png"))
 
-        self.status_bar.add_menu_option(0, f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+        self.status_bar.add_menu_option(0, f"Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         #self.status_bar.add_menu_option(0, "Setup wallet", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png")) #TODO: fix 3rd item position bug
 
@@ -432,7 +436,7 @@ class GameView(arcade.View):
     def on_draw(self):
         arcade.start_render()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
-        self.status_bar.update_stat_box(0,f"Doge Price: {SharedData.doge_price}")
+        self.status_bar.update_stat_box(0,f"{SharedData.doge_price}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
         self.player_sprite.draw()
         self.wall_list.draw()
