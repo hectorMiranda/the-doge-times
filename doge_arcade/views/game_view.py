@@ -7,6 +7,7 @@ from UI.status_bar import StatusBar
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
 
+
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
@@ -23,8 +24,6 @@ class GameView(arcade.View):
         self.sky_color = arcade.color.SKY_BLUE
         self.hill_colors = [arcade.color.GREEN_YELLOW, arcade.color.FOREST_GREEN, arcade.color.DARK_OLIVE_GREEN]
         self.clouds = self.create_clouds(10)
-
-        
         
         self.doge_price = "Loading..."
         
@@ -68,24 +67,24 @@ class GameView(arcade.View):
         arcade.draw_lrtb_rectangle_filled(0, self.display_width, self.display_height, self.display_height / 2, self.sky_color)
     
     def draw_hills(self):
-        # Draw the hills
+        # The bottom of the hill image
         hill_bottom = 0
-        hill_top = self.display_height / 3
-        for color in self.hill_colors:
-            # Points for the hill polygons
-            hill_points = [
-                (0, hill_bottom),
-                (self.display_width / 4, hill_top),
-                (self.display_width / 2, hill_bottom),
-                (3 * self.display_width / 4, hill_top),
-                (self.display_width, hill_bottom),
-                (self.display_width, 0),
-                (0, 0)
-            ]
-            arcade.draw_polygon_filled(hill_points, color)
-            # Move the hill range up for the next hill
-            hill_bottom += self.display_height / 12
-            hill_top += self.display_height / 12
+        # The height of the hill image is a third of the display height, as per your original code
+        hill_height = self.display_height /1.5
+
+        # Load the texture for the group of trees
+        trees_texture = arcade.load_texture(str(ASSETS_PATH / "environment" / "group_of_trees.png"))
+
+        # Calculate the center_y position to place the image. This will be the bottom plus half the hill height
+        center_y = hill_bottom + hill_height / 2
+
+        # Draw the texture rectangle with the full width of the display and the calculated height
+        arcade.draw_texture_rectangle(center_x=self.display_width / 2, 
+                                    center_y=center_y, 
+                                    width=self.display_width, 
+                                    height=hill_height, 
+                                    texture=trees_texture)
+
 
     def draw_clouds(self):
         cloud_color = arcade.color.LIGHT_GRAY
@@ -137,11 +136,10 @@ class GameView(arcade.View):
         self.player_sprite.update_animation(delta_time)  
         
     def restart_game(self):
+        from .landing_view import LandingView
         self.window.show_view(LandingView())
     
     def setup(self):
-
-
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
 
@@ -150,25 +148,26 @@ class GameView(arcade.View):
         self.player_sprite.center_y = 126
         self.player_list.append(self.player_sprite)
         
-        for x in range(0, 800, 128):
-            wall = arcade.Sprite(":resources:images/tiles/grassMid.png", SPRITE_SCALING_BOX)
+        for x in range(0, self.display_width, 128):
+            wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "grass_3.png"), .2)
             wall.center_x = x
-            wall.center_y = 90
+            wall.center_y = 0
             self.wall_list.append(wall)
 
-        coordinate_list = [[200, 300], [300, 300], [400, 400], [500, 400], [600, 400]]
+        coordinate_list = [[300, 70], [380, 70], [460, 70], [540, 70]]
 
         for coordinate in coordinate_list:
-            wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", TILE_SCALING)
+            wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "bushes_0.png"), .1)
             wall.position = coordinate
+            
             self.wall_list.append(wall)
         
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.wall_list, gravity_constant=GRAVITY)
 
     def on_draw(self):
         arcade.start_render()
-        self.draw_sky()
-        # self.draw_hills()
+        #self.draw_sky()
+        self.draw_hills()
         # self.draw_clouds()
         # self.update_clouds(1/60)
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)

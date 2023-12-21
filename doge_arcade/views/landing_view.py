@@ -4,9 +4,6 @@ import random
 import arcade
 from arcade import View, color, key
 from settings.constants import ASSETS_PATH 
-
-# If GameView and ConfirmExitView are in the same directory
-from views.game_view import GameView
 from views.confirm_exit_view import ConfirmExitView
  
               
@@ -140,6 +137,7 @@ class LandingView(arcade.View):
             modal_view = ConfirmExitView(self)  
             self.window.show_view(modal_view)
         elif self.loading_complete:
+            from .game_view import GameView
             game = GameView()
             game.setup()
             self.window.show_view(game)
