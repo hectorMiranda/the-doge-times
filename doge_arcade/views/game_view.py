@@ -6,8 +6,6 @@ from doge_data_hub.shared_data import SharedData
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
-
-
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
@@ -37,8 +35,11 @@ class GameView(arcade.View):
         self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         #self.status_bar.add_menu_option(0, "Setup wallet", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png")) #TODO: fix 3rd item position bug
 
+        self.background_music = arcade.load_sound(str(ASSETS_PATH / "sounds" / "main_theme.wav"))
+        self.background_music_player = None
 
-        self.status_bar.add_menu_option(1, "Mana Potion", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+
+        self.status_bar.add_menu_option(1, "sound on", self.toggle_music(), str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(1, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))        
         self.status_bar.add_menu_option(3, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
 
@@ -46,10 +47,26 @@ class GameView(arcade.View):
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
      
+
+     
         self.player_list = None
         self.wall_list = None
         self.player_sprite = None
         self.physics_engine = None
+        
+    def toggle_music(self):
+        if self.background_music_player is None:
+            # If music is not playing, start playing and store the player object
+            self.background_music_player = self.background_music.play(volume=0.3, loop=True)
+        else:
+            # If music is playing, toggle between pause and resume
+            if self.background_music_player.playing:
+                self.background_music_player.pause()
+            else:
+                self.background_music_player.play()
+      
+    def on_show(self):  
+        arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
         
     def create_clouds(self, num_clouds=5):
         clouds = []
@@ -144,7 +161,11 @@ class GameView(arcade.View):
         elif key == arcade.key.X:
             self.player_sprite.zoom_out()
         elif key == arcade.key.R:
+            self.background_music_player.pause()
             self.restart_game()
+        elif key == arcade.key.S:
+            self.toggle_music()
+            
         elif key == arcade.key.ESCAPE:
             pause_view = ConfirmExitView(self.window.current_view)
             self.show_view(pause_view)

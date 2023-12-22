@@ -25,17 +25,17 @@ class LoadingView(arcade.View):
 
         
     def on_show(self):
-        arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
+        arcade.set_background_color(arcade.color.BLACK)
 
     def on_draw(self):
         arcade.start_render()
         
-        arcade.draw_text("Journey to the moon!", self.display_width / 2, self.display_height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("python arcade edition!", self.display_width / 2 + 250, self.display_height / 2 -45, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
+        # arcade.draw_text("Journey to the moon!", self.display_width / 2, self.display_height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
+        # arcade.draw_text("python arcade edition!", self.display_width / 2 + 250, self.display_height / 2 -45, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
         
         progress_bar_x = self.display_width / 2
         progress_bar_y = self.display_height / 3
-        arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
+        # arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
        
         if self.loading_complete:  
             self.draw_rotating_cube()
