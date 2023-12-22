@@ -67,4 +67,4 @@ This project includes code from the following open source project:
   - Original License: MIT
   - Some portions of this code has been incorporated into this project, which is licensed under the GPL-2.0.
 
-The GPL-2.0 License text for our project can be found in the [LICENSE](https://github.com/hectorMiranda/the-doge-times/blob/main/LICENSE) file. The original MIT License notice is retained in the respective MIT_LICENSE where MIT-licensed code is used.
+The GPL-2.0 License text for our project can be found in the [LICENSE](https://github.com/hectorMiranda/the-doge-times/blob/main/LICENSE) file. The original MIT License notice is retained in the respective [MIT_LICENSE](https://github.com/hectorMiranda/the-doge-times/blob/main/doge_arcade/MIT_LICENSE) file.
