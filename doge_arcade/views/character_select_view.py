@@ -1,29 +1,21 @@
-"""
-Main Menu
-"""
 import arcade
 import arcade.gui
-
-from platformer.views.view import View
-from platformer.views.view_game import GameView
-from platformer.views.view_game_over import GameOverView
-from platformer.views.view_pause import PauseView
-
+from views.view import View
+from views.game_view import GameView
+from views.game_over_view import GameOverView
+from views.pause_view import PauseView
 
 class CharacterSelectView(View):
     def __init__(self):
         super().__init__()
 
-        # A Horizontal BoxGroup to align Buttons
         self.h_box_upper = None
         self.h_box_lower = None
-
         self.selected_player = None
 
     def setup(self):
         super().setup()
         self.ui_manager = arcade.gui.UIManager()
-
         self.setup_buttons()
 
         self.ui_manager.add(
@@ -47,7 +39,7 @@ class CharacterSelectView(View):
         self.h_box_upper = arcade.gui.UIBoxLayout(vertical=False)
         self.h_box_lower = arcade.gui.UIBoxLayout(vertical=False)
 
-        character_one_image = "assets/images/sprites/players/person_female/character_femalePerson_idle.png"
+        character_one_image = "assets/images/sprites/players/robot/character_robot_idle.png"
         character_one_texture = arcade.load_texture(character_one_image)
         character_one_button = arcade.gui.UITextureButton(
             texture=character_one_texture, width=192, height=192

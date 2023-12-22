@@ -1,6 +1,5 @@
 from arcade import View as ArcadeView
 
-
 class View(ArcadeView):
     def __init__(self):
         super().__init__()

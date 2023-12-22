@@ -33,13 +33,16 @@ To run Doge Arcade, follow these steps:
 To start the game, run:
 
 ```
-python doge_arcade.py
+python3 doge_arcade.py
 ```
 
 ## Game Controls
 
 - **Arrow Keys**: Move the character.
 - **Spacebar**: Jump.
+- **S**: Toggle music on/off.
+- **Z**: increase character size
+- **X**: reduce character size
 
 ## doge_data_hub API 
 
@@ -55,3 +58,13 @@ Contributions to Doge Arcade are welcome. Please stay tuned to learn about the p
 ../artwork/sprites/PlayerRun.png
 
 sprite: 128 x 126 pixels
+
+## Open Source Acknowledgements
+
+This project includes code from the following open source project:
+
+- [community-platformer](https://github.com/pythonarcade/community-platformer)
+  - Original License: MIT
+  - Some portions of this code has been incorporated into this project, which is licensed under the GPL-2.0.
+
+The GPL-2.0 License text for our project can be found in the [LICENSE](https://github.com/hectorMiranda/the-doge-times/blob/main/LICENSE) file. The original MIT License notice is retained in the respective MIT_LICENSE where MIT-licensed code is used.

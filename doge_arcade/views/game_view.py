@@ -21,34 +21,24 @@ class GameView(arcade.View):
         self.display_width, self.display_height = arcade.get_display_size()
         self.sky_color = arcade.color.SKY_BLUE
         self.hill_colors = [arcade.color.GREEN_YELLOW, arcade.color.FOREST_GREEN, arcade.color.DARK_OLIVE_GREEN]
-        self.clouds = self.create_clouds(10)
-        
+        self.clouds = self.create_clouds(10)        
         self.doge_price = "Loading..."
-        
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
         self.status_bar.add_stat_box("Doge stats", str(ASSETS_PATH / "UI" / "price.png"))
         self.status_bar.add_stat_box("Settings", str(ASSETS_PATH / "UI" / "settings.png"))
         self.status_bar.add_stat_box("Lives: NA", str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_stat_box("Coins: NA", str(ASSETS_PATH / "UI" / "coin.png"))
-
         self.status_bar.add_menu_option(0, f"Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         #self.status_bar.add_menu_option(0, "Setup wallet", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png")) #TODO: fix 3rd item position bug
-
         self.background_music = arcade.load_sound(str(ASSETS_PATH / "sounds" / "main_theme.wav"))
         self.background_music_player = None
-
-
         self.status_bar.add_menu_option(1, "sound on", self.toggle_music(), str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(1, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))        
         self.status_bar.add_menu_option(3, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
-
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
-     
-
-     
         self.player_list = None
         self.wall_list = None
         self.player_sprite = None
@@ -79,28 +69,15 @@ class GameView(arcade.View):
             clouds.append({'x': x, 'y': y, 'width': cloud_width, 'height': cloud_height, 'speed': speed})
         return clouds    
         
-        
     def draw_sky(self):
         arcade.draw_lrtb_rectangle_filled(0, self.display_width, self.display_height, self.display_height / 2, self.sky_color)
     
-    def draw_hills(self):
-        # The bottom of the hill image
+    def draw_trees(self):
         hill_bottom = 0
-        # The height of the hill image is a third of the display height, as per your original code
         hill_height = self.display_height /1.5
-
-        # Load the texture for the group of trees
         trees_texture = arcade.load_texture(str(ASSETS_PATH / "environment" / "group_of_trees.png"))
-
-        # Calculate the center_y position to place the image. This will be the bottom plus half the hill height
         center_y = hill_bottom + hill_height / 2
-
-        # Draw the texture rectangle with the full width of the display and the calculated height
-        arcade.draw_texture_rectangle(center_x=self.display_width / 2, 
-                                    center_y=center_y, 
-                                    width=self.display_width, 
-                                    height=hill_height, 
-                                    texture=trees_texture)
+        arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=center_y, width=self.display_width, height=hill_height, texture=trees_texture)
         
     def draw_house(self):
         house_bottom = 0
@@ -118,17 +95,12 @@ class GameView(arcade.View):
         tree_height = 600
         tree_texture = arcade.load_texture(str(ASSETS_PATH / "environment" / "tree_0.png"))
         center_y = tree_bottom + tree_height / 2
-        arcade.draw_texture_rectangle(center_x=350, 
-                                    center_y=500, 
-                                    width=600, 
-                                    height=tree_height, 
-                                    texture=tree_texture)
+        arcade.draw_texture_rectangle(center_x=350, center_y=500, width=600, height=tree_height, texture=tree_texture)
 
 
     def draw_clouds(self):
         cloud_color = arcade.color.LIGHT_GRAY
         for cloud in self.clouds:
-            # Draw each cloud with 3 ellipses
             for _ in range(3):
                 offset_x = random.randrange(-cloud['width'] // 3, cloud['width'] // 3)
                 offset_y = random.randrange(-cloud['height'] // 3, cloud['height'] // 3)
@@ -136,7 +108,6 @@ class GameView(arcade.View):
 
     def update_clouds(self, delta_time):
         for cloud in self.clouds:
-            # Move the cloud to the right slowly
             cloud['x'] += cloud['speed']
             # If the cloud has moved past the right edge, wrap around to the left
             if cloud['x'] > self.display_width + cloud['width']:
@@ -211,12 +182,10 @@ class GameView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
-        #self.draw_sky()
-        self.draw_hills()
+        self.draw_trees()
         self.draw_house()
         self.draw_tree()
-        # self.draw_clouds()
-        # self.update_clouds(1/60)
+
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{SharedData.doge_price}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))

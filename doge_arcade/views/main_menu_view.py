@@ -4,7 +4,7 @@ Main Menu
 import arcade
 import arcade.gui
 
-from platformer.views import CharacterSelectView, SettingsView, View
+from views import CharacterSelectView, SettingsView, View
 
 
 class MainMenuView(View):
