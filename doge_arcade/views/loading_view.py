@@ -5,9 +5,8 @@ import arcade
 from arcade import View, color, key
 from settings.constants import ASSETS_PATH 
 from views.confirm_exit_view import ConfirmExitView
- 
               
-class LandingView(arcade.View):
+class LoadingView(arcade.View):
     def __init__(self):
         super().__init__()
         self.loading_bar_width = 0

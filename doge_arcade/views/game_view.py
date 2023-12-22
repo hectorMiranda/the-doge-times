@@ -158,8 +158,8 @@ class GameView(arcade.View):
         self.player_sprite.update_animation(delta_time)  
         
     def restart_game(self):
-        from .landing_view import LandingView
-        self.window.show_view(LandingView())
+        from .loading_view import LoadingView
+        self.window.show_view(LoadingView())
     
     def setup(self):
         self.player_list = arcade.SpriteList()
