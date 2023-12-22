@@ -40,7 +40,7 @@ class LoadingView(arcade.View):
         if self.loading_complete:  
             self.draw_rotating_cube()
             if self.text_visible:
-                message = arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.BLUE, font_size=20, font_name="Kenney Future", anchor_x="center")
+                message = arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
         elif not self.loading_complete:
             arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
             message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
@@ -68,14 +68,13 @@ class LoadingView(arcade.View):
             (1, 2, 6, 5)   # Right face
         ]
 
-        # Grayscale colors for each face
-        grayscale_colors = [
-            (50, 50, 50),  # Darker gray
-            (100, 100, 100),
-            (150, 150, 150),
-            (200, 200, 200),
-            (225, 225, 225),  # Lighter gray
-            (255, 255, 255)   # White
+        cube_colors = [
+            (50, 50, 100),  # Darker blue
+            (70, 70, 140),
+            (90, 90, 180),
+            (110, 110, 220),
+            (130, 130, 255),  # Lighter blue
+            (160, 160, 255)   # Soft blue
         ]
 
         # Apply rotation
@@ -85,7 +84,7 @@ class LoadingView(arcade.View):
             rotated_vertices.append((x, y, z))
 
         # Draw each face with a different grayscale color
-        for face, color in zip(faces, grayscale_colors):
+        for face, color in zip(faces, cube_colors):
             face_vertices = [rotated_vertices[index] for index in face]
             screen_face_vertices = [(vertex[0] + self.display_width // 2, vertex[1] + self.display_height // 2 - 100) for vertex in face_vertices]
             arcade.draw_polygon_filled(screen_face_vertices, color)
