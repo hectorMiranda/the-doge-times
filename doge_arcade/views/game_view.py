@@ -206,6 +206,8 @@ class GameView(arcade.View):
         #     self.wall_list.append(wall)
         
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.wall_list, gravity_constant=GRAVITY)
+        
+        self.player_sprite.zoom_in() 
 
     def on_draw(self):
         arcade.start_render()
