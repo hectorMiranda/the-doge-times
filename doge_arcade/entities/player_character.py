@@ -11,6 +11,8 @@ class PlayerCharacter(arcade.Sprite):
         self.run_textures = []
         self.run_left_textures = []
         self.spawn_textures = []
+        self.jump_textures = []
+        self.jump_left_textures = []
         self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))        
 
         sprite_count = 0 
@@ -48,6 +50,26 @@ class PlayerCharacter(arcade.Sprite):
                 spawn_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerSpawn.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
                 self.spawn_textures.append(spawn_texture)
                 sprite_count += 1
+                
+                
+        sprite_count = 0 
+        for row in range(7): 
+            for col in range(7):  
+                if sprite_count >= SPRITE_RUN_FRAMES: 
+                    break
+                jump_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                self.jump_textures.append(jump_texture)
+                sprite_count += 1
+                
+                
+        sprite_count = 0 
+        for row in range(7): 
+            for col in range(7):  
+                if sprite_count >= SPRITE_RUN_FRAMES: 
+                    break
+                jump_left_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
+                self.jump_left_textures.append(jump_left_texture)
+                sprite_count += 1
                         
         self.character_face_direction = LEFT_FACING
         self.texture = self.idle_textures[0]
@@ -77,5 +99,14 @@ class PlayerCharacter(arcade.Sprite):
             if self.cur_texture >= 3 * len(self.run_textures):
                 self.cur_texture = 0
             self.texture = self.run_textures[self.cur_texture // 3]
+        
+        if self.change_y != 0 and self.change_x < 0: #jump left
+            if self.cur_texture >= 3 * len(self.jump_textures):
+                self.cur_texture = 0
+            self.texture = self.jump_left_textures[self.cur_texture // 3]
+        if self.change_y != 0 and self.change_x > 0: #jump
+            if self.cur_texture >= 3 * len(self.jump_textures):
+                self.cur_texture = 0
+            self.texture = self.jump_textures[self.cur_texture // 3]
 
 
