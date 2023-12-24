@@ -44,6 +44,7 @@ class GameView(View):
         self.player_sprite = None
         self.physics_engine = None
         self.scene = None
+        self.camera = None
         
     def toggle_music(self):
         if self.background_music_player is None:
@@ -133,7 +134,7 @@ class GameView(View):
         elif key == arcade.key.R:
             self.background_music_player.pause()
             self.restart_game()
-        elif key == arcade.key.S:
+        elif key == arcade.key.M:
             self.toggle_music()
             
         elif key == arcade.key.ESCAPE:
@@ -158,6 +159,8 @@ class GameView(View):
         self.window.show_view(LoadingView())
     
     def setup(self):
+        self.camera = arcade.Camera(self.display_width, self.display_height)
+
         self.scene = arcade.Scene()
         
         self.scene.add_sprite_list("Player")
@@ -182,31 +185,42 @@ class GameView(View):
 
     def on_draw(self):
         arcade.start_render()
-        
-        
-        
-        # self.draw_trees()
-        # self.draw_house()
-        # self.draw_tree()
-
+        self.camera.use()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{SharedData.doge_price}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
-        # self.player_sprite.draw()
-        # self.wall_list.draw()
-        # self.player_list.draw()        
-        
+     
         self.scene.draw()
         self.status_bar.on_draw()
+
+
         
         
     def on_update(self, delta_time):
         if self.physics_engine:
              self.physics_engine.update()
              self.player_sprite.update_animation(delta_time)
+        
+        self.center_camera_to_player()
+
             
     def on_mouse_press(self, x, y, button, modifiers):
         # Forward the mouse press event to the status bar
         print("-->", x, y)
         self.status_bar.on_mouse_press(x, y, button, modifiers)
+        
+    def center_camera_to_player(self):
+        screen_center_x = self.player_sprite.center_x - (self.camera.viewport_width / 2)
+        screen_center_y = self.player_sprite.center_y - (
+            self.camera.viewport_height / 2
+        )
+
+        # Don't let camera travel past 0
+        if screen_center_x < 0:
+            screen_center_x = 0
+        if screen_center_y < 0:
+            screen_center_y = 0
+        player_centered = screen_center_x, screen_center_y
+
+        self.camera.move_to(player_centered)
      
