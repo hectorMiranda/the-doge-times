@@ -122,12 +122,8 @@ class GameView(View):
                 self.jump_sound.play()
         elif key == arcade.key.LEFT:
             self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
-            self.player_sprite.scale_x = -1  # Flip sprite to face left
-
         elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
-            self.player_sprite.scale_x = 1   # Flip sprite to face right
-
         elif key == arcade.key.Z:
             self.player_sprite.zoom_in()
         elif key == arcade.key.X:
@@ -192,9 +188,9 @@ class GameView(View):
         # self.player_sprite.draw()
         # self.wall_list.draw()
         # self.player_list.draw()        
-        self.status_bar.on_draw()
         
         self.scene.draw()
+        self.status_bar.on_draw()
         
         
     def on_update(self, delta_time):

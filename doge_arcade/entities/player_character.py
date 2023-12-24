@@ -13,7 +13,8 @@ class PlayerCharacter(arcade.Sprite):
         self.spawn_textures = []
         self.jump_textures = []
         self.jump_left_textures = []
-        self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))        
+        self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))    
+        self.is_jumping = False    
 
         sprite_count = 0 
         for row in range(6):  
@@ -87,7 +88,8 @@ class PlayerCharacter(arcade.Sprite):
 
     def update_animation(self, delta_time: float = 1/60):
         self.cur_texture += 1
-        if self.change_x == 0: # Standing still
+        
+        if self.change_x == 0 and self.change_y == 0: # Standing still
             if self.cur_texture >= 3 * len(self.idle_textures):
                 self.cur_texture = 0
             self.texture = self.idle_textures[self.cur_texture // 3]
@@ -104,9 +106,13 @@ class PlayerCharacter(arcade.Sprite):
             if self.cur_texture >= 3 * len(self.jump_textures):
                 self.cur_texture = 0
             self.texture = self.jump_left_textures[self.cur_texture // 3]
+            self.is_jumping = True
         if self.change_y != 0 and self.change_x > 0: #jump
             if self.cur_texture >= 3 * len(self.jump_textures):
                 self.cur_texture = 0
-            self.texture = self.jump_textures[self.cur_texture // 3]
+            self.texture = self.jump_textures[self.cur_texture //3]
+            self.is_jumping = True
+
+
 
 
