@@ -1,5 +1,5 @@
 import arcade
-from settings.constants import ASSETS_PATH, LEFT_FACING, RIGHT_FACING, SPRITE_IDLE_FRAMES, SPRITE_RUN_FRAMES, SPRITE_SPAWN_FRAMES, SPRITE_SIZE_WIDTH, SPRITE_SIZE_HEIGHT
+from settings.constants import ASSETS_PATH, LEFT_FACING, RIGHT_FACING, SPRITE_CLIMB_FRAMES, SPRITE_IDLE_FRAMES, SPRITE_RUN_FRAMES, SPRITE_SPAWN_FRAMES, SPRITE_SIZE_WIDTH, SPRITE_SIZE_HEIGHT
 
     
 class PlayerCharacter(arcade.Sprite):
@@ -13,8 +13,8 @@ class PlayerCharacter(arcade.Sprite):
         self.spawn_textures = []
         self.jump_textures = []
         self.jump_left_textures = []
+        self.climb_textures = []
         self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))    
-        self.is_jumping = False    
 
         sprite_count = 0 
         for row in range(6):  
@@ -71,6 +71,15 @@ class PlayerCharacter(arcade.Sprite):
                 jump_left_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
                 self.jump_left_textures.append(jump_left_texture)
                 sprite_count += 1
+                
+        sprite_count = 0 
+        for row in range(7): 
+            for col in range(2):  
+                if sprite_count >= SPRITE_CLIMB_FRAMES: 
+                    break
+                climb_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerClimbing.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                self.climb_textures.append(climb_texture)
+                sprite_count += 1
                         
         self.character_face_direction = LEFT_FACING
         self.texture = self.idle_textures[0]
@@ -102,16 +111,18 @@ class PlayerCharacter(arcade.Sprite):
                 self.cur_texture = 0
             self.texture = self.run_textures[self.cur_texture // 3]
         
+        if self.change_y != 0: #jump
+            if self.cur_texture >= 3 * len(self.climb_textures):
+                self.cur_texture = 0
+            self.texture = self.climb_textures[self.cur_texture // 3]
         if self.change_y != 0 and self.change_x < 0: #jump left
             if self.cur_texture >= 3 * len(self.jump_textures):
                 self.cur_texture = 0
             self.texture = self.jump_left_textures[self.cur_texture // 3]
-            self.is_jumping = True
         if self.change_y != 0 and self.change_x > 0: #jump
             if self.cur_texture >= 3 * len(self.jump_textures):
                 self.cur_texture = 0
             self.texture = self.jump_textures[self.cur_texture //3]
-            self.is_jumping = True
 
 
 
