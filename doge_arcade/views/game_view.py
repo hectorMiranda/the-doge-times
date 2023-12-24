@@ -160,13 +160,9 @@ class GameView(View):
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite_list("Walls", use_spatial_hash=True)
         
-    
-
         self.player_sprite = PlayerCharacter()
         self.player_sprite.center_x = 500
         self.player_sprite.center_y = 500
-        
-        #self.scene["Player"].append(self.player_sprite)
         
         self.scene.add_sprite("Player", self.player_sprite)
         

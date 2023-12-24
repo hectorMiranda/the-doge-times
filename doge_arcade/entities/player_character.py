@@ -7,13 +7,13 @@ class PlayerCharacter(arcade.Sprite):
         super().__init__()
 
         self.facing_direction = LEFT_FACING
-        self.position = (400,400)
         self.idle_textures = []
         self.run_textures = []
+        self.run_left_textures = []
         self.spawn_textures = []
-        sprite_count = 0 
         self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))        
 
+        sprite_count = 0 
         for row in range(6):  
             for col in range(7):
                 if sprite_count >= SPRITE_IDLE_FRAMES: 
@@ -22,8 +22,7 @@ class PlayerCharacter(arcade.Sprite):
                 self.idle_textures.append(idle_texture)
                 sprite_count += 1
         
-        sprite_count = 0 
-        
+        sprite_count = 0      
         for row in range(5):  
             for col in range(6): 
                 if sprite_count >= SPRITE_RUN_FRAMES: 
@@ -31,8 +30,17 @@ class PlayerCharacter(arcade.Sprite):
                 run_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
                 self.run_textures.append(run_texture)
                 sprite_count += 1
-        sprite_count = 0 
         
+        sprite_count = 0         
+        for row in range(5):  
+            for col in range(6): 
+                if sprite_count >= SPRITE_RUN_FRAMES: 
+                    break
+                run_left_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
+                self.run_left_textures.append(run_left_texture)
+                sprite_count += 1
+        
+        sprite_count = 0 
         for row in range(4): 
             for col in range(5):  
                 if sprite_count >= SPRITE_SPAWN_FRAMES: 
@@ -50,28 +58,24 @@ class PlayerCharacter(arcade.Sprite):
     def zoom_in(self):
         self.scale *= 2
         self.grow_sound.play()
-        
 
     def zoom_out(self):
         self.scale *= 0.5
         self.grow_sound.play()
 
     def update_animation(self, delta_time: float = 1/60):
-        # Figure out if we need to flip face left or right
-        if self.change_x < 0 and self.facing_direction == RIGHT_FACING:
-            self.facing_direction = LEFT_FACING
-        elif self.change_x > 0 and self.facing_direction == LEFT_FACING:
-            self.facing_direction = RIGHT_FACING
+        self.cur_texture += 1
+        if self.change_x == 0: # Standing still
+            if self.cur_texture >= 3 * len(self.idle_textures):
+                self.cur_texture = 0
+            self.texture = self.idle_textures[self.cur_texture // 3]
+        elif self.change_x < 0: #left
+            if self.cur_texture >= 3 * len(self.run_left_textures):
+                self.cur_texture = 0
+            self.texture = self.run_left_textures[self.cur_texture // 3]
+        elif self.change_x > 0: #right
+            if self.cur_texture >= 3 * len(self.run_textures):
+                self.cur_texture = 0
+            self.texture = self.run_textures[self.cur_texture // 3]
 
-        # Figure out if we're standing still, and set our texture appropriately
-        if self.change_x == 0:
-            self.cur_texture += 1
-            if self.cur_texture > 3 * len(self.idle_textures):
-                self.cur_texture = 0
-            self.texture = self.idle_textures[(self.cur_texture // 3)-1]
-        else:
-            # We're moving
-            self.cur_texture += 1
-            if self.cur_texture > 3 * len(self.run_textures):
-                self.cur_texture = 0
-            self.texture = self.run_textures[(self.cur_texture // 3)-1]
+
