@@ -116,13 +116,15 @@ class GameView(View):
 
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.UP or key == arcade.key.W:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = PLAYER_JUMP_SPEED
                 self.jump_sound.play()
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.DOWN or key == arcade.key.S:
+            self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
+        elif key == arcade.key.LEFT or key == arcade.key.A:
             self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.Z:
             self.player_sprite.zoom_in()
@@ -139,12 +141,17 @@ class GameView(View):
             self.show_view(pause_view)
 
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.LEFT or key == arcade.key.RIGHT:
+        if key == arcade.key.UP or key == arcade.key.W:
+            self.player_sprite.change_y = 0
+        elif key == arcade.key.DOWN or key == arcade.key.S:
+            self.player_sprite.change_y = 0
+        elif key == arcade.key.LEFT or key == arcade.key.A:
+            self.player_sprite.change_x = 0
+        elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = 0
 
-    def on_update(self, delta_time):
-        self.player_sprite.update()
-        self.player_sprite.update_animation(delta_time)  
+    def on_update(self, delta_time): 
+        self.physics_engine.update()
         
     def restart_game(self):
         from .loading_view import LoadingView
@@ -168,7 +175,7 @@ class GameView(View):
             wall.center_y = 0
             self.scene.add_sprite("Walls", wall)
         
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.scene["Player"][0], self.scene["Walls"], gravity_constant=GRAVITY)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.scene["Walls"], gravity_constant=GRAVITY)
 
         
         self.player_sprite.zoom_in() 
