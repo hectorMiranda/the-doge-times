@@ -1,5 +1,5 @@
 import arcade
-from settings.constants import ASSETS_PATH, LEFT_FACING, RIGHT_FACING, SPRITE_CLIMB_FRAMES, SPRITE_IDLE_FRAMES, SPRITE_RUN_FRAMES, SPRITE_SPAWN_FRAMES, SPRITE_SIZE_WIDTH, SPRITE_SIZE_HEIGHT
+from settings.constants import ASSETS_PATH, LEFT_FACING, RIGHT_FACING, SPRITE_DEATH_FRAMES,SPRITE_CLIMB_FRAMES, SPRITE_IDLE_FRAMES, SPRITE_RUN_FRAMES, SPRITE_SPAWN_FRAMES, SPRITE_SIZE_WIDTH, SPRITE_SIZE_HEIGHT
 
     
 class PlayerCharacter(arcade.Sprite):
@@ -14,7 +14,9 @@ class PlayerCharacter(arcade.Sprite):
         self.jump_textures = []
         self.jump_left_textures = []
         self.climb_textures = []
+        self.death_textures = []
         self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))    
+        self.isAlive = True
 
         sprite_count = 0 
         for row in range(6):  
@@ -73,12 +75,21 @@ class PlayerCharacter(arcade.Sprite):
                 sprite_count += 1
                 
         sprite_count = 0 
-        for row in range(7): 
-            for col in range(2):  
+        for row in range(2): 
+            for col in range(7):  
                 if sprite_count >= SPRITE_CLIMB_FRAMES: 
                     break
                 climb_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerClimbing.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
                 self.climb_textures.append(climb_texture)
+                sprite_count += 1
+                
+        sprite_count = 0 
+        for row in range(3): 
+            for col in range(5):  
+                if sprite_count >= SPRITE_DEATH_FRAMES: 
+                    break
+                death_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerDeath.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                self.death_textures.append(death_texture)
                 sprite_count += 1
                         
         self.character_face_direction = LEFT_FACING
@@ -123,6 +134,11 @@ class PlayerCharacter(arcade.Sprite):
             if self.cur_texture >= 3 * len(self.jump_textures):
                 self.cur_texture = 0
             self.texture = self.jump_textures[self.cur_texture //3]
+            
+        if self.isAlive == False:
+            if self.cur_texture >= 3 * len(self.death_textures):
+                self.cur_texture = 0
+            self.texture = self.death_textures[self.cur_texture // 3]
 
 
 

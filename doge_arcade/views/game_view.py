@@ -136,7 +136,8 @@ class GameView(View):
             self.restart_game()
         elif key == arcade.key.M:
             self.toggle_music()
-            
+        elif key == arcade.key.T:
+            self.player_sprite.isAlive = False            
         elif key == arcade.key.ESCAPE:
             pause_view = ConfirmExitView(self.window.current_view)
             self.show_view(pause_view)
