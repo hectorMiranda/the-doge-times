@@ -6,7 +6,7 @@ from doge_data_hub.shared_data import SharedData
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
-class GameView(arcade.View):
+class GameView(View):
     def __init__(self):
         super().__init__()
         self.score = 0
@@ -39,10 +39,11 @@ class GameView(arcade.View):
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
-        self.player_list = None
-        self.wall_list = None
+        # self.player_list = None
+        # self.wall_list = None
         self.player_sprite = None
         self.physics_engine = None
+        self.scene = None
         
     def toggle_music(self):
         if self.background_music_player is None:
@@ -154,51 +155,56 @@ class GameView(arcade.View):
         self.window.show_view(LoadingView())
     
     def setup(self):
-        self.player_list = arcade.SpriteList()
-        self.wall_list = arcade.SpriteList(use_spatial_hash=True)
+        self.scene = arcade.Scene()
+        
+        self.scene.add_sprite_list("Player")
+        self.scene.add_sprite_list("Walls", use_spatial_hash=True)
+        
+    
 
         self.player_sprite = PlayerCharacter()
-        self.player_sprite.center_x = 128
-        self.player_sprite.center_y = 126
-        self.player_list.append(self.player_sprite)
+        self.player_sprite.center_x = 500
+        self.player_sprite.center_y = 500
+        
+        #self.scene["Player"].append(self.player_sprite)
+        
+        self.scene.add_sprite("Player", self.player_sprite)
         
         for x in range(0, self.display_width, 128):
             wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "grass_3.png"), .2)
             wall.center_x = x
             wall.center_y = 0
-            self.wall_list.append(wall)
-
-        # coordinate_list = [[800, 70], [880, 70], [960, 70], [1040, 70]]
-
-        # for coordinate in coordinate_list:
-        #     wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "bushes_0.png"), .1)
-        #     wall.position = coordinate
-            
-        #     self.wall_list.append(wall)
+            self.scene.add_sprite("Walls", wall)
         
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.wall_list, gravity_constant=GRAVITY)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.scene["Player"][0], self.scene["Walls"], gravity_constant=GRAVITY)
+
         
         self.player_sprite.zoom_in() 
 
     def on_draw(self):
         arcade.start_render()
-        self.draw_trees()
-        self.draw_house()
-        self.draw_tree()
+        
+        
+        
+        # self.draw_trees()
+        # self.draw_house()
+        # self.draw_tree()
 
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{SharedData.doge_price}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
-        self.player_sprite.draw()
-        self.wall_list.draw()
-        self.player_list.draw()        
+        # self.player_sprite.draw()
+        # self.wall_list.draw()
+        # self.player_list.draw()        
         self.status_bar.on_draw()
+        
+        self.scene.draw()
         
         
     def on_update(self, delta_time):
         if self.physics_engine:
-            self.physics_engine.update()
-            self.player_sprite.update_animation(delta_time)
+             self.physics_engine.update()
+             self.player_sprite.update_animation(delta_time)
             
     def on_mouse_press(self, x, y, button, modifiers):
         # Forward the mouse press event to the status bar

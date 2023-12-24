@@ -135,7 +135,7 @@ class LoadingView(arcade.View):
             modal_view = ConfirmExitView(self)  
             self.window.show_view(modal_view)
         elif self.loading_complete:
-            from .game_view import GameView
+            from views.game_view import GameView
             game = GameView()
             game.setup()
             self.window.show_view(game)
