@@ -1,8 +1,8 @@
 import arcade
 from arcade import View, color, key, SpriteList, PhysicsEnginePlatformer
 import random
-from settings.constants import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED
-from doge_data_hub.shared_data import SharedData  
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED
+from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
@@ -28,7 +28,7 @@ class GameView(View):
         self.status_bar.add_stat_box("Settings", str(ASSETS_PATH / "UI" / "settings.png"))
         self.status_bar.add_stat_box("Lives: NA", str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_stat_box("Coins: NA", str(ASSETS_PATH / "UI" / "coin.png"))
-        self.status_bar.add_menu_option(0, f"Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
+        self.status_bar.add_menu_option(0, f"Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         #self.status_bar.add_menu_option(0, "Setup wallet", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png")) #TODO: fix 3rd item position bug
         self.background_music = arcade.load_sound(str(ASSETS_PATH / "sounds" / "main_theme.wav"))
@@ -188,8 +188,8 @@ class GameView(View):
         arcade.start_render()
         self.camera.use()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
-        self.status_bar.update_stat_box(0,f"{SharedData.doge_price}")
-        self.status_bar.update_menu_item(0,0,f"Doge Price: {SharedData.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
+        self.status_bar.update_stat_box(0,f"{DogeDataHub.doge_price}")
+        self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
      
         self.scene.draw()
         self.status_bar.on_draw()

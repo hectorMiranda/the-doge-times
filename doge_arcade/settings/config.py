@@ -36,3 +36,4 @@ DOGE_DATA_HUB_CALLING_INTERVAL=5
 TRANSLUCENT_BACKGROUND_COLOR = (0, 0, 0, 128)
 
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent.parent / "assets"            
+DOGE_DATA_SERVICE_URL = "http://localhost:5000/currentPrice"

@@ -1,6 +1,6 @@
 import arcade
-from settings.constants import DOGE_DATA_HUB_CALLING_INTERVAL, SCREEN_TITLE
-from doge_data_hub.shared_data import SharedData
+from settings.config import DOGE_DATA_HUB_CALLING_INTERVAL, SCREEN_TITLE
+from utilities.doge_data_hub_client import DogeDataHub
 from views.loading_view import LoadingView
 
 def main() -> None:
@@ -8,7 +8,7 @@ def main() -> None:
     window = arcade.Window(display_width, display_height, SCREEN_TITLE, resizable=True)
     start_view = LoadingView()
     window.show_view(start_view)
-    arcade.schedule(SharedData.get_doge_price, DOGE_DATA_HUB_CALLING_INTERVAL) 
+    arcade.schedule(DogeDataHub.get_doge_price, DOGE_DATA_HUB_CALLING_INTERVAL) 
     arcade.run()
 
 if __name__ == "__main__":

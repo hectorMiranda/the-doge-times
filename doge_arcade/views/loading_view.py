@@ -3,7 +3,7 @@ import math
 import random
 import arcade
 from arcade import View, color, key
-from settings.constants import ASSETS_PATH 
+from settings.config import ASSETS_PATH 
 from views.confirm_exit_view import ConfirmExitView
               
 class LoadingView(arcade.View):
