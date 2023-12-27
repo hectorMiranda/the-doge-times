@@ -1,7 +1,7 @@
 import arcade
 from arcade import View, color, key, SpriteList, PhysicsEnginePlatformer
 import random
-from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, MUSIC_ON, MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
@@ -48,10 +48,8 @@ class GameView(View):
         
     def toggle_music(self):
         if self.background_music_player is None:
-            # If music is not playing, start playing and store the player object
-            self.background_music_player = self.background_music.play(volume=0.3, loop=True)
+            self.background_music_player = self.background_music.play(volume=MUSIC_VOLUME, loop=True)
         else:
-            # If music is playing, toggle between pause and resume
             if self.background_music_player.playing:
                 self.background_music_player.pause()
             else:
