@@ -5,11 +5,12 @@ class SpriteManager:
     A utility class for managing sprites in the arcade library.
     """
 
-    def __init__(self):
+    def __init__(self, window_width, window_height):
         """
         Initialize the SpriteManager.
         """
-        pass
+        self.window_width = window_width
+        self.window_height = window_height
 
     @staticmethod
     def load_texture_pair(filename):
@@ -23,6 +24,19 @@ class SpriteManager:
             arcade.load_texture(filename),
             arcade.load_texture(filename, flipped_horizontally=True),
         ]
+        
+    def load_and_center_sprite(self, filename):
+        """
+        Load an image and center it in the middle of the screen.
+
+        :param filename: The path to the image file.
+        :return: An arcade.Sprite object centered on the screen.
+        """
+        sprite = arcade.Sprite(filename)
+        sprite.center_x = self.window_width - sprite.width / 2
+        sprite.center_y = self.window_height - sprite.height / 2
+        return sprite
+
 
     @staticmethod
     def center_sprite(sprite):

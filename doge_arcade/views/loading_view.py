@@ -2,9 +2,9 @@ import time
 import math
 import random
 import arcade
-from arcade import View, color, key
-from settings.config import ASSETS_PATH 
 from views.confirm_exit_view import ConfirmExitView
+from utilities.sprite_manager import SpriteManager
+from settings.config import ASSETS_PATH
               
 class LoadingView(arcade.View):
     def __init__(self):
@@ -22,7 +22,10 @@ class LoadingView(arcade.View):
         self.rotation_speed_x = random.uniform(-0.02, 0.02)
         self.rotation_speed_y = random.uniform(-0.02, 0.02)
         self.rotation_speed_z = random.uniform(-0.02, 0.02)
-
+        self.sprite_manager = SpriteManager(self.display_height, self.display_width)
+        self.doge_box_sprite = self.sprite_manager.load_and_center_sprite(filename="../assets/UI/doge_box.png")
+        #self.sprite_manager.scale_sprite(self.doge_box_sprite, 0.5)
+        #self.sprite_manager.center_sprite(self.doge_box_sprite)
         
     def on_show(self):
         arcade.set_background_color(arcade.color.BLACK)
@@ -35,8 +38,8 @@ class LoadingView(arcade.View):
         
         progress_bar_x = self.display_width / 2
         progress_bar_y = self.display_height / 3
-        # arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_mining.png")))
-       
+        arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_box.png")))
+
         if self.loading_complete:  
             self.draw_rotating_cube()
             if self.text_visible:
@@ -44,6 +47,10 @@ class LoadingView(arcade.View):
         elif not self.loading_complete:
             arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
             message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+            
+        #if self.doge_box_sprite:
+        #self.doge_box_sprite.draw()
+
     def draw_rotating_cube(self):
         # Cube vertices
         size = 50
