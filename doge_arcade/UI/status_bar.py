@@ -102,7 +102,7 @@ class StatusBar:
         print ("_get_stat_box_position", x, y, self.box_width, self.box_height)
         return (x, y, self.box_width, self.box_height)
 
-    def on_draw(self):
+    def draw(self):
         for stat_box in self.stat_boxes:
             # Draw the box
             arcade.draw_rectangle_filled(center_x=stat_box['x'], center_y=stat_box['y'],

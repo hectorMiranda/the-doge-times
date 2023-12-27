@@ -1,7 +1,7 @@
 import arcade
-from arcade import View, color, key, SpriteList, PhysicsEnginePlatformer
+from arcade import View
 import random
-from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, MUSIC_ON, MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
@@ -39,16 +39,16 @@ class GameView(View):
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
-        # self.player_list = None
-        # self.wall_list = None
+
         self.player_sprite = None
         self.physics_engine = None
         self.scene = None
         self.camera = None
+        self.gui_camera = None
         
     def toggle_music(self):
         if self.background_music_player is None:
-            self.background_music_player = self.background_music.play(volume=MUSIC_VOLUME, loop=True)
+            self.background_music_player = self.background_music.play(volume=INITIAL_MUSIC_VOLUME, loop=True)
         else:
             if self.background_music_player.playing:
                 self.background_music_player.pause()
@@ -159,7 +159,7 @@ class GameView(View):
     
     def setup(self):
         self.camera = arcade.Camera(self.display_width, self.display_height)
-
+        self.gui_camera = arcade.Camera(self.display_width, self.display_height)
         self.scene = arcade.Scene()
         
         self.scene.add_sprite_list("Player")
@@ -200,7 +200,10 @@ class GameView(View):
         self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
      
         self.scene.draw()
-        self.status_bar.on_draw()
+        
+        self.gui_camera.use()
+
+        self.status_bar.draw()
 
 
         
@@ -223,6 +226,7 @@ class GameView(View):
             coin.remove_from_sprite_lists()
             # Play a sound
             arcade.play_sound(self.collect_coin_sound)
+            self.score += 1
 
             
     def on_mouse_press(self, x, y, button, modifiers):
