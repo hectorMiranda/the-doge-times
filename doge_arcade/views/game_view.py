@@ -1,7 +1,7 @@
 import arcade
 from arcade import View, color, key, SpriteList, PhysicsEnginePlatformer
 import random
-from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
@@ -173,6 +173,17 @@ class GameView(View):
         
         self.scene.add_sprite("Player", self.player_sprite)
         
+        for x in range(128, 1250, 256):
+            coin = arcade.Sprite(":resources:images/items/coinGold.png", COIN_SCALING)
+            coin.center_x = x
+            coin.center_y = 96
+            self.scene.add_sprite("Coins", coin)
+        
+                # Load sounds
+        self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
+        self.jump_sound = arcade.load_sound(":resources:sounds/jump1.wav")
+        
+        
         for x in range(0, self.display_width, 128):
             wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "grass_3.png"), .2)
             wall.center_x = x
@@ -203,6 +214,18 @@ class GameView(View):
              self.player_sprite.update_animation(delta_time)
         
         self.center_camera_to_player()
+        
+        # See if we hit any coins
+        coin_hit_list = arcade.check_for_collision_with_list(
+            self.player_sprite, self.scene["Coins"]
+        )
+
+        # Loop through each coin we hit (if any) and remove it
+        for coin in coin_hit_list:
+            # Remove the coin
+            coin.remove_from_sprite_lists()
+            # Play a sound
+            arcade.play_sound(self.collect_coin_sound)
 
             
     def on_mouse_press(self, x, y, button, modifiers):
