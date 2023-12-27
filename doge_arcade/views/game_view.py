@@ -181,7 +181,6 @@ class GameView(View):
         
                 # Load sounds
         self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
-        self.jump_sound = arcade.load_sound(":resources:sounds/jump1.wav")
         
         
         for x in range(0, self.display_width, 128):
