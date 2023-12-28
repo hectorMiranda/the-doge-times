@@ -1,7 +1,7 @@
 import arcade
 from arcade import View
 import random
-from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME, LAYER_NAME_PLATFORMS, LAYER_NAME_COINS, LAYER_NAME_DONT_TOUCH, GRID_PIXEL_SIZE, LAYER_NAME_FOREGROUND, PLAYER_START_X, PLAYER_START_Y
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME, LAYER_NAME_PLATFORMS, LAYER_NAME_COINS, LAYER_NAME_DONT_TOUCH, GRID_PIXEL_SIZE, LAYER_NAME_FOREGROUND, LAYER_NAME_LADDERS, PLAYER_START_X, PLAYER_START_Y, LAYER_NAME_MOVING_PLATFORMS
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
@@ -43,13 +43,11 @@ class GameView(View):
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
         self.game_over = arcade.load_sound(":resources:sounds/gameover1.wav")
         self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
-
         self.player_sprite = None
         self.physics_engine = None
         self.scene = None
         self.camera = None
         self.gui_camera = None
-        
         self.tile_map = None
 
 
@@ -59,10 +57,7 @@ class GameView(View):
         
         if self.level <=2:
             map_name = f":resources:tiled_maps/map2_level_{self.level}.json"
-        else:
-            map_name = f":resources:tiled_maps/map2_level_1.json"
-
-        layer_options = {
+            layer_options = {
             LAYER_NAME_PLATFORMS: {
                 "use_spatial_hash": True,
             },
@@ -72,7 +67,24 @@ class GameView(View):
             LAYER_NAME_DONT_TOUCH: {
                 "use_spatial_hash": True,
             },
-        }
+            }
+        else:
+            map_name = ":resources:tiled_maps/map_with_ladders.json"
+            layer_options = {
+                LAYER_NAME_PLATFORMS: {
+                    "use_spatial_hash": True,
+                },
+                LAYER_NAME_MOVING_PLATFORMS: {
+                    "use_spatial_hash": False,
+                },
+                LAYER_NAME_LADDERS: {
+                    "use_spatial_hash": True,
+                },
+                LAYER_NAME_COINS: {
+                    "use_spatial_hash": True,
+                },
+            }
+        
 
         self.tile_map = arcade.load_tilemap(map_name, TILE_SCALING, layer_options)
 
@@ -85,8 +97,8 @@ class GameView(View):
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
         
-        
-        self.scene.add_sprite_list_after("Player", LAYER_NAME_FOREGROUND)
+        if self.level <=2:
+            self.scene.add_sprite_list_after("Player", LAYER_NAME_FOREGROUND)
 
 
         self.scene.add_sprite("Player", self.player_sprite)
@@ -95,20 +107,23 @@ class GameView(View):
         if self.tile_map.background_color:
             arcade.set_background_color(self.tile_map.background_color)
         
-        
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.scene[LAYER_NAME_PLATFORMS], gravity_constant=GRAVITY)
-
-        
-        #self.player_sprite.zoom_in() 
-        
+        if self.level <=2:
+            self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.scene[LAYER_NAME_PLATFORMS], gravity_constant=GRAVITY)
+        else:
+            self.physics_engine = arcade.PhysicsEnginePlatformer(
+            self.player_sprite,
+            platforms=self.scene[LAYER_NAME_MOVING_PLATFORMS],
+            gravity_constant=GRAVITY,
+            ladders=self.scene[LAYER_NAME_LADDERS],
+            walls=self.scene[LAYER_NAME_PLATFORMS]
+        )
+                    
         if self.reset_score:
             self.score = 0
         self.reset_score = True
         
         self.end_of_map = self.tile_map.width * GRID_PIXEL_SIZE
         self.player_sprite.isAlive=True
-
-  
 
         
     def toggle_music(self):
@@ -189,10 +204,10 @@ class GameView(View):
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
             self.player_sprite.isAlive = True
-        elif key == arcade.key.Z:
-            self.player_sprite.zoom_in()
-        elif key == arcade.key.X:
-            self.player_sprite.zoom_out()
+        # elif key == arcade.key.Z:
+        #     self.player_sprite.zoom_in()
+        # elif key == arcade.key.X:
+        #     self.player_sprite.zoom_out()
         elif key == arcade.key.R:
             self.background_music_player.pause()
             self.restart_game()
@@ -220,8 +235,6 @@ class GameView(View):
     def restart_game(self):
         from .loading_view import LoadingView
         self.window.show_view(LoadingView())
-    
-        
 
     def on_draw(self):
         arcade.start_render()
@@ -231,15 +244,10 @@ class GameView(View):
         self.status_bar.update_stat_box(1,f"Level {self.level}")
         self.status_bar.update_stat_box(3,f"{self.score}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
-     
         self.scene.draw()
-        
         self.gui_camera.use()
-
         self.status_bar.draw()
 
-
-        
         
     def on_update(self, delta_time):
         if self.physics_engine:
@@ -270,14 +278,15 @@ class GameView(View):
             self.player_sprite.isAlive = False
 
         # Did the player touch something they should not?
-        if arcade.check_for_collision_with_list(self.player_sprite, self.scene[LAYER_NAME_DONT_TOUCH]):
-            self.player_sprite.change_x = 0
-            self.player_sprite.change_y = 0
-            self.player_sprite.center_x = PLAYER_START_X
-            self.player_sprite.center_y = PLAYER_START_Y
+        if self.level <=2:
+            if arcade.check_for_collision_with_list(self.player_sprite, self.scene[LAYER_NAME_DONT_TOUCH]):
+                self.player_sprite.change_x = 0
+                self.player_sprite.change_y = 0
+                self.player_sprite.center_x = PLAYER_START_X
+                self.player_sprite.center_y = PLAYER_START_Y
 
-            arcade.play_sound(self.game_over)
-            self.player_sprite.isAlive = False
+                arcade.play_sound(self.game_over)
+                self.player_sprite.isAlive = False
 
         # See if the user got to the end of the level
         if self.player_sprite.center_x >= self.end_of_map:

@@ -52,7 +52,9 @@ PLAYER_START_Y = 225
 
 # Layer Names from the included python arcade 2.6.17 resource TileMap 
 LAYER_NAME_PLATFORMS = "Platforms"
+LAYER_NAME_MOVING_PLATFORMS = "Moving Platforms"
 LAYER_NAME_COINS = "Coins"
 LAYER_NAME_FOREGROUND = "Foreground"
 LAYER_NAME_BACKGROUND = "Background"
 LAYER_NAME_DONT_TOUCH = "Don't Touch"
+LAYER_NAME_LADDERS = "Ladders"
