@@ -56,7 +56,7 @@ class GameView(View):
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
         
         if self.level <=2:
-            map_name = f":resources:tiled_maps/map2_level_{self.level}.json"
+            map_name = f"{ASSETS_PATH}/maps/map2_level_{self.level}.json"
             layer_options = {
             LAYER_NAME_PLATFORMS: {
                 "use_spatial_hash": True,
@@ -69,7 +69,7 @@ class GameView(View):
             },
             }
         else:
-            map_name = ":resources:tiled_maps/map_with_ladders.json"
+            map_name = f"{ASSETS_PATH}/maps/map_with_ladders.json"
             layer_options = {
                 LAYER_NAME_PLATFORMS: {
                     "use_spatial_hash": True,
