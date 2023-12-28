@@ -55,36 +55,25 @@ class GameView(View):
         self.camera = arcade.Camera(self.display_width, self.display_height)
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
         
-        if self.level <=2:
-            map_name = f"{ASSETS_PATH}/maps/map2_level_{self.level}.json"
-            layer_options = {
-            LAYER_NAME_PLATFORMS: {
+        map_name = f"{ASSETS_PATH}/maps/map_level_{self.level}.json"
+        layer_options = {
+        LAYER_NAME_PLATFORMS: {
+            "use_spatial_hash": True,
+        },
+        LAYER_NAME_MOVING_PLATFORMS: {
+                "use_spatial_hash": False,
+        },
+        LAYER_NAME_LADDERS: {
                 "use_spatial_hash": True,
-            },
-            LAYER_NAME_COINS: {
-                "use_spatial_hash": True,
-            },
-            LAYER_NAME_DONT_TOUCH: {
-                "use_spatial_hash": True,
-            },
-            }
-        else:
-            map_name = f"{ASSETS_PATH}/maps/map_with_ladders.json"
-            layer_options = {
-                LAYER_NAME_PLATFORMS: {
-                    "use_spatial_hash": True,
-                },
-                LAYER_NAME_MOVING_PLATFORMS: {
-                    "use_spatial_hash": False,
-                },
-                LAYER_NAME_LADDERS: {
-                    "use_spatial_hash": True,
-                },
-                LAYER_NAME_COINS: {
-                    "use_spatial_hash": True,
-                },
-            }
-        
+        },
+        LAYER_NAME_COINS: {
+            "use_spatial_hash": True,
+        },
+        LAYER_NAME_DONT_TOUCH: {
+            "use_spatial_hash": True,
+        }
+        }
+       
 
         self.tile_map = arcade.load_tilemap(map_name, TILE_SCALING, layer_options)
 
