@@ -1,8 +1,7 @@
 import arcade
 import arcade.gui
 from settings.config import STATUS_BAR_ITEM_BOX_WIDTH, STATUS_BAR_ITEM_BOX_HEIGHT, STATUS_BAR_MENU_ITEM_WIDTH, STATUS_BAR_MENU_ITEM_HEIGHT, TRANSLUCENT_BACKGROUND_COLOR   
-import math
-import time
+
 
 class StatusBar:
     def __init__(self, screen_width, bar_height=50):

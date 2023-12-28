@@ -197,6 +197,7 @@ class GameView(View):
         self.camera.use()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{DogeDataHub.doge_price}")
+        self.status_bar.update_stat_box(3,f"{self.score}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
      
         self.scene.draw()
