@@ -22,8 +22,8 @@ class LoadingView(arcade.View):
         self.rotation_speed_x = random.uniform(-0.02, 0.02)
         self.rotation_speed_y = random.uniform(-0.02, 0.02)
         self.rotation_speed_z = random.uniform(-0.02, 0.02)
-        self.sprite_manager = SpriteManager(self.display_height, self.display_width)
-        self.doge_box_sprite = self.sprite_manager.load_and_center_sprite(filename="../assets/UI/doge_box.png")
+        #self.sprite_manager = SpriteManager(self.display_height, self.display_width)
+        #self.doge_box_sprite = self.sprite_manager.load_and_center_sprite(filename="../assets/UI/doge_box.png")
         #self.sprite_manager.scale_sprite(self.doge_box_sprite, 0.5)
         #self.sprite_manager.center_sprite(self.doge_box_sprite)
         
@@ -38,7 +38,7 @@ class LoadingView(arcade.View):
         
         progress_bar_x = self.display_width / 2
         progress_bar_y = self.display_height / 3
-        arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_box.png")))
+        #arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_box.png")))
 
         if self.loading_complete:  
             self.draw_rotating_cube()

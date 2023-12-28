@@ -1,7 +1,7 @@
 import arcade
 from arcade import View
 import random
-from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, SPRITE_SCALING_BOX, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME, LAYER_NAME_PLATFORMS, LAYER_NAME_COINS, LAYER_NAME_DONT_TOUCH, GRID_PIXEL_SIZE, LAYER_NAME_FOREGROUND, PLAYER_START_X, PLAYER_START_Y
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
@@ -17,6 +17,8 @@ class GameView(View):
         self.ladders = None
         self.goals = None
         self.enemies = None
+        self.reset_score = True
+        self.end_of_map = 0
         self.level = 1
         self.display_width, self.display_height = arcade.get_display_size()
         self.sky_color = arcade.color.SKY_BLUE
@@ -39,12 +41,72 @@ class GameView(View):
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
+        self.game_over = arcade.load_sound(":resources:sounds/gameover1.wav")
+        self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
 
         self.player_sprite = None
         self.physics_engine = None
         self.scene = None
         self.camera = None
         self.gui_camera = None
+        
+        self.tile_map = None
+
+
+    def setup(self):
+        self.camera = arcade.Camera(self.display_width, self.display_height)
+        self.gui_camera = arcade.Camera(self.display_width, self.display_height)
+        
+        map_name = f":resources:tiled_maps/map2_level_{self.level}.json"
+
+        layer_options = {
+            LAYER_NAME_PLATFORMS: {
+                "use_spatial_hash": True,
+            },
+            LAYER_NAME_COINS: {
+                "use_spatial_hash": True,
+            },
+            LAYER_NAME_DONT_TOUCH: {
+                "use_spatial_hash": True,
+            },
+        }
+
+        self.tile_map = arcade.load_tilemap(map_name, TILE_SCALING, layer_options)
+
+        if self.tile_map.background_color:
+            arcade.set_background_color(self.tile_map.background_color)
+
+        self.scene = arcade.Scene.from_tilemap(self.tile_map)
+        
+        self.player_sprite = PlayerCharacter()
+        self.player_sprite.center_x = PLAYER_START_X
+        self.player_sprite.center_y = PLAYER_START_Y
+        
+        
+        self.scene.add_sprite_list_after("Player", LAYER_NAME_FOREGROUND)
+
+
+        self.scene.add_sprite("Player", self.player_sprite)
+        
+        
+        if self.tile_map.background_color:
+            arcade.set_background_color(self.tile_map.background_color)
+        
+        
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.scene[LAYER_NAME_PLATFORMS], gravity_constant=GRAVITY)
+
+        
+        #self.player_sprite.zoom_in() 
+        
+        if self.reset_score:
+            self.score = 0
+        self.reset_score = True
+        
+        self.end_of_map = self.tile_map.width * GRID_PIXEL_SIZE
+        self.player_sprite.isAlive=True
+
+  
+
         
     def toggle_music(self):
         if self.background_music_player is None:
@@ -55,8 +117,6 @@ class GameView(View):
             else:
                 self.background_music_player.play()
       
-    def on_show(self):  
-        arcade.set_background_color(arcade.color.CORNFLOWER_BLUE)
         
     def create_clouds(self, num_clouds=5):
         clouds = []
@@ -125,6 +185,7 @@ class GameView(View):
             self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+            self.player_sprite.isAlive = True
         elif key == arcade.key.Z:
             self.player_sprite.zoom_in()
         elif key == arcade.key.X:
@@ -157,46 +218,14 @@ class GameView(View):
         from .loading_view import LoadingView
         self.window.show_view(LoadingView())
     
-    def setup(self):
-        self.camera = arcade.Camera(self.display_width, self.display_height)
-        self.gui_camera = arcade.Camera(self.display_width, self.display_height)
-        self.scene = arcade.Scene()
         
-        self.scene.add_sprite_list("Player")
-        self.scene.add_sprite_list("Walls", use_spatial_hash=True)
-        
-        self.player_sprite = PlayerCharacter()
-        self.player_sprite.center_x = 500
-        self.player_sprite.center_y = 500
-        
-        self.scene.add_sprite("Player", self.player_sprite)
-        
-        for x in range(128, 1250, 256):
-            coin = arcade.Sprite(":resources:images/items/coinGold.png", COIN_SCALING)
-            coin.center_x = x
-            coin.center_y = 96
-            self.scene.add_sprite("Coins", coin)
-        
-                # Load sounds
-        self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
-        
-        
-        for x in range(0, self.display_width, 128):
-            wall = arcade.Sprite(str(ASSETS_PATH / "environment" / "grass_3.png"), .2)
-            wall.center_x = x
-            wall.center_y = 0
-            self.scene.add_sprite("Walls", wall)
-        
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.scene["Walls"], gravity_constant=GRAVITY)
-
-        
-        self.player_sprite.zoom_in() 
 
     def on_draw(self):
         arcade.start_render()
         self.camera.use()
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{DogeDataHub.doge_price}")
+        self.status_bar.update_stat_box(1,f"Level {self.level}")
         self.status_bar.update_stat_box(3,f"{self.score}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
      
@@ -213,12 +242,9 @@ class GameView(View):
         if self.physics_engine:
              self.physics_engine.update()
              self.player_sprite.update_animation(delta_time)
-        
-        self.center_camera_to_player()
-        
-        # See if we hit any coins
+             
         coin_hit_list = arcade.check_for_collision_with_list(
-            self.player_sprite, self.scene["Coins"]
+            self.player_sprite, self.scene[LAYER_NAME_COINS]
         )
 
         # Loop through each coin we hit (if any) and remove it
@@ -227,7 +253,39 @@ class GameView(View):
             coin.remove_from_sprite_lists()
             # Play a sound
             arcade.play_sound(self.collect_coin_sound)
+            # Add one to the score
             self.score += 1
+        
+        self.center_camera_to_player()
+        
+               # Did the player fall off the map?
+        if self.player_sprite.center_y < -100:
+            self.player_sprite.center_x = PLAYER_START_X
+            self.player_sprite.center_y = PLAYER_START_Y
+
+            arcade.play_sound(self.game_over)
+            self.player_sprite.isAlive = False
+
+        # Did the player touch something they should not?
+        if arcade.check_for_collision_with_list(self.player_sprite, self.scene[LAYER_NAME_DONT_TOUCH]):
+            self.player_sprite.change_x = 0
+            self.player_sprite.change_y = 0
+            self.player_sprite.center_x = PLAYER_START_X
+            self.player_sprite.center_y = PLAYER_START_Y
+
+            arcade.play_sound(self.game_over)
+            self.player_sprite.isAlive = False
+
+        # See if the user got to the end of the level
+        if self.player_sprite.center_x >= self.end_of_map:
+            # Advance to the next level
+            self.level += 1
+
+            # Make sure to keep the score from this level when setting up the next level
+            self.reset_score = False
+
+            # Load the next level
+            self.setup()
 
             
     def on_mouse_press(self, x, y, button, modifiers):
