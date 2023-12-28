@@ -57,7 +57,10 @@ class GameView(View):
         self.camera = arcade.Camera(self.display_width, self.display_height)
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
         
-        map_name = f":resources:tiled_maps/map2_level_{self.level}.json"
+        if self.level <=2:
+            map_name = f":resources:tiled_maps/map2_level_{self.level}.json"
+        else:
+            map_name = f":resources:tiled_maps/map2_level_1.json"
 
         layer_options = {
             LAYER_NAME_PLATFORMS: {
