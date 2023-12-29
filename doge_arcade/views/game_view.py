@@ -55,6 +55,7 @@ class GameView(View):
         self.camera = arcade.Camera(self.display_width, self.display_height)
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
         
+        
         map_name = f"{ASSETS_PATH}/maps/map_level_{self.level}.json"
         layer_options = {
         LAYER_NAME_PLATFORMS: {
@@ -118,6 +119,8 @@ class GameView(View):
     def toggle_music(self):
         if self.background_music_player is None:
             self.background_music_player = self.background_music.play(volume=INITIAL_MUSIC_VOLUME, loop=True)
+            if PLAY_MUSIC_ON_START == False:
+                self.background_music_player.pause()
         else:
             if self.background_music_player.playing:
                 self.background_music_player.pause()

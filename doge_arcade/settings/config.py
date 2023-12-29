@@ -39,7 +39,7 @@ TRANSLUCENT_BACKGROUND_COLOR = (0, 0, 0, 128)
 
 ASSETS_PATH = pathlib.Path(__file__).resolve().parent.parent.parent / "assets"            
 DOGE_DATA_SERVICE_URL = "http://localhost:5000/currentPrice"
-PLAY_MUSIC_ON_START = True
+PLAY_MUSIC_ON_START = False
 INITIAL_MUSIC_VOLUME = 0.5
 SOUND_ON = True
 SOUND_ON_VOLUME = 0.8

@@ -42,11 +42,13 @@ class LoadingView(arcade.View):
 
         if self.loading_complete:  
             self.draw_rotating_cube()
+            arcade.draw_text("Journey to the moon", progress_bar_x, progress_bar_y+100 , arcade.color.WHITE, font_size=40, font_name="Kenney Future", anchor_x="center")
+            
             if self.text_visible:
-                message = arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+                arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.GRAY, font_size=20, font_name="Kenney Future", anchor_x="center")
         elif not self.loading_complete:
             arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
-            message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.WHITE, font_size=20, font_name="Kenney Future", anchor_x="center")
+            message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.GRAY, font_size=20, font_name="Kenney Future", anchor_x="center")
             
         #if self.doge_box_sprite:
         #self.doge_box_sprite.draw()
