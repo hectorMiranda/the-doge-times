@@ -19,20 +19,6 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAB4DCWAAAE=",
-         "encoding":"base64",
-         "height":30,
-         "id":7,
-         "name":"Coins",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":80,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "compression":"zlib",
          "data":"eJztxaERADAIBLBHdH\/HvAhmqOESkwQAAAAAAAAAAOCvV0nXfskArHkApA==",
          "encoding":"base64",
          "height":30,
@@ -61,11 +47,25 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztz7EJACEMBdCc1c3hPC7i\/gvIYWMjIuhV70G6H34SAQAAAAAAAABwVkkR7+ZOTldOWXZ9t9anzyy7yuwqQ\/+ffwPnNdHGA3k=",
+         "data":"eJztz0EKgCAQBVBz1Tk6jxfpBNXtM1okiEgkrd6DgQ9+GQ0BAAAAAAAAAOCbIz55zznlmXPeYn3eur90OiOVu663rtM9rW6v81Yq9v\/5b2C8E4dABd0=",
          "encoding":"base64",
          "height":30,
          "id":10,
          "name":"Background",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":80,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt0lEJAEAIREExyfVPKUbw6xBnEiyPjQAAAAAAAAC45+XvBVzibzPdSzNgiwJIXQCJ",
+         "encoding":"base64",
+         "height":30,
+         "id":7,
+         "name":"Coins",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -87,7 +87,7 @@
                  "type":"",
                  "visible":true,
                  "width":440,
-                 "x":1990.40850587577,
+                 "x":2850,
                  "y":3462.45103525462
                 }, 
                 {
@@ -183,8 +183,8 @@
                  "type":"",
                  "visible":true,
                  "width":300,
-                 "x":639.031897034135,
-                 "y":3461.62283156128
+                 "x":900,
+                 "y":3500
                 }, 
                 {
                  "gid":629,
@@ -257,6 +257,18 @@
                  "width":300,
                  "x":4684.91885842194,
                  "y":3765.4012311136
+                }, 
+                {
+                 "gid":634,
+                 "height":850,
+                 "id":53,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":900,
+                 "x":1497.82,
+                 "y":3694.37045327364
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -265,7 +277,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":51,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

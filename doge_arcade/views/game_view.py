@@ -1,7 +1,7 @@
 import arcade
 from arcade import View
 import random
-from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME, LAYER_NAME_PLATFORMS, LAYER_NAME_COINS, LAYER_NAME_DONT_TOUCH, GRID_PIXEL_SIZE, LAYER_NAME_FOREGROUND, LAYER_NAME_LADDERS, PLAYER_START_X, PLAYER_START_Y, LAYER_NAME_MOVING_PLATFORMS
+from settings.config import ASSETS_PATH, PLAYER_JUMP_SPEED, TILE_SCALING, GRAVITY, PLAYER_MOVEMENT_SPEED, COIN_SCALING, PLAY_MUSIC_ON_START, INITIAL_MUSIC_VOLUME, SOUND_ON, SOUND_ON_VOLUME, LAYER_NAME_PLATFORMS, LAYER_NAME_COINS, LAYER_NAME_DONT_TOUCH, GRID_PIXEL_SIZE, LAYER_NAME_FOREGROUND, LAYER_NAME_BACKGROUND, LAYER_NAME_LADDERS, PLAYER_START_X, PLAYER_START_Y, LAYER_NAME_MOVING_PLATFORMS
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
@@ -41,7 +41,7 @@ class GameView(View):
         self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
-        self.game_over = arcade.load_sound(":resources:sounds/gameover1.wav")
+        self.game_over = arcade.load_sound(str(ASSETS_PATH / "sounds" / "hurt.wav"))
         self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
         self.player_sprite = None
         self.physics_engine = None
@@ -87,8 +87,7 @@ class GameView(View):
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
         
-        if self.level <=2:
-            self.scene.add_sprite_list_after("Player", LAYER_NAME_FOREGROUND)
+        self.scene.add_sprite_list_after("Player", LAYER_NAME_BACKGROUND)
 
 
         self.scene.add_sprite("Player", self.player_sprite)
@@ -188,7 +187,7 @@ class GameView(View):
         if key == arcade.key.UP or key == arcade.key.W:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = PLAYER_JUMP_SPEED
-                self.jump_sound.play()
+                self.jump_sound.play(volume=0.2)
         elif key == arcade.key.DOWN or key == arcade.key.S:
             self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.LEFT or key == arcade.key.A:
