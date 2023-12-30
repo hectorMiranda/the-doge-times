@@ -139,8 +139,7 @@ class LoadingView(arcade.View):
                 self.blink_timer = 0
 
     def on_key_press(self, key, modifiers):
-        print(key)
-        if key == arcade.key.ESCAPE:  # Check for ESC key
+        if key == arcade.key.ESCAPE:  
             modal_view = ConfirmExitView(self)  
             self.window.show_view(modal_view)
         elif self.loading_complete:

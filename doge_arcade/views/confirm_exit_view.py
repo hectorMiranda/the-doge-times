@@ -10,7 +10,6 @@ class ConfirmExitView(arcade.View):
         
         display_width, display_height = arcade.get_display_size()
 
-
         # Exit button
         self.exit_button = ActionButton(
             action=lambda: arcade.close_window(),
@@ -34,7 +33,7 @@ class ConfirmExitView(arcade.View):
         self.ui_manager.add(self.cancel_button)
 
     def on_show(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.GRAY)
 
     def on_draw(self):
         display_width, display_height = arcade.get_display_size()

@@ -6,6 +6,7 @@ from utilities.doge_data_hub_client import DogeDataHub
 from UI.status_bar import StatusBar  
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
+from views.pause_view import PauseView
 class GameView(View):
     def __init__(self):
         super().__init__()
@@ -195,10 +196,10 @@ class GameView(View):
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
             self.player_sprite.isAlive = True
-        # elif key == arcade.key.Z:
-        #     self.player_sprite.zoom_in()
-        # elif key == arcade.key.X:
-        #     self.player_sprite.zoom_out()
+        elif key == arcade.key.Z:
+            self.player_sprite.zoom_in()
+        elif key == arcade.key.X:
+            self.player_sprite.zoom_out()
         elif key == arcade.key.R:
             self.background_music_player.pause()
             self.restart_game()
@@ -207,9 +208,11 @@ class GameView(View):
         elif key == arcade.key.T:
             self.player_sprite.isAlive = False            
         elif key == arcade.key.ESCAPE:
-            pause_view = ConfirmExitView(self.window.current_view)
-            self.show_view(pause_view)
-
+            modal_view = ConfirmExitView(self)  
+            self.window.show_view(modal_view)
+        elif key == arcade.key.P:
+            pause_view = PauseView()
+            self.window.show_view(pause_view)
     def on_key_release(self, key, modifiers):
         if key == arcade.key.UP or key == arcade.key.W:
             self.player_sprite.change_y = 0
