@@ -22,10 +22,6 @@ class LoadingView(arcade.View):
         self.rotation_speed_x = random.uniform(-0.02, 0.02)
         self.rotation_speed_y = random.uniform(-0.02, 0.02)
         self.rotation_speed_z = random.uniform(-0.02, 0.02)
-        #self.sprite_manager = SpriteManager(self.display_height, self.display_width)
-        #self.doge_box_sprite = self.sprite_manager.load_and_center_sprite(filename="../assets/UI/doge_box.png")
-        #self.sprite_manager.scale_sprite(self.doge_box_sprite, 0.5)
-        #self.sprite_manager.center_sprite(self.doge_box_sprite)
         
     def on_show(self):
         arcade.set_background_color(arcade.color.BLACK)
@@ -33,8 +29,8 @@ class LoadingView(arcade.View):
     def on_draw(self):
         arcade.start_render()
         
-        # arcade.draw_text("Journey to the moon!", self.display_width / 2, self.display_height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
-        # arcade.draw_text("python arcade edition!", self.display_width / 2 + 250, self.display_height / 2 -45, arcade.color.ORANGE, font_size=20, anchor_x="center")                         
+        arcade.draw_text("Journey to the moon!", 10, 30 , arcade.color.WHITE, font_size=10, anchor_x="left", font_name="Kenney Future")
+        arcade.draw_text("python arcade edition: V 0.0.1", 10,10, arcade.color.ORANGE, font_size=8, anchor_x="left", font_name="Kenney Future")                        
         
         progress_bar_x = self.display_width / 2
         progress_bar_y = self.display_height / 3
