@@ -5,7 +5,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJzt0MEJgDAMQNGYVdzADZ28PQmFngLaIrwH\/xRCIBEAAAAAAAAAAOx05Xu1mHtmX93c3X2saVTZO\/M\/+V+9DpHAQ6k=",
+         "data":"eJzt0EEKgCAQQNHRq3gDb9jJaxUM1iZII3gPPji6UIwAAAAAAAAAAOBLvb7XHtfOs7s78zzjPSvaypqycW9c51r9T\/7veQdq2D7J",
          "encoding":"base64",
          "height":30,
          "id":6,
@@ -19,7 +19,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztxaERADAIBLBHdH\/HvAhmqOESkwQAAAAAAAAAAOCvV0nXfskArHkApA==",
+         "data":"eJztyDEKAAAIAzH9\/3vdHQV3ByGBg9IIAAAAAAAAAACAW5XT\/vb+pAFbjAa7",
          "encoding":"base64",
          "height":30,
          "id":8,
@@ -61,7 +61,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt0lEJAEAIREExyfVPKUbw6xBnEiyPjQAAAAAAAAC45+XvBVzibzPdSzNgiwJIXQCJ",
+         "data":"eJzt0tEGACAMBdD0Jf3\/V6bXyEYZcQ57ybVl1hoAAAAAAADwo9Hj91MG+6PWq1taffbKZqNMheycyj8B3JqU8gLt",
          "encoding":"base64",
          "height":30,
          "id":7,
@@ -221,42 +221,6 @@
                  "width":300,
                  "x":9732.48461108002,
                  "y":3558.3503077784
-                }, 
-                {
-                 "gid":628,
-                 "height":312,
-                 "id":48,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":300,
-                 "x":8881.89703413542,
-                 "y":3776.5931729155
-                }, 
-                {
-                 "gid":628,
-                 "height":312,
-                 "id":49,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":300,
-                 "x":6581.95299384443,
-                 "y":3843.74482372692
-                }, 
-                {
-                 "gid":628,
-                 "height":312,
-                 "id":50,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":300,
-                 "x":4684.91885842194,
-                 "y":3765.4012311136
                 }, 
                 {
                  "gid":634,

@@ -39,11 +39,10 @@ class GameView(View):
         self.status_bar.add_menu_option(1, "sound on", self.toggle_music(), str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(1, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))        
         self.status_bar.add_menu_option(3, "Recharge", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
-        self.coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "bark.wav"))        
         self.background = arcade.load_texture(str(ASSETS_PATH / "backgrounds" / "hills.png"))
         self.game_over = arcade.load_sound(str(ASSETS_PATH / "sounds" / "hurt.wav"))
-        self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
+        self.collect_coin_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "collectable.wav"))
         self.player_sprite = None
         self.physics_engine = None
         self.scene = None
@@ -55,8 +54,7 @@ class GameView(View):
     def setup(self):
         self.camera = arcade.Camera(self.display_width, self.display_height)
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
-        
-        
+          
         map_name = f"{ASSETS_PATH}/maps/map_level_{self.level}.json"
         layer_options = {
         LAYER_NAME_PLATFORMS: {
