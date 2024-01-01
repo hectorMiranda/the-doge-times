@@ -10,7 +10,7 @@ class LoadingView(arcade.View):
     def __init__(self):
         super().__init__()
         self.loading_bar_width = 0
-        self.total_loading_time = 1 
+        self.total_loading_time = .1 
         self.start_time = time.time()
         self.loading_complete = False
         self.text_visible = True
@@ -140,6 +140,8 @@ class LoadingView(arcade.View):
             self.window.show_view(modal_view)
         elif self.loading_complete:
             from views.game_view import GameView
+            
+            
             game = GameView()
             game.setup()
             self.window.show_view(game)

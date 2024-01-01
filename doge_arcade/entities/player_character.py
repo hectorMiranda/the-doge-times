@@ -17,6 +17,10 @@ class PlayerCharacter(arcade.Sprite):
         self.death_textures = []
         self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))    
         self.isAlive = True
+        
+        self.is_being_dragged = False
+        self.drag_start_x = 0
+        self.drag_start_y = 0
 
         sprite_count = 0 
         for row in range(6):  
@@ -140,6 +144,24 @@ class PlayerCharacter(arcade.Sprite):
                 self.cur_texture = 0
             self.texture = self.death_textures[self.cur_texture // 3]
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        print("mouse press")
+        if self.collides_with_point((x, y)) and button == arcade.MOUSE_BUTTON_LEFT:
+            print("player collides with mouse click")
+            self.is_being_dragged = True
+            self.drag_start_x = x - self.center_x
+            self.drag_start_y = y - self.center_y
 
+    def on_mouse_release(self, x, y, button, modifiers):
+        print("mouse release")
+        if button == arcade.MOUSE_BUTTON_LEFT:
+            self.is_being_dragged = False
+
+    def on_mouse_motion(self, x, y, dx, dy):
+        print("mouse motion")
+        if self.is_being_dragged:
+            print("being dragged")
+            self.center_x = x - self.drag_start_x
+            self.center_y = y - self.drag_start_y
 
 

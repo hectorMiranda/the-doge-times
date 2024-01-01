@@ -49,6 +49,10 @@ class GameView(View):
         self.camera = None
         self.gui_camera = None
         self.tile_map = None
+            
+            
+        arcade.draw_text("Loading ...", 0, 200 , arcade.color.YELLOW, font_size=50, font_name="Kenney Future", anchor_x="left")
+
 
 
     def setup(self):
@@ -296,6 +300,14 @@ class GameView(View):
         # Forward the mouse press event to the status bar
         print("-->", x, y)
         self.status_bar.on_mouse_press(x, y, button, modifiers)
+        self.player_sprite.on_mouse_press(x, y, button, modifiers)
+
+    def on_mouse_release(self, x, y, button, modifiers):
+        self.player_sprite.on_mouse_release(x, y, button, modifiers)
+        
+    def on_mouse_motion(self, x, y, dx, dy):
+        self.player_sprite.on_mouse_motion(x, y, dx, dy)
+
         
     def center_camera_to_player(self):
         screen_center_x = self.player_sprite.center_x - (self.camera.viewport_width / 2)
