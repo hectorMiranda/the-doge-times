@@ -4,6 +4,29 @@
  "infinite":false,
  "layers":[
         {
+         "draworder":"topdown",
+         "id":6,
+         "name":"background",
+         "objects":[
+                {
+                 "gid":410,
+                 "height":4500,
+                 "id":1,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6328.57142857143,
+                 "x":-600,
+                 "y":3090.47619047619
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "compression":"zlib",
          "data":"eJxjYBgFo2AUjIJRMApGwXACnWj8bijuGAC3oAOQ25qR+CB31UBxEwPxbpwLxPPw4PlIaueRoK+GCIxPP8xuALbUGsc=",
          "encoding":"base64",
@@ -73,8 +96,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":1,
+ "nextlayerid":7,
+ "nextobjectid":2,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -2665,6 +2688,10 @@
                  "imagewidth":128
                 }],
          "tilewidth":128
+        }, 
+        {
+         "firstgid":354,
+         "source":"objects.tsx"
         }],
  "tilewidth":128,
  "type":"map",
