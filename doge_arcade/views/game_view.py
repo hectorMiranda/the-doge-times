@@ -297,7 +297,6 @@ class GameView(View):
 
             
     def on_mouse_press(self, x, y, button, modifiers):
-        # Forward the mouse press event to the status bar
         print("-->", x, y)
         self.status_bar.on_mouse_press(x, y, button, modifiers)
         self.player_sprite.on_mouse_press(x, y, button, modifiers)
