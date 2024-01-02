@@ -78,9 +78,11 @@ class GameView(View):
         }
         }
        
-
-        self.tile_map = arcade.load_tilemap(map_name, TILE_SCALING, layer_options)
-
+        try:
+            self.tile_map = arcade.load_tilemap(map_name, TILE_SCALING, layer_options)
+        except Exception as e:
+            print(f"Error loading tile map: {e}")
+    
         if self.tile_map.background_color:
             arcade.set_background_color(self.tile_map.background_color)
 
