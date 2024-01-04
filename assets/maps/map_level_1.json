@@ -580,6 +580,119 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
+         "id":18,
+         "name":"Moving Platforms",
+         "objects":[
+                {
+                 "gid":535,
+                 "height":128,
+                 "id":133,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"boundary_bottom",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"boundary_left",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"boundary_right",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"boundary_top",
+                         "type":"int",
+                         "value":600
+                        }, 
+                        {
+                         "name":"change_x",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"change_y",
+                         "type":"float",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":5138.64681555004,
+                 "y":2495.7617866005
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"Ladders",
+         "objects":[
+                {
+                 "gid":403,
+                 "height":128,
+                 "id":135,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":1656.43010752688,
+                 "y":3016.85359801489
+                }, 
+                {
+                 "gid":402,
+                 "height":128,
+                 "id":136,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":1657.20418848168,
+                 "y":3148.09685863874
+                }, 
+                {
+                 "gid":402,
+                 "height":128,
+                 "id":137,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":1653.93193717277,
+                 "y":3280.62303664921
+                }, 
+                {
+                 "gid":402,
+                 "height":128,
+                 "id":138,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":1652.29581151832,
+                 "y":3408.24083769634
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "compression":"zlib",
          "data":"eJztyCEOAEAIA0H4v+e9J4+gUWQmWdFGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANxS+Zu7\/8C+B6w8BLk=",
          "encoding":"base64",
@@ -668,8 +781,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":18,
- "nextobjectid":133,
+ "nextlayerid":20,
+ "nextobjectid":139,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

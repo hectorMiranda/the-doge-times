@@ -101,15 +101,12 @@ class GameView(View):
         if self.tile_map.background_color:
             arcade.set_background_color(self.tile_map.background_color)
         
-        if self.level <=2:
-            self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.scene[LAYER_NAME_PLATFORMS], gravity_constant=GRAVITY)
-        else:
-            self.physics_engine = arcade.PhysicsEnginePlatformer(
-            self.player_sprite,
-            platforms=self.scene[LAYER_NAME_MOVING_PLATFORMS],
-            gravity_constant=GRAVITY,
-            ladders=self.scene[LAYER_NAME_LADDERS],
-            walls=self.scene[LAYER_NAME_PLATFORMS]
+        self.physics_engine = arcade.PhysicsEnginePlatformer(
+        self.player_sprite,
+        platforms=self.scene[LAYER_NAME_MOVING_PLATFORMS],
+        gravity_constant=GRAVITY,
+        ladders=self.scene[LAYER_NAME_LADDERS],
+        walls=self.scene[LAYER_NAME_PLATFORMS]
         )
                     
         if self.reset_score:
