@@ -552,6 +552,29 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
+         "id":19,
+         "name":"Ladders",
+         "objects":[
+                {
+                 "gid":658,
+                 "height":700,
+                 "id":140,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":92,
+                 "x":1936.35294117647,
+                 "y":3485.29411764706
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "compression":"zlib",
          "data":"eJztwTEBAAAAwqD1T20JT6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4GdTAAAQ==",
          "encoding":"base64",
@@ -634,65 +657,6 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "id":19,
-         "name":"Ladders",
-         "objects":[
-                {
-                 "gid":403,
-                 "height":128,
-                 "id":135,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":1656.43010752688,
-                 "y":3016.85359801489
-                }, 
-                {
-                 "gid":402,
-                 "height":128,
-                 "id":136,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":1657.20418848168,
-                 "y":3148.09685863874
-                }, 
-                {
-                 "gid":402,
-                 "height":128,
-                 "id":137,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":1653.93193717277,
-                 "y":3280.62303664921
-                }, 
-                {
-                 "gid":402,
-                 "height":128,
-                 "id":138,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":1652.29581151832,
-                 "y":3408.24083769634
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
          "compression":"zlib",
          "data":"eJztyCEOAEAIA0H4v+e9J4+gUWQmWdFGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANxS+Zu7\/8C+B6w8BLk=",
          "encoding":"base64",
@@ -722,7 +686,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1UEKgCAQQFHpJN3\/lOFuCAOthaO9t1NB3PyxFAAAAAAAAAAAAAAAAAAAAAAAAAAAeO88ctwBf1Bbib3c13FPV7CmnTrP\/j6YZafOgbaefnUO8\/X2p1Xgi6c\/P+63ZszouVkFAEBGF0RjBoM=",
+         "data":"eJzt1TEKwCAMQFHpSXr\/U5ZuoShYWkiU9zZ1icPX1gAAAAAAAAAAAAAAAAAAAAAAAAAAqO48sicY+2O2yveDSu5WYi\/PddzTFaxpp86rzwdZduoc6JvpV+eQb7Y\/rQJfjP78uN97Y96ee6sAAKjoAuf1BqU=",
          "encoding":"base64",
          "height":30,
          "id":7,
@@ -782,7 +746,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":139,
+ "nextobjectid":141,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
