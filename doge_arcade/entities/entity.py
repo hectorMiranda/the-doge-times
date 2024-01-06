@@ -1,6 +1,6 @@
 import arcade
 
-from platformer.constants import CHARACTER_SCALING, RIGHT_FACING
+from settings.config import CHARACTER_SCALING, RIGHT_FACING
 
 
 def load_texture_pair(filename):
