@@ -1,17 +1,7 @@
 import arcade
 
 from settings.config import CHARACTER_SCALING, RIGHT_FACING
-
-
-def load_texture_pair(filename):
-    """
-    Load a texture pair, with the second being a mirror image.
-    """
-    return [
-        arcade.load_texture(filename),
-        arcade.load_texture(filename, flipped_horizontally=True),
-    ]
-
+from utilities.sprite_manager import SpriteManager
 
 class Entity(arcade.Sprite):
     def __init__(self, folder, file_prefix):
@@ -26,14 +16,14 @@ class Entity(arcade.Sprite):
 
         self.animations = {}
 
-        self.idle_texture_pair = load_texture_pair(f"{folder}/{file_prefix}_idle.png")
-        self.jump_texture_pair = load_texture_pair(f"{folder}/{file_prefix}_jump.png")
-        self.fall_texture_pair = load_texture_pair(f"{folder}/{file_prefix}_fall.png")
+        self.idle_texture_pair = SpriteManager.load_texture_pair(f"{folder}/{file_prefix}_idle.png")
+        self.jump_texture_pair = SpriteManager.load_texture_pair(f"{folder}/{file_prefix}_jump.png")
+        self.fall_texture_pair = SpriteManager.load_texture_pair(f"{folder}/{file_prefix}_fall.png")
 
         # Load textures for walking
         self.walk_textures = []
         for i in range(8):
-            texture = load_texture_pair(f"{folder}/{file_prefix}_walk{i}.png")
+            texture = SpriteManager.load_texture_pair(f"{folder}/{file_prefix}_walk{i}.png")
             self.walk_textures.append(texture)
 
         # Load textures for climbing
