@@ -1,5 +1,4 @@
 import arcade
-
 from settings.config import CHARACTER_SCALING, RIGHT_FACING
 from utilities.sprite_manager import SpriteManager
 

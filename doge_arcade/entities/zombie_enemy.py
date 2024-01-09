@@ -1,3 +1,5 @@
+from entities.enemy import Enemy
+
 class ZombieEnemy(Enemy):
     def __init__(self):
 
