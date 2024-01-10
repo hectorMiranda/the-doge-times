@@ -10,6 +10,9 @@ from views.pause_view import PauseView
 class GameView(View):
     def __init__(self):
         super().__init__()
+        self.elapsed_time = 0.0
+        self.time_display = "00:00"
+        self.start_timer = False
         self.score = 0
         self.lives = 99
         self.coins = None
@@ -29,7 +32,7 @@ class GameView(View):
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
         self.status_bar.add_stat_box("Doge stats", str(ASSETS_PATH / "UI" / "price.png"))
         self.status_bar.add_stat_box("Settings", str(ASSETS_PATH / "UI" / "settings.png"))
-        self.status_bar.add_stat_box("Lives: NA", str(ASSETS_PATH / "UI" / "start.png"))
+        self.status_bar.add_stat_box(f"Time: {self.time_display}", str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_stat_box("Coins: NA", str(ASSETS_PATH / "UI" / "coin.png"))
         self.status_bar.add_menu_option(0, f"Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
         self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "start.png"))
@@ -49,6 +52,7 @@ class GameView(View):
         self.camera = None
         self.gui_camera = None
         self.tile_map = None
+
             
             
         arcade.draw_text("Loading ...", 0, 200 , arcade.color.YELLOW, font_size=50, font_name="Kenney Future", anchor_x="left")
@@ -197,6 +201,7 @@ class GameView(View):
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
             self.player_sprite.isAlive = True
+            self.start_timer = True
         elif key == arcade.key.Z:
             self.player_sprite.zoom_in()
         elif key == arcade.key.X:
@@ -224,8 +229,6 @@ class GameView(View):
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = 0
 
-    def on_update(self, delta_time): 
-        self.physics_engine.update()
         
     def restart_game(self):
         from .loading_view import LoadingView
@@ -237,14 +240,24 @@ class GameView(View):
         #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
         self.status_bar.update_stat_box(0,f"{DogeDataHub.doge_price}")
         self.status_bar.update_stat_box(1,f"Level {self.level}")
+        self.status_bar.update_stat_box(2,f"Time: {self.time_display}")
         self.status_bar.update_stat_box(3,f"{self.score}")
         self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(ASSETS_PATH / "UI" / "wallet.png"))
         self.scene.draw()
         self.gui_camera.use()
         self.status_bar.draw()
+        
+        minutes = int(self.elapsed_time) // 60
+        seconds = int(self.elapsed_time) % 60
+        self.time_display = f"{minutes:02d}:{seconds:02d}"
+        
+        
 
         
     def on_update(self, delta_time):
+        if self.start_timer:
+            self.elapsed_time += delta_time
+
         if self.physics_engine:
              self.physics_engine.update()
              self.player_sprite.update_animation(delta_time)
