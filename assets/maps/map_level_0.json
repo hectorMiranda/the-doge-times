@@ -28,8 +28,8 @@
                  "type":"",
                  "visible":true,
                  "width":1108.38174273859,
-                 "x":9484.99769479022,
-                 "y":12321.4430613186
+                 "x":11135.5278930383,
+                 "y":12556.5744582757
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -123,8 +123,8 @@
                  "type":"",
                  "visible":true,
                  "width":1191.40505109559,
-                 "x":10460.8438266656,
-                 "y":12428.9519889704
+                 "x":11724.0987828666,
+                 "y":12682.5250641203
                 }, 
                 {
                  "gid":624,
@@ -135,8 +135,8 @@
                  "type":"",
                  "visible":true,
                  "width":759.907958565766,
-                 "x":9992.50442823741,
-                 "y":12544.40893452
+                 "x":11278.8114821793,
+                 "y":12733.4361359953
                 }, 
                 {
                  "gid":622,
@@ -266,7 +266,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":9522.12309429701,
+                 "width":11260.2512639605,
                  "x":-0.423244088538297,
                  "y":12688.764668913
                 }, 
@@ -326,7 +326,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1N0NgjAUBlBkFTdwKPdwAI0Duos\/D41NvQINJBY5J\/keoEDo\/ZJ2HQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwDbddu9Muc88+VzHMvZetH4sEj3zj2r3Fs0rn205x\/LbtetDfYx1e3leXyfm\/KN+y\/9e+5kSdZdmfKpM1MmhXy737jO1fayll1xtD0OdzPnWlER97Pvve4vOi9bNnVHeyWs2KS30Ub6f\/19rWXJO6cx7AE+wlMs=",
+         "data":"eJzt1NENgjAUQNGWVdiAodiDDdzFcWQX\/WyjQCrxGYVzkvvTJg3pa0gJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg\/91yqdWcSy3rtIuax9b++NRZtLzVeh5L9zWvrI8LZ7+7bx7+KbWh+1z39NoRXPL3moI7gug7quu7UsT51x2tfd+vFXFfDw4kgi4=",
          "encoding":"base64",
          "height":100,
          "id":6,
@@ -394,7 +394,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztyLENAAAIwzD4f+deRhAvYEsZ2ggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD6onO7e\/3cNw2cEuQ==",
+         "data":"eJztw7EJAAAIA7D6\/+y\/vuAiOCSQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO507QIAfDF6uwXd",
          "encoding":"base64",
          "height":100,
          "id":8,
@@ -440,18 +440,6 @@
          "name":"foreground",
          "objects":[
                 {
-                 "gid":644,
-                 "height":2009.66563656228,
-                 "id":119,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":12563.2477064967,
-                 "x":-22.9646170008697,
-                 "y":12807.6894293978
-                }, 
-                {
                  "gid":629,
                  "height":869.591352067367,
                  "id":121,
@@ -460,8 +448,8 @@
                  "type":"",
                  "visible":true,
                  "width":900.096508657394,
-                 "x":11291.4673227336,
-                 "y":12189.6332854746
+                 "x":10862.698304753,
+                 "y":12457.037619269
                 }],
          "opacity":1,
          "type":"objectgroup",
