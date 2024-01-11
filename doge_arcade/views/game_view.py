@@ -23,7 +23,7 @@ class GameView(View):
         self.enemies = None
         self.reset_score = True
         self.end_of_map = 0
-        self.level = 1
+        self.level = 0
         self.display_width, self.display_height = arcade.get_display_size()
         self.sky_color = arcade.color.SKY_BLUE
         self.hill_colors = [arcade.color.GREEN_YELLOW, arcade.color.FOREST_GREEN, arcade.color.DARK_OLIVE_GREEN]
