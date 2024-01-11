@@ -20,16 +20,16 @@
          "name":"inside_buildings",
          "objects":[
                 {
-                 "gid":656,
-                 "height":1080,
-                 "id":132,
+                 "gid":659,
+                 "height":623.464730290456,
+                 "id":141,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":1920,
-                 "x":7906.53312112401,
-                 "y":11054.7939191043
+                 "width":1108.38174273859,
+                 "x":9484.99769479022,
+                 "y":12321.4430613186
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -470,7 +470,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":141,
+ "nextobjectid":142,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
