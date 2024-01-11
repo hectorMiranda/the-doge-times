@@ -29,23 +29,48 @@ class GameView(View):
         self.hill_colors = [arcade.color.GREEN_YELLOW, arcade.color.FOREST_GREEN, arcade.color.DARK_OLIVE_GREEN]
         self.clouds = self.create_clouds(10)        
         self.doge_price = "Loading..."
-        self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
-        self.status_bar.add_stat_box("Doge stats", str(cfg.ASSETS_PATH / "UI" / "price.png"))
-        self.status_bar.add_stat_box("Settings", str(cfg.ASSETS_PATH / "UI" / "settings.png"))
-        self.status_bar.add_stat_box(f"Time: {self.time_display}", str(cfg.ASSETS_PATH / "UI" / "start.png"))
-        self.status_bar.add_stat_box("Coins: NA", str(cfg.ASSETS_PATH / "UI" / "coin.png"))
-        self.status_bar.add_menu_option(0, f"Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "start.png"))
-        self.status_bar.add_menu_option(0, "Heal", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "start.png"))
-        #self.status_bar.add_menu_option(0, "Setup wallet", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "wallet.png")) #TODO: fix 3rd item position bug
-        self.background_music = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "main_theme.wav"))
-        self.background_music_player = None
-        self.status_bar.add_menu_option(1, "sound on", self.toggle_music(), str(cfg.ASSETS_PATH / "UI" / "start.png"))
-        self.status_bar.add_menu_option(1, "Recharge", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "start.png"))        
-        self.status_bar.add_menu_option(3, "Recharge", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "start.png"))
-        self.jump_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "bark.wav"))        
-        self.background = arcade.load_texture(str(cfg.ASSETS_PATH / "backgrounds" / "hills.png"))
+        self.create_status_bar()
         self.game_over = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
         self.collect_coin_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
+        self.jump_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "bark.wav"))
+    
+        
+    def create_status_bar(self):
+        self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
+        
+        # Adding status box items
+        status_box_items = [
+            ("Doge stats", "price.png"),
+            ("Settings", "settings.png"),
+            (f"Time: {self.time_display}", "start.png"),
+            ("Coins: NA", "coin.png"),
+        ]
+
+        for label, icon in status_box_items:
+            self.add_status_box_item(label, icon)
+
+        # Adding menu options
+        menu_options = [
+            (0, f"Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, "start.png"),
+            (0, "Heal", self.status_bar.dummy_action, "start.png"),
+            # Uncomment the next line when the bug is fixed
+            # (0, "Setup wallet", self.status_bar.dummy_action, "wallet.png"),
+            (1, "sound on", self.toggle_music, "start.png"),
+            (1, "Recharge", self.status_bar.dummy_action, "start.png"),
+            (3, "Recharge", self.status_bar.dummy_action, "start.png")
+        ]
+
+        for group, label, action, icon in menu_options:
+            self.add_menu_option(group, label, action, icon)
+
+    def add_status_box_item(self, label, icon_name):
+        icon_path = str(cfg.ASSETS_PATH / "UI" / icon_name)
+        self.status_bar.add_stat_box(label, icon_path)
+
+    def add_menu_option(self, group, label, action, icon_name):
+        icon_path = str(cfg.ASSETS_PATH / "UI" / icon_name)
+        self.status_bar.add_menu_option(group, label, action, icon_path)
+        (str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
         self.player_sprite = None
         self.physics_engine = None
         self.scene = None
