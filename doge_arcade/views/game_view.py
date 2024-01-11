@@ -8,6 +8,40 @@ from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
 from views.pause_view import PauseView
 class GameView(View):
+    def setup_game_controller(self):
+        # Check for game controllers and set up the first one found
+        joysticks = arcade.get_joysticks()
+        print(joysticks)
+        if joysticks:
+            self.game_controller = joysticks[0]
+            self.game_controller.open()
+            self.game_controller.push_handlers(
+                self.on_joybutton_press,
+                self.on_joybutton_release,
+                self.on_joyhat_motion,
+                self.on_joyaxis_motion
+            )
+
+    def on_joybutton_press(self, joystick, button):
+        # Map controller button presses to equivalent key presses
+        if button == arcade.CONTROLLER_BUTTON_A:
+            self.on_key_press(arcade.key.UP, 0)
+        # Add more mappings as necessary based on on_key_press functionality
+
+    def on_joybutton_release(self, joystick, button):
+        # Map controller button releases to equivalent key releases
+        if button == arcade.CONTROLLER_BUTTON_A:
+            self.on_key_release(arcade.key.UP, 0)
+        # Add more mappings as necessary
+
+    def on_joyhat_motion(self, joystick, hat_x, hat_y):
+        # Handle D-pad (hat) movement
+        pass
+
+    def on_joyaxis_motion(self, joystick, axis, value):
+        # Handle joystick movement
+        pass
+
     def __init__(self):
         super().__init__()
         self.elapsed_time = 0.0
@@ -30,6 +64,7 @@ class GameView(View):
         self.clouds = self.create_clouds(10)        
         self.doge_price = "Loading..."
         self.create_status_bar()
+        self.setup_game_controller()
         self.game_over = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
         self.collect_coin_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "bark.wav"))
