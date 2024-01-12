@@ -65,7 +65,9 @@ IS_SNOWING = False
 IS_TOO_HOT = False
 
 TRIGGER_CONFETTI = True
-CONFETTI_COUNT = 150
+CONFETTI_COUNT = 15
 COLORS = [arcade.color.RED, arcade.color.GREEN, arcade.color.BLUE, 
           arcade.color.YELLOW, arcade.color.ORANGE, arcade.color.PURPLE, 
           arcade.color.CYAN, arcade.color.MAGENTA]
+
+RAINDROP_COUNT = 50

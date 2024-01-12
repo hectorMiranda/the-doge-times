@@ -45,7 +45,9 @@ class GameView(View):
         self.gui_camera = None
         self.tile_map = None
         self.confetti_list = []
+        self.raindrop_list = []
         self.Winner = False
+        self.IsRaining = False
 
 
     def setup_game_controller(self):
@@ -276,6 +278,12 @@ class GameView(View):
             self.restart_game()
         elif key == arcade.key.M:
             self.toggle_music()
+        elif key == arcade.key.L:
+            if self.IsRaining == False:
+                self.IsRaining = True
+            else:  
+                self.IsRaining = False
+            print (self.IsRaining)
         elif key == arcade.key.T:
             self.player_sprite.isAlive = False
         elif key == arcade.key.C:
@@ -321,17 +329,30 @@ class GameView(View):
         seconds = int(self.elapsed_time) % 60
         self.time_display = f"{minutes:02d}:{seconds:02d}"
         
-        self.confetti_list = []
-        for i in range(cfg.CONFETTI_COUNT):
-            x = random.randint(0, self.display_width)
-            y = random.randint(0, self.display_height)
-            color = random.choice(cfg.COLORS)
-            self.confetti_list.append({"x": x, "y": y, "color": color})
         
-
         if self.Winner == True:
+            self.confetti_list = []
+            for i in range(cfg.CONFETTI_COUNT):
+                x = random.randint(0, self.display_width)
+                y = random.randint(0, self.display_height)
+                color = random.choice(cfg.COLORS)
+                self.confetti_list.append({"x": x, "y": y, "color": color})
             for confetti in self.confetti_list:
                 arcade.draw_rectangle_filled(confetti["x"], confetti["y"], 10, 5, confetti["color"])
+        
+        if self.IsRaining == True:        
+            self.raindrop_list = []
+            for i in range(cfg.RAINDROP_COUNT):
+                x = random.randint(0, self.display_width)
+                y = random.randint(0, self.display_height)
+                length = random.randint(10, 20)
+                color = arcade.color.BLUE_GRAY  
+                self.raindrop_list.append({"x": x, "y": y, "length": length, "color": color})
+            for raindrop in self.raindrop_list:
+                arcade.draw_line(raindrop["x"], raindrop["y"], 
+                                raindrop["x"], raindrop["y"] + raindrop["length"], 
+                                raindrop["color"], 2)
+
 
         
     def on_update(self, delta_time):
@@ -345,6 +366,12 @@ class GameView(View):
         coin_hit_list = arcade.check_for_collision_with_list(
             self.player_sprite, self.scene[cfg.LAYER_NAME_COINS]
         )
+        if self.IsRaining == True:
+            for raindrop in self.raindrop_list:
+                raindrop["y"] -= 4  # Adjust the speed of the rain
+                if raindrop["y"] < -20:  # Reset raindrop to the top once it falls out of the window
+                    raindrop["y"] = self.display_width + 20
+
 
         # Loop through each coin we hit (if any) and remove it
         for coin in coin_hit_list:
