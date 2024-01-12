@@ -1,6 +1,7 @@
 
 # Python #
 # ====== #
+start
 venv/
 __pycache__/
 *.py[cod]
