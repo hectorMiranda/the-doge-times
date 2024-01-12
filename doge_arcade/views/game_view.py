@@ -7,41 +7,8 @@ from UI.status_bar import StatusBar
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
 from views.pause_view import PauseView
+
 class GameView(View):
-    def setup_game_controller(self):
-        # Check for game controllers and set up the first one found
-        joysticks = arcade.get_joysticks()
-        print(joysticks)
-        if joysticks:
-            self.game_controller = joysticks[0]
-            self.game_controller.open()
-            self.game_controller.push_handlers(
-                self.on_joybutton_press,
-                self.on_joybutton_release,
-                self.on_joyhat_motion,
-                self.on_joyaxis_motion
-            )
-
-    def on_joybutton_press(self, joystick, button):
-        # Map controller button presses to equivalent key presses
-        if button == arcade.CONTROLLER_BUTTON_A:
-            self.on_key_press(arcade.key.UP, 0)
-        # Add more mappings as necessary based on on_key_press functionality
-
-    def on_joybutton_release(self, joystick, button):
-        # Map controller button releases to equivalent key releases
-        if button == arcade.CONTROLLER_BUTTON_A:
-            self.on_key_release(arcade.key.UP, 0)
-        # Add more mappings as necessary
-
-    def on_joyhat_motion(self, joystick, hat_x, hat_y):
-        # Handle D-pad (hat) movement
-        pass
-
-    def on_joyaxis_motion(self, joystick, axis, value):
-        # Handle joystick movement
-        pass
-
     def __init__(self):
         super().__init__()
         self.elapsed_time = 0.0
@@ -71,8 +38,44 @@ class GameView(View):
         self.background_music = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "main_theme.wav"))
         self.background_music_player = None
         self.IsPlayerBig = False
+        self.player_sprite = None
+        self.physics_engine = None
+        self.scene = None
+        self.camera = None
+        self.gui_camera = None
+        self.tile_map = None
+        self.confetti_list = []
+        self.Winner = False
 
-    
+
+    def setup_game_controller(self):
+        # Check for game controllers and set up the first one found
+        joysticks = arcade.get_joysticks()
+        print(joysticks)
+        if joysticks:
+            self.game_controller = joysticks[0]
+            self.game_controller.open()
+            self.game_controller.push_handlers(
+                self.on_joybutton_press,
+                self.on_joybutton_release,
+                self.on_joyhat_motion,
+                self.on_joyaxis_motion
+            )
+
+    def on_joybutton_press(self, joystick, button):
+        if button == arcade.CONTROLLER_BUTTON_A:
+            self.on_key_press(arcade.key.UP, 0)
+    def on_joybutton_release(self, joystick, button):
+        if button == arcade.CONTROLLER_BUTTON_A:
+            self.on_key_release(arcade.key.UP, 0)
+
+    def on_joyhat_motion(self, joystick, hat_x, hat_y):
+        # TODO: Handle D-pad (hat) movement 
+        pass
+
+    def on_joyaxis_motion(self, joystick, axis, value):
+        # TODO: Handle joystick movement
+        pass 
         
     def create_status_bar(self):
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
@@ -109,16 +112,6 @@ class GameView(View):
     def add_menu_option(self, group, label, action, icon_name):
         icon_path = str(cfg.ASSETS_PATH / "UI" / icon_name)
         self.status_bar.add_menu_option(group, label, action, icon_path)
-        (str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
-        self.player_sprite = None
-        self.physics_engine = None
-        self.scene = None
-        self.camera = None
-        self.gui_camera = None
-        self.tile_map = None
-
-            
-            
         arcade.draw_text("Loading ...", 0, 200 , arcade.color.YELLOW, font_size=50, font_name="Kenney Future", anchor_x="left")
 
 
@@ -128,6 +121,7 @@ class GameView(View):
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
           
         map_name = f"{cfg.ASSETS_PATH}/maps/map_level_{self.level}.json"
+        
         layer_options = {
         cfg.LAYER_NAME_PLATFORMS: {
             "use_spatial_hash": True,
@@ -183,6 +177,9 @@ class GameView(View):
         
         self.end_of_map = self.tile_map.width * cfg.GRID_PIXEL_SIZE
         self.player_sprite.isAlive=True
+        
+        
+
 
         
     def toggle_music(self):
@@ -274,12 +271,18 @@ class GameView(View):
         elif key == arcade.key.X:
             self.player_sprite.zoom_out()
         elif key == arcade.key.R:
-            self.background_music_player.pause()
+            if self.background_music_player is not None:
+                self.background_music_player.pause()
             self.restart_game()
         elif key == arcade.key.M:
             self.toggle_music()
         elif key == arcade.key.T:
-            self.player_sprite.isAlive = False            
+            self.player_sprite.isAlive = False
+        elif key == arcade.key.C:
+            if self.Winner == False:
+                self.Winner = True
+            else:
+                self.Winner = False           
         elif key == arcade.key.ESCAPE:
             modal_view = ConfirmExitView(self)  
             self.window.show_view(modal_view)
@@ -318,7 +321,17 @@ class GameView(View):
         seconds = int(self.elapsed_time) % 60
         self.time_display = f"{minutes:02d}:{seconds:02d}"
         
+        self.confetti_list = []
+        for i in range(cfg.CONFETTI_COUNT):
+            x = random.randint(0, self.display_width)
+            y = random.randint(0, self.display_height)
+            color = random.choice(cfg.COLORS)
+            self.confetti_list.append({"x": x, "y": y, "color": color})
         
+
+        if self.Winner == True:
+            for confetti in self.confetti_list:
+                arcade.draw_rectangle_filled(confetti["x"], confetti["y"], 10, 5, confetti["color"])
 
         
     def on_update(self, delta_time):
