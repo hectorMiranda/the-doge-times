@@ -106,7 +106,16 @@ class GameView(View):
                 self.on_key_release(arcade.key.LEFT, 0)
                 self.on_key_release(arcade.key.RIGHT, 0)
 
-            
+        elif axis == 'y':  # Up-down movement
+            if value < -DEADZONE:
+                self.on_key_press(arcade.key.UP, 0)  # Assuming UP is for climbing up
+            elif value > DEADZONE:
+                self.on_key_press(arcade.key.DOWN, 0)  # Assuming DOWN is for climbing down
+            else:
+                self.on_key_release(arcade.key.UP, 0)
+                self.on_key_release(arcade.key.DOWN, 0)
+        
+        
     def create_status_bar(self):
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
         
