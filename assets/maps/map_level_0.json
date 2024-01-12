@@ -303,6 +303,18 @@
                  "width":92,
                  "x":1936.35294117647,
                  "y":12445.2941176471
+                }, 
+                {
+                 "gid":658,
+                 "height":1036.56062701706,
+                 "id":142,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":92,
+                 "x":2443.49615029968,
+                 "y":11647.6974181651
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -326,7 +338,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1NENgjAUQNGWVdiAodiDDdzFcWQX\/WyjQCrxGYVzkvvTJg3pa0gJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg\/91yqdWcSy3rtIuax9b++NRZtLzVeh5L9zWvrI8LZ7+7bx7+KbWh+1z39NoRXPL3moI7gug7quu7UsT51x2tfd+vFXFfDw4kgi4=",
+         "data":"eJzt2cFtwjAYBtCYVbpBt+gi7NEN2KIDdBRuLTcGocoBJbgEOShObPye9F0cKYr+L3aE6DoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGp0DFs\/AbG+k2vY1rgLvZRtqit9lUcv5bN\/tuccq4euIN2jvXIO80I5dJTXUvPUzXOOmd9tnZSn5T5+QlrWVHsfHyEtKbaYf6yVMyu1kylrdtVSJ3P2y5Za6GNs7hm29lnWWh+9mvZL60r4tgN1+wq3ySX+rvjW0KrfMCTVKQy5Oofb9fh3nf9G0izVR7z+6Po+SivGM5l6B8d93JvXaWJ9f2fec6+33Ee8Fq+36H23XC7d\/\/RqP4sPYb18Zs4ryD2jcd52Q3Lc\/\/uJTD1fackxrz+Vb+VA",
          "encoding":"base64",
          "height":100,
          "id":6,
@@ -394,7 +406,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztw7EJAAAIA7D6\/+y\/vuAiOCSQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO507QIAfDF6uwXd",
+         "data":"eJztwzENADAIADAQNan4xQLPHmiTRgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA\/lbMA7PIW5K4GlAMQAg==",
          "encoding":"base64",
          "height":100,
          "id":8,
@@ -422,7 +434,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt00EKwCAMBEDpS\/r\/V5bepCjEIjSkMzf1kk1iawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7HYeX1cwt6O2zPneujP1uZ7n\/q5i\/mwqzSN7fRGV5lFBpM\/msSbaJz39j9kf6u9Hu7D6bqcgrwtOOAal",
+         "data":"eJzt2EsOgjAARVHiStz\/Kh0ZGLRQoDSvek7iROqH3mKJywIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA\/er\/Kj71j2zH0dTTnZ5podZ8eWfTIokeeq\/u5Hs\/r3UOfMfTIp0e+1h537ys0b6PHnPTIokcWPeamB0CGHvupPXi8HnOqRz+t631vrvV4xtUe29fSlx559Minx1z0WB3twyPuf\/RYtcyDHuMk9Kh9j+9zLddo7Tovvcfs\/wvUfsdKY1LPT48semT55R57Y1LPL61H6+cmzyl91dbk0Xo9e9yaglwfvvA3QQ==",
          "encoding":"base64",
          "height":100,
          "id":7,
@@ -458,7 +470,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":142,
+ "nextobjectid":143,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

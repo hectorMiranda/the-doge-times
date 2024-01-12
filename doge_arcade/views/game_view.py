@@ -68,6 +68,10 @@ class GameView(View):
         self.game_over = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
         self.collect_coin_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "bark.wav"))
+        self.background_music = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "main_theme.wav"))
+        self.background_music_player = None
+        self.IsPlayerBig = False
+
     
         
     def create_status_bar(self):
@@ -263,6 +267,9 @@ class GameView(View):
             self.player_sprite.isAlive = True
             self.start_timer = True
         elif key == arcade.key.Z:
+            if self.IsPlayerBig == False:
+                self.IsPlayerBig = True
+                self.player_sprite.zoom_in()
             self.player_sprite.zoom_in()
         elif key == arcade.key.X:
             self.player_sprite.zoom_out()
