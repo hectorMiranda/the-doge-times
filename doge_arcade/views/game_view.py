@@ -53,9 +53,9 @@ class GameView(View):
     def setup_game_controller(self):
         # Check for game controllers and set up the first one found
         joysticks = arcade.get_joysticks()
-        print(joysticks)
         if joysticks:
             self.game_controller = joysticks[0]
+            print(self.game_controller.device.name)
             self.game_controller.open()
             self.game_controller.push_handlers(
                 self.on_joybutton_press,
@@ -65,20 +65,48 @@ class GameView(View):
             )
 
     def on_joybutton_press(self, joystick, button):
-        if button == arcade.CONTROLLER_BUTTON_A:
+        if button == cfg.BUTTON_X:
             self.on_key_press(arcade.key.UP, 0)
     def on_joybutton_release(self, joystick, button):
-        if button == arcade.CONTROLLER_BUTTON_A:
+        if button == cfg.BUTTON_X:
             self.on_key_release(arcade.key.UP, 0)
 
     def on_joyhat_motion(self, joystick, hat_x, hat_y):
-        # TODO: Handle D-pad (hat) movement 
-        pass
+        # Check for D-pad Up
+        if hat_y == 1:
+            self.on_key_press(arcade.key.UP, 0)
+        elif hat_y == -1:
+            self.on_key_press(arcade.key.DOWN, 0)
+
+        # Check for D-pad Left/Right
+        if hat_x == -1:
+            self.on_key_press(arcade.key.LEFT, 0)
+        elif hat_x == 1:
+            self.on_key_press(arcade.key.RIGHT, 0)
+
+        # Reset when D-pad is in the center position
+        if hat_x == 0:
+            self.on_key_release(arcade.key.LEFT, 0)
+            self.on_key_release(arcade.key.RIGHT, 0)
+        if hat_y == 0:
+            self.on_key_release(arcade.key.UP, 0)
+            self.on_key_release(arcade.key.DOWN, 0)
+
 
     def on_joyaxis_motion(self, joystick, axis, value):
-        # TODO: Handle joystick movement
-        pass 
-        
+        DEADZONE = 0.1  # Adjust this value as needed
+
+        if axis == 'x':  # Left-right movement
+            if value < -DEADZONE:
+                self.on_key_press(arcade.key.LEFT, 0)
+            elif value > DEADZONE:
+                self.on_key_press(arcade.key.RIGHT, 0)
+            else:
+                # Release both keys when in the deadzone
+                self.on_key_release(arcade.key.LEFT, 0)
+                self.on_key_release(arcade.key.RIGHT, 0)
+
+            
     def create_status_bar(self):
         self.status_bar = StatusBar(screen_width=self.display_width, bar_height=50)
         

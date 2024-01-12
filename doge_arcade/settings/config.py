@@ -71,3 +71,37 @@ COLORS = [arcade.color.RED, arcade.color.GREEN, arcade.color.BLUE,
           arcade.color.CYAN, arcade.color.MAGENTA]
 
 RAINDROP_COUNT = 50
+
+
+# PS4 Controller Button Mappings
+BUTTON_SQUARE = 0
+BUTTON_X = 1
+BUTTON_CIRCLE = 2
+BUTTON_TRIANGLE = 3
+BUTTON_L1 = 4
+BUTTON_R1 = 5
+BUTTON_L2 = 6
+BUTTON_R2 = 7
+BUTTON_SHARE = 8
+BUTTON_OPTIONS = 9
+BUTTON_L3 = 10
+BUTTON_R3 = 11
+BUTTON_PS = 12
+BUTTON_TOUCHPAD = 13
+
+# PS4 Controller Axis Mappings
+AXIS_LEFT_STICK_X = 0
+AXIS_LEFT_STICK_Y = 1
+AXIS_RIGHT_STICK_X = 2
+AXIS_RIGHT_STICK_Y = 5
+AXIS_L2_TRIGGER = 3
+AXIS_R2_TRIGGER = 4
+
+# D-Pad (Hat Switch) Values
+# Note: The D-Pad values depend on how the library reports Hat Switch states.
+# I might need to adjust these based on future testing.
+DPAD_UP = (0, 1)
+DPAD_DOWN = (0, -1)
+DPAD_LEFT = (-1, 0)
+DPAD_RIGHT = (1, 0)
+DPAD_CENTER = (0, 0)
