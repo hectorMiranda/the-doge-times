@@ -1,14 +1,16 @@
 import arcade
-from settings.config import DOGE_DATA_HUB_CALLING_INTERVAL, SCREEN_TITLE
+import settings.config as cfg
 from utilities.doge_data_hub_client import DogeDataHub
-from views.loading_view import LoadingView
+from views.start_view import StartView
+import logging
 
 def main() -> None:
     display_width, display_height = arcade.get_display_size()
-    window = arcade.Window(display_width, display_height, SCREEN_TITLE, resizable=True)
-    start_view = LoadingView()
+    logging.debug(f"Display width: {display_width}, Display height: {display_height}")
+    window = arcade.Window(display_width, display_height, cfg.SCREEN_TITLE, resizable=True)
+    start_view = StartView()
     window.show_view(start_view)
-    arcade.schedule(DogeDataHub.get_doge_price, DOGE_DATA_HUB_CALLING_INTERVAL) 
+    arcade.schedule(DogeDataHub.get_doge_price, cfg.DOGE_DATA_HUB_CALLING_INTERVAL) 
     arcade.run()
 
 if __name__ == "__main__":

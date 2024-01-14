@@ -346,8 +346,8 @@ class GameView(View):
 
         
     def restart_game(self):
-        from .loading_view import LoadingView
-        self.window.show_view(LoadingView())
+        from .start_view import StartView
+        self.window.show_view(StartView())
 
     def on_draw(self):
         arcade.start_render()

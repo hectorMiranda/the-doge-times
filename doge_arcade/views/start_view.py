@@ -6,7 +6,7 @@ from views.confirm_exit_view import ConfirmExitView
 from utilities.sprite_manager import SpriteManager
 from settings.config import ASSETS_PATH
               
-class LoadingView(arcade.View):
+class StartView(arcade.View):
     def __init__(self):
         super().__init__()
         self.loading_bar_width = 0
