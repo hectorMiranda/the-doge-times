@@ -1,6 +1,7 @@
 
 # Python #
 # ====== #
+doge-os.log
 start
 venv/
 __pycache__/

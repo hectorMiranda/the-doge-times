@@ -2,11 +2,12 @@ import arcade
 import settings.config as cfg
 from utilities.doge_data_hub_client import DogeDataHub
 from views.start_view import StartView
-import logging
+from utilities.doge_logger import DogeLogger
 
 def main() -> None:
     display_width, display_height = arcade.get_display_size()
-    logging.debug(f"Display width: {display_width}, Display height: {display_height}")
+    logger = DogeLogger.get_instance()
+    logger.debug(f"Display width: {display_width}, Display height: {display_height}")
     window = arcade.Window(display_width, display_height, cfg.SCREEN_TITLE, resizable=True)
     start_view = StartView()
     window.show_view(start_view)
