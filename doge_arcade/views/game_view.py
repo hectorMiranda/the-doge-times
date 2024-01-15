@@ -1,5 +1,4 @@
 import arcade
-from arcade import View
 import random
 import settings.config as cfg
 from utilities.doge_data_hub_client import DogeDataHub  
@@ -7,8 +6,9 @@ from UI.status_bar import StatusBar
 from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
 from views.pause_view import PauseView
+from views.base_view import BaseView
 
-class GameView(View):
+class GameView(BaseView):
     def __init__(self):
         super().__init__()
         self.elapsed_time = 0.0

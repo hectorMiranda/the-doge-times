@@ -1,11 +1,11 @@
 import arcade
 import arcade.gui
-from views.view import View
+from views.base_view import BaseView
 from views.game_view import GameView
 from views.game_over_view import GameOverView
 from views.pause_view import PauseView
 
-class CharacterSelectView(View):
+class CharacterSelectView(BaseView):
     def __init__(self):
         super().__init__()
 
