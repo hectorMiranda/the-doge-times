@@ -1,8 +1,14 @@
 from arcade import View as ArcadeView
+from utilities.doge_logger import DogeLogger
+
 
 class View(ArcadeView):
     def __init__(self):
         super().__init__()
+        self.logger = DogeLogger.get_instance()
+        self.logger.debug("BaseView initialized")
+
+
 
         # Used to track if a view has been ran it's setup function or not
         self.started = False
@@ -14,6 +20,7 @@ class View(ArcadeView):
         self.started = True
 
     def on_show(self):
+        self.logger.debug("View is now visible")
         if not self.started:
             self.setup()
 
