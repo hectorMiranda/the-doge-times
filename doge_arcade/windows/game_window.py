@@ -32,6 +32,10 @@ class GameWindow(arcade.Window):
         if cfg.WINDOW_PERFORMANCE_METRICS:
             arcade.draw_text(f"FPS: {self.fps:.2f}", 10, self.height - 20, arcade.color.WHITE, 12)
             arcade.draw_text(f"Memory: {self.memory_usage:.2f} MB", 10, self.height - 40, arcade.color.WHITE, 12)
+            
+            arcade.draw_text("Journey to the moon!", 10, 30 , arcade.color.WHITE, font_size=10, anchor_x="left", font_name="Kenney Future")
+            arcade.draw_text("python arcade edition: V 0.0.1", 10,10, arcade.color.ORANGE, font_size=8, anchor_x="left", font_name="Kenney Future")                        
+ 
         
         super().on_draw()
 

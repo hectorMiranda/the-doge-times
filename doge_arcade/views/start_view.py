@@ -29,10 +29,7 @@ class StartView(BaseView):
 
     def on_draw(self):
         arcade.start_render()
-        
-        arcade.draw_text("Journey to the moon!", 10, 30 , arcade.color.WHITE, font_size=10, anchor_x="left", font_name="Kenney Future")
-        arcade.draw_text("python arcade edition: V 0.0.1", 10,10, arcade.color.ORANGE, font_size=8, anchor_x="left", font_name="Kenney Future")                        
-        
+               
         progress_bar_x = self.display_width / 2
         progress_bar_y = self.display_height / 3
         #arcade.draw_texture_rectangle(self.display_width / 5, self.display_height / 2, 400, 400, arcade.load_texture(str(ASSETS_PATH / "UI" / "doge_box.png")))

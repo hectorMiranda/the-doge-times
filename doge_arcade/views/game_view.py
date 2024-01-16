@@ -7,10 +7,12 @@ from entities.player_character import PlayerCharacter
 from views.confirm_exit_view import ConfirmExitView
 from views.pause_view import PauseView
 from views.base_view import BaseView
+from utilities.doge_logger import DogeLogger
 
 class GameView(BaseView):
     def __init__(self):
         super().__init__()
+        self.logger = DogeLogger.get_instance()
         self.elapsed_time = 0.0
         self.time_display = "00:00"
         self.start_timer = False
@@ -55,7 +57,7 @@ class GameView(BaseView):
         joysticks = arcade.get_joysticks()
         if joysticks:
             self.game_controller = joysticks[0]
-            print(self.game_controller.device.name)
+            self.logger.debug(self.game_controller.device.name)
             self.game_controller.open()
             self.game_controller.push_handlers(
                 self.on_joybutton_press,
@@ -182,7 +184,7 @@ class GameView(BaseView):
         try:
             self.tile_map = arcade.load_tilemap(map_name, cfg.TILE_SCALING, layer_options)
         except Exception as e:
-            print(f"Error loading tile map: {e}")
+            self.logger.error(f"Error loading tile map: {e}")
     
         if self.tile_map.background_color:
             arcade.set_background_color(self.tile_map.background_color)
@@ -320,7 +322,7 @@ class GameView(BaseView):
                 self.IsRaining = True
             else:  
                 self.IsRaining = False
-            print (self.IsRaining)
+            self.logger.debug(self.IsRaining)
         elif key == arcade.key.T:
             self.player_sprite.isAlive = False
         elif key == arcade.key.C:
@@ -453,7 +455,7 @@ class GameView(BaseView):
 
             
     def on_mouse_press(self, x, y, button, modifiers):
-        print("-->", x, y)
+        self.logger("-->", x, y)
         self.status_bar.on_mouse_press(x, y, button, modifiers)
         self.player_sprite.on_mouse_press(x, y, button, modifiers)
 
