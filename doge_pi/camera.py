@@ -1,16 +1,16 @@
 import tkinter as tk
-from picamera import PiCamera
 from PIL import Image, ImageTk
 import cv2
-import threading
 
-class PiCameraApp:
-    def __init__(self, window, window_title):
+class USB_Camera_App:
+    def __init__(self, window, window_title, video_source=0):
         self.window = window
         self.window.title(window_title)
-        
-        self.camera = PiCamera()
-        self.camera.resolution = (640, 480)
+        self.video_source = video_source
+
+        self.camera = cv2.VideoCapture(video_source)
+        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
         self.canvas = tk.Canvas(window, width=640, height=480)
         self.canvas.pack()
@@ -26,28 +26,31 @@ class PiCameraApp:
     def start_camera(self):
         if not self.running:
             self.running = True
-            self.thread = threading.Thread(target=self.video_stream)
-            self.thread.start()
+            self.update_frame()
 
     def stop_camera(self):
         self.running = False
-        self.thread.join()
 
-    def video_stream(self):
-        while self.running:
-            image = self.camera.capture_continuous()
-            frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            img = Image.fromarray(frame)
-            imgtk = ImageTk.PhotoImage(image=img)
-            self.canvas.create_image(0, 0, anchor=tk.NW, image=imgtk)
-            self.window.update()
+    def update_frame(self):
+        if self.running:
+            ret, frame = self.camera.read()
+            if ret:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                img = Image.fromarray(frame)
+                self.imgtk = ImageTk.PhotoImage(image=img)
+                self.canvas.create_image(0, 0, anchor=tk.NW, image=self.imgtk)
+                self.window.after(10, self.update_frame)
+            else:
+                print("Failed to capture frame")
 
     def on_closing(self):
-        self.running = False
+        if self.running:
+            self.running = False
         self.window.quit()
         self.window.destroy()
+        self.camera.release()
 
 root = tk.Tk()
-app = PiCameraApp(root, "Raspberry Pi Camera")
+app = USB_Camera_App(root, "USB Camera with Raspberry Pi")
 root.protocol("WM_DELETE_WINDOW", app.on_closing)
 root.mainloop()
