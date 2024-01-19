@@ -9,11 +9,13 @@ Welcome to "The Doge Times" repository! This repository hosts a diverse collecti
 - **Journey to the Moon (Video Game)**
     - A dogecoin based video game
 
-- **DogeDataHub (New!)**
+- **DogeDataHub**
     - A Python-based microservice for fetching real-time Dogecoin data.
     - Offers extensive API endpoints for Dogecoin prices, news, and more.
     - Located in the `minux/DogeDataHub` directory.
     - See the `minux/DogeDataHub/README.md` for setup and usage instructions.
+- **DogePI**
+    A webcam monitor with a RESTful api
 
 ## Getting Started
 To get started with any project in this repository:
