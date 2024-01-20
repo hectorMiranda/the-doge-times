@@ -144,15 +144,17 @@ class OpenAIResource(Resource):
             return {"error": str(e)}, 500
 
 
-
 def get_openai_response(prompt):
     openai.api_key = os.environ.get('OPENAI_API_KEY')
-    response = openai.Completion.create(
-      engine="text-davinci-004",
-      prompt=prompt,
-      max_tokens=150
+    response = openai.ChatCompletion.create(
+        model="gpt-4.0-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
     )
-    return response.choices[0].text.strip()
+    return response['choices'][0]['message']['content'].strip()
+
 
 
 if __name__ == '__main__':

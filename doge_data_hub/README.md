@@ -39,6 +39,7 @@ pip install -r requirements.txt
 export TWITTER_BEARER_TOKEN='your-twitter-bearer-token'
 export CACHE_DURATION=300  # In seconds
 export ADMIN_BEARER_TOKEN='your-admin-bearer-token'
+export OPENAI_API_KEY='your-open-api-key'
 ```
 
 ## Running the Program
