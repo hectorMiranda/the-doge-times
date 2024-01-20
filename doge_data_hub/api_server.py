@@ -4,6 +4,7 @@ from flask_caching import Cache
 import tweepy
 import os
 import requests
+import openai
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='DogeDataHub API',
@@ -128,6 +129,31 @@ class DogecoinNews(Resource):
             return {"news": news, "meta": meta}
         except Exception as e:
             return {"error": str(e)}, 500
+        
+@ns.route('/openai')
+class OpenAIResource(Resource):
+    def post(self):
+        data = request.json
+        prompt = data.get('prompt')
+        if not prompt:
+            return {"error": "No prompt provided"}, 400
+        try:
+            response = get_openai_response(prompt)
+            return {"response": response}
+        except Exception as e:
+            return {"error": str(e)}, 500
+
+
+
+def get_openai_response(prompt):
+    openai.api_key = os.environ.get('OPENAI_API_KEY')
+    response = openai.Completion.create(
+      engine="text-davinci-004",
+      prompt=prompt,
+      max_tokens=150
+    )
+    return response.choices[0].text.strip()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
