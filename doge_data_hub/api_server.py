@@ -5,6 +5,7 @@ import tweepy
 import os
 import requests
 import openai
+import settings.config as cfg
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='DogeDataHub API',
@@ -22,7 +23,7 @@ ns = api.namespace('', description='DogeDataHub operations')
 
 # Helper function to get cryptocurrency prices
 def get_crypto_price(coin):
-    url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies=usd"
+    url = cfg.DOGE_PRICE_API #f"https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies=usd"
     response = requests.get(url)
     return response.json()
 
