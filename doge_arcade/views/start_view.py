@@ -3,9 +3,9 @@ import math
 import random
 import arcade
 from views.confirm_exit_view import ConfirmExitView
-from utilities.sprite_manager import SpriteManager
-from settings.config import ASSETS_PATH
 from views.base_view import BaseView
+import settings.config as cfg
+
               
 class StartView(BaseView):
     def __init__(self):
@@ -42,7 +42,7 @@ class StartView(BaseView):
                 arcade.draw_text("Press any key to continue", progress_bar_x, progress_bar_y - 10 , arcade.color.GRAY, font_size=20, font_name="Kenney Future", anchor_x="center")
         elif not self.loading_complete:
             arcade.draw_rectangle_filled(progress_bar_x, progress_bar_y, self.loading_bar_width, 30, arcade.color.BLUE)
-            message = arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.GRAY, font_size=20, font_name="Kenney Future", anchor_x="center")
+            arcade.draw_text("Loading ...", progress_bar_x, progress_bar_y - 10 , arcade.color.GRAY, font_size=20, font_name="Kenney Future", anchor_x="center")
             
         #if self.doge_box_sprite:
         #self.doge_box_sprite.draw()
@@ -138,7 +138,6 @@ class StartView(BaseView):
             self.window.show_view(modal_view)
         elif self.loading_complete:
             from views.game_view import GameView
-            
             
             game = GameView()
             game.setup()
