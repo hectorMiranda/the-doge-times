@@ -8,6 +8,8 @@ from views.confirm_exit_view import ConfirmExitView
 from views.pause_view import PauseView
 from views.base_view import BaseView
 from utilities.doge_logger import DogeLogger
+from arcade.experimental.crt_filter import CRTFilter
+from pyglet.math import Vec2
 
 class GameView(BaseView):
     def __init__(self):
@@ -50,6 +52,10 @@ class GameView(BaseView):
         self.raindrop_list = []
         self.Winner = False
         self.IsRaining = False
+        self.crt_filter = CRTFilter(self.display_width, self.display_height, resolution_down_scale=6.0, hard_scan=-8.0,
+                                    hard_pix=-3.0, display_warp = Vec2(1.0 / 32.0, 1.0 / 24.0),
+                                    mask_dark=0.5, mask_light=1.5)
+        self.filter_on = cfg.FILTER_ON
 
 
     def setup_game_controller(self):
@@ -353,44 +359,52 @@ class GameView(BaseView):
 
     def on_draw(self):
         arcade.start_render()
-        self.camera.use()
-        #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
-        self.status_bar.update_stat_box(0,f"{DogeDataHub.doge_price}")
-        self.status_bar.update_stat_box(1,f"Level {self.level}")
-        self.status_bar.update_stat_box(2,f"Time: {self.time_display}")
-        self.status_bar.update_stat_box(3,f"{self.score}")
-        self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "wallet.png"))
-        self.scene.draw()
-        self.gui_camera.use()
-        self.status_bar.draw()
-        
+   
         minutes = int(self.elapsed_time) // 60
         seconds = int(self.elapsed_time) % 60
         self.time_display = f"{minutes:02d}:{seconds:02d}"
-        
-        
-        if self.Winner == True:
-            self.confetti_list = []
-            for i in range(cfg.CONFETTI_COUNT):
-                x = random.randint(0, self.display_width)
-                y = random.randint(0, self.display_height)
-                color = random.choice(cfg.COLORS)
-                self.confetti_list.append({"x": x, "y": y, "color": color})
-            for confetti in self.confetti_list:
-                arcade.draw_rectangle_filled(confetti["x"], confetti["y"], 10, 5, confetti["color"])
-        
-        if self.IsRaining == True:        
-            self.raindrop_list = []
-            for i in range(cfg.RAINDROP_COUNT):
-                x = random.randint(0, self.display_width)
-                y = random.randint(0, self.display_height)
-                length = random.randint(10, 20)
-                color = arcade.color.BLUE_GRAY  
-                self.raindrop_list.append({"x": x, "y": y, "length": length, "color": color})
-            for raindrop in self.raindrop_list:
-                arcade.draw_line(raindrop["x"], raindrop["y"], 
-                                raindrop["x"], raindrop["y"] + raindrop["length"], 
-                                raindrop["color"], 2)
+             
+        if self.filter_on:
+            self.crt_filter.use()
+            self.crt_filter.clear()
+            self.camera.use()
+            #arcade.draw_texture_rectangle(center_x=self.display_width / 2, center_y=self.display_height / 2, width=self.display_width, height=self.display_height, texture=self.background)
+            self.status_bar.update_stat_box(0,f"{DogeDataHub.doge_price}")
+            self.status_bar.update_stat_box(1,f"Level {self.level}")
+            self.status_bar.update_stat_box(2,f"Time: {self.time_display}")
+            self.status_bar.update_stat_box(3,f"{self.score}")
+            self.status_bar.update_menu_item(0,0,f"Doge Price: {DogeDataHub.doge_price}", self.status_bar.dummy_action, str(cfg.ASSETS_PATH / "UI" / "wallet.png"))
+            self.scene.draw()
+            self.gui_camera.use()
+            self.status_bar.draw()
+            
+
+            
+            
+            if self.Winner == True:
+                self.confetti_list = []
+                for i in range(cfg.CONFETTI_COUNT):
+                    x = random.randint(0, self.display_width)
+                    y = random.randint(0, self.display_height)
+                    color = random.choice(cfg.COLORS)
+                    self.confetti_list.append({"x": x, "y": y, "color": color})
+                for confetti in self.confetti_list:
+                    arcade.draw_rectangle_filled(confetti["x"], confetti["y"], 10, 5, confetti["color"])
+            
+            if self.IsRaining == True:        
+                self.raindrop_list = []
+                for i in range(cfg.RAINDROP_COUNT):
+                    x = random.randint(0, self.display_width)
+                    y = random.randint(0, self.display_height)
+                    length = random.randint(10, 20)
+                    color = arcade.color.BLUE_GRAY  
+                    self.raindrop_list.append({"x": x, "y": y, "length": length, "color": color})
+                for raindrop in self.raindrop_list:
+                    arcade.draw_line(raindrop["x"], raindrop["y"], 
+                                    raindrop["x"], raindrop["y"] + raindrop["length"], 
+                                    raindrop["color"], 2)
+                    
+            self.crt_filter.draw()
 
 
         
