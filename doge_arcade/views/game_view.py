@@ -450,7 +450,7 @@ class GameView(BaseView):
                 self.player_sprite.isAlive = False
 
         # See if the user got to the end of the level
-        if self.player_sprite.center_x >= self.end_of_map:
+        if self.player_sprite.center_x >= self.end_of_map-1000:
             # Advance to the next level
             self.level += 1
 
