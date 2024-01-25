@@ -462,7 +462,7 @@ class GameView(BaseView):
 
             
     def on_mouse_press(self, x, y, button, modifiers):
-        self.logger("-->", x, y)
+        self.logger.debug("-->", x, y)
         self.status_bar.on_mouse_press(x, y, button, modifiers)
         self.player_sprite.on_mouse_press(x, y, button, modifiers)
 

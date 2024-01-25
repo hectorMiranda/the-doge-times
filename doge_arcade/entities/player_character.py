@@ -1,10 +1,12 @@
 import arcade
 import settings.config as cfg
+from utilities.doge_logger import DogeLogger
 
     
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
         super().__init__()
+        self.logger = DogeLogger.get_instance()
 
         self.facing_direction = cfg.LEFT_FACING
         self.idle_textures = []
@@ -145,7 +147,7 @@ class PlayerCharacter(arcade.Sprite):
             self.texture = self.death_textures[self.cur_texture // 3]
 
     def on_mouse_press(self, x, y, button, modifiers):
-        print("mouse press")
+        self.logger.debug("mouse press")
         if self.collides_with_point((x, y)) and button == arcade.MOUSE_BUTTON_LEFT:
             print("player collides with mouse click")
             self.is_being_dragged = True
@@ -153,14 +155,14 @@ class PlayerCharacter(arcade.Sprite):
             self.drag_start_y = y - self.center_y
 
     def on_mouse_release(self, x, y, button, modifiers):
-        print("mouse release")
+        self.logger.debug("mouse release")
         if button == arcade.MOUSE_BUTTON_LEFT:
             self.is_being_dragged = False
 
     def on_mouse_motion(self, x, y, dx, dy):
-        print("mouse motion")
+        self.logger.debug("mouse motion")
         if self.is_being_dragged:
-            print("being dragged")
+            self.logger.debug("being dragged")
             self.center_x = x - self.drag_start_x
             self.center_y = y - self.drag_start_y
 
