@@ -1,12 +1,12 @@
 import arcade
-from settings.config import ASSETS_PATH, LEFT_FACING, RIGHT_FACING, SPRITE_DEATH_FRAMES,SPRITE_CLIMB_FRAMES, SPRITE_IDLE_FRAMES, SPRITE_RUN_FRAMES, SPRITE_SPAWN_FRAMES, SPRITE_SIZE_WIDTH, SPRITE_SIZE_HEIGHT
+import settings.config as cfg
 
     
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.facing_direction = LEFT_FACING
+        self.facing_direction = cfg.LEFT_FACING
         self.idle_textures = []
         self.run_textures = []
         self.run_left_textures = []
@@ -15,7 +15,7 @@ class PlayerCharacter(arcade.Sprite):
         self.jump_left_textures = []
         self.climb_textures = []
         self.death_textures = []
-        self.grow_sound = arcade.load_sound(str(ASSETS_PATH / "sounds" / "appear.wav"))    
+        self.grow_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "appear.wav"))    
         self.isAlive = True
         
         self.is_being_dragged = False
@@ -25,36 +25,36 @@ class PlayerCharacter(arcade.Sprite):
         sprite_count = 0 
         for row in range(6):  
             for col in range(7):
-                if sprite_count >= SPRITE_IDLE_FRAMES: 
+                if sprite_count >= cfg.SPRITE_IDLE_FRAMES: 
                     break
-                idle_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                idle_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerIdle.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT)
                 self.idle_textures.append(idle_texture)
                 sprite_count += 1
         
         sprite_count = 0      
         for row in range(5):  
             for col in range(6): 
-                if sprite_count >= SPRITE_RUN_FRAMES: 
+                if sprite_count >= cfg.SPRITE_RUN_FRAMES: 
                     break
-                run_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                run_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT)
                 self.run_textures.append(run_texture)
                 sprite_count += 1
         
         sprite_count = 0         
         for row in range(5):  
             for col in range(6): 
-                if sprite_count >= SPRITE_RUN_FRAMES: 
+                if sprite_count >= cfg.SPRITE_RUN_FRAMES: 
                     break
-                run_left_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
+                run_left_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerRun.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
                 self.run_left_textures.append(run_left_texture)
                 sprite_count += 1
         
         sprite_count = 0 
         for row in range(4): 
             for col in range(5):  
-                if sprite_count >= SPRITE_SPAWN_FRAMES: 
+                if sprite_count >= cfg.SPRITE_SPAWN_FRAMES: 
                     break
-                spawn_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerSpawn.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                spawn_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerSpawn.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT)
                 self.spawn_textures.append(spawn_texture)
                 sprite_count += 1
                 
@@ -62,9 +62,9 @@ class PlayerCharacter(arcade.Sprite):
         sprite_count = 0 
         for row in range(7): 
             for col in range(7):  
-                if sprite_count >= SPRITE_RUN_FRAMES: 
+                if sprite_count >= cfg.SPRITE_RUN_FRAMES: 
                     break
-                jump_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                jump_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT)
                 self.jump_textures.append(jump_texture)
                 sprite_count += 1
                 
@@ -72,31 +72,31 @@ class PlayerCharacter(arcade.Sprite):
         sprite_count = 0 
         for row in range(7): 
             for col in range(7):  
-                if sprite_count >= SPRITE_RUN_FRAMES: 
+                if sprite_count >= cfg.SPRITE_RUN_FRAMES: 
                     break
-                jump_left_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
+                jump_left_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerJump.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT, flipped_horizontally=True)
                 self.jump_left_textures.append(jump_left_texture)
                 sprite_count += 1
                 
         sprite_count = 0 
         for row in range(2): 
             for col in range(7):  
-                if sprite_count >= SPRITE_CLIMB_FRAMES: 
+                if sprite_count >= cfg.SPRITE_CLIMB_FRAMES: 
                     break
-                climb_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerClimbing.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                climb_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerClimbing.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT)
                 self.climb_textures.append(climb_texture)
                 sprite_count += 1
                 
         sprite_count = 0 
         for row in range(3): 
             for col in range(5):  
-                if sprite_count >= SPRITE_DEATH_FRAMES: 
+                if sprite_count >= cfg.SPRITE_DEATH_FRAMES: 
                     break
-                death_texture = arcade.load_texture(str(ASSETS_PATH / "sprites" / "PlayerDeath.png"), x=col * SPRITE_SIZE_WIDTH, y=row * SPRITE_SIZE_HEIGHT, width=SPRITE_SIZE_WIDTH, height=SPRITE_SIZE_HEIGHT)
+                death_texture = arcade.load_texture(str(cfg.ASSETS_PATH / "sprites" / "PlayerDeath.png"), x=col * cfg.SPRITE_SIZE_WIDTH, y=row * cfg.SPRITE_SIZE_HEIGHT, width=cfg.SPRITE_SIZE_WIDTH, height=cfg.SPRITE_SIZE_HEIGHT)
                 self.death_textures.append(death_texture)
                 sprite_count += 1
                         
-        self.character_face_direction = LEFT_FACING
+        self.character_face_direction = cfg.LEFT_FACING
         self.texture = self.idle_textures[0]
         self.jumping = False
         self.is_running = False
