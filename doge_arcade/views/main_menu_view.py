@@ -64,7 +64,7 @@ class MainMenuView(View):
         arcade.start_render()
 
         arcade.draw_text(
-            "Arcade Community Platformer",
+            "Doge Arcade POC",
             self.window.width / 2,
             self.window.height - 125,
             arcade.color.ALLOY_ORANGE,

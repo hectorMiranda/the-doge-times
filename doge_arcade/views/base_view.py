@@ -29,6 +29,7 @@ class BaseView(ArcadeView):
 
         if self.ui_manager:
             self.ui_manager.enable()
+            self.logger.debug(f"ui manager enabled for {type(self).__name__}")
 
     def on_hide_view(self):
         if self.ui_manager:
