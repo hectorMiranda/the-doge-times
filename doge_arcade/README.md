@@ -44,6 +44,8 @@ python3 doge_arcade.py
 - **Z**: increase character size
 - **X**: reduce character size
 
+The game has also been tested using a PS4 wireless controller.
+
 ## doge_data_hub API 
 
 The game leverages the doge_data_hub API to get dogecoin related data.

@@ -1,11 +1,7 @@
-"""
-Main Menu
-"""
 import arcade
 import arcade.gui
 
 from views import CharacterSelectView, SettingsView, View
-
 
 class MainMenuView(View):
     def __init__(self):
