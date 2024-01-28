@@ -160,8 +160,11 @@ class GameView(BaseView):
     def setup(self):
         self.camera = arcade.Camera(self.display_width, self.display_height)
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
-          
-        map_name = f"{cfg.ASSETS_PATH}/maps/map_level_{self.level}.json"
+        
+        if cfg.LOAD_VERTICAL_MAPS == True:  
+            map_name = f"{cfg.ASSETS_PATH}/maps/map_level_{self.level}_vertical.json"
+        else:
+            map_name = f"{cfg.ASSETS_PATH}/maps/map_level_{self.level}.json"
         
         layer_options = {
         cfg.LAYER_NAME_PLATFORMS: {
@@ -450,7 +453,7 @@ class GameView(BaseView):
                 self.player_sprite.isAlive = False
 
         # See if the user got to the end of the level
-        if self.player_sprite.center_x >= self.end_of_map-1000:
+        if self.player_sprite.center_x >= self.end_of_map:
             # Advance to the next level
             self.level += 1
 
