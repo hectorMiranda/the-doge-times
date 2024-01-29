@@ -17,9 +17,9 @@ const CurrentPrice = () => {
     }, []);
 
     return (
-        <div>
+        <div className="component">
             <h2>Current Price</h2>
-            {currentPrice ? <p>{JSON.stringify(currentPrice)}</p> : <p>{error}</p>}
+            {currentPrice ? <p>{JSON.stringify(currentPrice)}</p> : <p className="error">{error}</p>}
         </div>
     );
 };
