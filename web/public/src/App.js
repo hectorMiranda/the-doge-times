@@ -49,7 +49,10 @@ function App() {
 
   return (
     <ComingSoonContainer>
+      <img src="/TheDogeTimesLogo.png" alt="The Doge Times Logo" />
+
       <Title>The Doge Times</Title>
+
       <Countdown date={launchDate} renderer={CountdownRenderer} />
       <Message>Something exciting is coming soon...</Message>
     </ComingSoonContainer>
