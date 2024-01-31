@@ -49,7 +49,7 @@ SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = SPRITE_PIXEL_SIZE * TILE_SCALING
 
 PLAYER_START_X = 64
-PLAYER_START_Y = 225
+PLAYER_START_Y = 6500
 
 # Layer Names from the included python arcade 2.6.17 resource TileMap 
 LAYER_NAME_PLATFORMS = "Platforms"

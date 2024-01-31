@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="1024" tileheight="1024" tilecount="31" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="1792" tileheight="1024" tilecount="36" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="31">
   <image width="440" height="400" source="../environment/tree_2.png"/>
@@ -88,10 +88,25 @@
  <tile id="71">
   <image width="213" height="73" source="../environment/grass_3.png"/>
  </tile>
- <tile id="75">
-  <image width="1024" height="1024" source="../backgrounds/doge_background_001.png"/>
- </tile>
  <tile id="76">
   <image width="640" height="245" source="../environment/chain_link.png"/>
+ </tile>
+ <tile id="78">
+  <image width="1792" height="1024" source="../backgrounds/doge_underground.png"/>
+ </tile>
+ <tile id="79">
+  <image width="1792" height="1024" source="../backgrounds/doge_mine.png"/>
+ </tile>
+ <tile id="82">
+  <image width="128" height="128" source="../backgrounds/platform_001.png"/>
+ </tile>
+ <tile id="83">
+  <image width="128" height="128" source="../backgrounds/platform_002.png"/>
+ </tile>
+ <tile id="84">
+  <image width="128" height="128" source="../backgrounds/platform_003.png"/>
+ </tile>
+ <tile id="85">
+  <image width="128" height="128" source="../backgrounds/platform_004.png"/>
  </tile>
 </tileset>
