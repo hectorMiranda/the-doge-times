@@ -22,7 +22,7 @@
                 }, 
                 {
                  "gid":667,
-                 "height":10821.1220400729,
+                 "height":11356.1220400729,
                  "id":170,
                  "name":"",
                  "rotation":0,
@@ -42,11 +42,25 @@
                  "visible":true,
                  "width":3400.4781844504,
                  "x":2944.29616448911,
-                 "y":1929.75596571565
+                 "y":1933.75596571565
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzt1+0KgjAUgGHZ\/d9DGJTOqyx\/COOwM93H2UTeB0ZRtO3VFTRNAADcl3ejd\/BcL5ceh7fTx9W55Jya1Folw2LOsLtXR84+Wuy\/Z0fp+jmsG3zw\/Psfy8VzmMuyYRMNIdkTa\/goPUvk9R7nSjbs5pMOrWHE\/ShtyLGf27Xgc3KOVEPsmmoNNXuw7pBaNxx7mDt2xM7bqtyz3D3U8sF+z87UKt7fGqzfirwWqbMi792dOmK0s9Wqo\/Y7ncOyQ7LuCjv2R6sO7+z\/o7X6bU3p0dEDHffypA4AAAAAAAAAAAAAAAAAAAAAAAAAwHg\/u0L4Sg==",
+         "encoding":"base64",
+         "height":100,
+         "id":10,
+         "name":"Background",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":50,
          "x":0,
          "y":0
         }, 
@@ -180,21 +194,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAeDBOIAAB",
-         "encoding":"base64",
-         "height":100,
-         "id":10,
-         "name":"Background",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":50,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "compression":"zlib",
-         "data":"eJzt10EOgjAQBVDwSJ7OrZ7AGyic1IWSGAOlSCmleS+ZbTM\/LZ3SNPk9TusK4KhqucP6DDly3P85cqTSBeZiv3Ku5pq73afXvaqGDDF7\/ZzJWkKG2JrKcqQMU+cvJsO3vfufypG7t1Jd23dd2r07WU+WMtWYJWR498zNtDVCb6sUb6Dfe36LLLHzMPX6KbMsmelbrL\/lGZsyfAOhWmLPLCmN7UvoOy017z\/vm1KzLFVLllr2pZYzVvM\/BABlu7XjBQAAAAAAAAAAAADAMZxPy+vepq1YoTVegaMd6Q==",
+         "data":"eJzt292OwiAQQGHj+7+DlkRDfUrDRZOG8DPADKKeL+nNboqcsi3uRS+X+W7XsQMAvtWvPMOcUcc2+flv0REa3OnQHDd3XdzAnnpPzDFuKHW0rE08ZuoYcW7ZlMaMSRo0PjO0bJVxcn8TqTXtabC6z+OGnjm0NFh3hIaX4JqnfrZSx945vmRuszoka5HTMi9v2BEanp1j95znGj7PR8+aR+a83obe7sANrL2mkYZglY5RGh3HHlfb0zQ+o\/T9aqQj3uMsWiT76EhHbnzLdTloddSu0YyWM+meHz9jveCcmS2t8+9tKd2nGr3a+7mkzWLtZnxvr\/EKLSt07ArrslpHqeW4xz7x\/4dE3JGbU+3eAwAAAAAAAAAAAAAAAAAAAAAAAPB\/cu8X1d49kvxu5rtLb8Y71kM=",
          "encoding":"base64",
          "height":100,
          "id":6,
@@ -231,7 +231,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztw7EJAAAIA7D6\/+69fiCCawJJAAAAAAAAAAAAAAAAAAAAAAAAAPjqut0MdREF5w==",
+         "data":"eJztyqENADAMA8Fkf955S1tiFBTdSUbvKgAAAAAAAAAAAAAAAAAAAAAAAIAdTv9L7e2ppc\/0LkmpFwI=",
          "encoding":"base64",
          "height":100,
          "id":8,
@@ -259,7 +259,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt28sKgCAQBdDoS\/r\/rwwXgYHZ01ecsxViro3jymmCsS1z6wreCxlGz7FlkKO9OMOXWUbfl6DEvjCe1BnRD8CZq7Oi95lyp76es6Rqy9V6ttbTnfC0hic5SmausZc17vQafRF\/v1SWGj1+9D9an6m7\/pABAAAAAAAAAAAAAAAAoCfeaQGx3JtUs2JvBffBDOM=",
+         "data":"eJzt1UEKgCAURVFpJe1\/leEgiLCRST47ZwHC\/X2zlPH2LetcsqywB7UhveNs0PG9a8ObLelzqUbMhWz2AGhpvaWJb8ffOtK6nvR+o1nmkLhrLan35i75HwC9Vtl\/HXNZpQMAAAAAAAAAAAAAAACAeR0cowmz",
          "encoding":"base64",
          "height":100,
          "id":7,
@@ -295,7 +295,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":172,
+ "nextobjectid":173,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
