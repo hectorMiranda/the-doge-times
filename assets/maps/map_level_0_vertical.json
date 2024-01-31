@@ -52,7 +52,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1+0KgjAUgGHZ\/d9DGJTOqyx\/COOwM93H2UTeB0ZRtO3VFTRNAADcl3ejd\/BcL5ceh7fTx9W55Jya1Folw2LOsLtXR84+Wuy\/Z0fp+jmsG3zw\/Psfy8VzmMuyYRMNIdkTa\/goPUvk9R7nSjbs5pMOrWHE\/ShtyLGf27Xgc3KOVEPsmmoNNXuw7pBaNxx7mDt2xM7bqtyz3D3U8sF+z87UKt7fGqzfirwWqbMi792dOmK0s9Wqo\/Y7ncOyQ7LuCjv2R6sO7+z\/o7X6bU3p0dEDHffypA4AAAAAAAAAAAAAAAAAAAAAAAAAwHg\/u0L4Sg==",
+         "data":"eJzt1\/EKgjAQx3HZ+7+DGJTOesjaH4Nx3ObS27T4fmBQMux+eh42DAAAXJd3Z1fwu15OX9EovqfG5PjN5VeqtC+sseJePt3+lbNVl5apZk\/PHN\/UUZuxRo8cJVZZwr67wSxZMjX45PPjs+YGPRXPYcErv7+KDCmZR9uTMyv7LHJsXU+tvmlnhlINRx3NcKSG0AdL4wzac6dlODuH9kyUarPOEGuYOubQ+m0xmJUW720+qXerp+RcXo3mpAV5LUq9Iu\/dlXJocr1llcNiNtVqmUNqnUu+d7TK4V37\/2hWs7WkR44eyHEt\/5QDAAAAAAAAAAAAAAAAAAAAAAAAAHC+N487xI0=",
          "encoding":"base64",
          "height":100,
          "id":10,
@@ -194,7 +194,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt292OwiAQQGHj+7+DlkRDfUrDRZOG8DPADKKeL+nNboqcsi3uRS+X+W7XsQMAvtWvPMOcUcc2+flv0REa3OnQHDd3XdzAnnpPzDFuKHW0rE08ZuoYcW7ZlMaMSRo0PjO0bJVxcn8TqTXtabC6z+OGnjm0NFh3hIaX4JqnfrZSx945vmRuszoka5HTMi9v2BEanp1j95znGj7PR8+aR+a83obe7sANrL2mkYZglY5RGh3HHlfb0zQ+o\/T9aqQj3uMsWiT76EhHbnzLdTloddSu0YyWM+meHz9jveCcmS2t8+9tKd2nGr3a+7mkzWLtZnxvr\/EKLSt07ArrslpHqeW4xz7x\/4dE3JGbU+3eAwAAAAAAAAAAAAAAAAAAAAAAAPB\/cu8X1d49kvxu5rtLb8Y71kM=",
+         "data":"eJzt200OwiAQhuGm97+DSqKpP4c0LIhNLWWAmdHq+yRsNAIfSKELhsHfYewrALBXv\/IMC0Y5Ts7Pf4scMUOYFc16c+MS23k0lmjtc2mGmrkJY7n0uI\/vRXuOJRkscqzJ\/SeOgva\/JcdyvbT0wTpHScxwK7SxhxxXw\/q9ckjmQsNkmCNmuDhkSIJBe94ZouA099bI8ZL2OMme1tvG1vmqJ8dyj7PIItlHe3Lk6recl0QrR2mMPLLMSc9g50W\/JsFvPLPU9r81y9Y61cirvZ9LstWMlZT1OdELOfylNfaJ9w9NpbUHAAAAAAAAAAAAAAAAAAAAAAAA4P\/k7heV7h5JvvO8u\/QEcafHmw==",
          "encoding":"base64",
          "height":100,
          "id":6,
@@ -287,6 +287,18 @@
                  "width":1106.78733031674,
                  "x":27.6915540998689,
                  "y":1494.63639998462
+                }, 
+                {
+                 "gid":621,
+                 "height":644.294897665033,
+                 "id":173,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1350.18737388296,
+                 "x":3970.33727298934,
+                 "y":1699.12481983281
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -295,7 +307,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":173,
+ "nextobjectid":174,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
