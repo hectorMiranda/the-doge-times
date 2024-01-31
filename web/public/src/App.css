@@ -1,3 +1,13 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fffbea; /* Set the background color */
+}
+
 .App {
   text-align: center;
 }
@@ -13,15 +23,18 @@
   }
 }
 
+img {
+  margin-bottom: 0; /* Reducing or removing the bottom margin */
+}
+
 .App-header {
-  background-color: #fffbea;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: blue;
 }
 
 .App-link {
@@ -35,4 +48,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.ComingSoonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 100px;
+
+}
+
+.Title {
+  color: #333;
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.Message {
+  color: #555;
+  font-size: 48px;
+  margin-top: 0; 
+  margin-bottom: 0; 
+}
+
+.CountdownStyle {
+  margin-top: 0;
 }

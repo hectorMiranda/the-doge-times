@@ -1,44 +1,15 @@
 import React from 'react';
 import Countdown from 'react-countdown';
-import styled from 'styled-components';
-
-// Styles
-const ComingSoonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f5f5f5;
-  font-family: 'Arial', sans-serif;
-`;
-
-const Title = styled.h1`
-  color: #333;
-  font-size: 48px;
-  margin-bottom: 20px;
-`;
-
-const CountdownStyle = styled.div`
-  font-size: 32px;
-  color: #ff4500;
-  margin-bottom: 30px;
-`;
-
-const Message = styled.p`
-  color: #555;
-  font-size: 24px;
-`;
 
 // Renderer for countdown
 const CountdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
-    return <Message>Welcome to The Doge Times!</Message>;
+    return <div className="Message">Welcome to The Doge Times!</div>;
   } else {
     return (
-      <CountdownStyle>
+      <div className="CountdownStyle">
         {days} days {hours} hours {minutes} minutes {seconds} seconds
-      </CountdownStyle>
+      </div>
     );
   }
 };
@@ -48,14 +19,13 @@ function App() {
   const launchDate = new Date('2024-04-20:00:00');
 
   return (
-    <ComingSoonContainer>
-      <img src="/TheDogeTimesLogo.png" alt="The Doge Times Logo" />
-
-      <Title>The Doge Times</Title>
+    <div className="ComingSoonContainer">
+      <img src="/thedogetimes.png" alt="The Doge Times Logo" />
+      <div className="Message">Something exciting is coming soon...</div>
 
       <Countdown date={launchDate} renderer={CountdownRenderer} />
-      <Message>Something exciting is coming soon...</Message>
-    </ComingSoonContainer>
+      <p></p>
+    </div>
   );
 }
 
