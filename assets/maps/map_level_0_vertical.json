@@ -9,16 +9,16 @@
          "name":"background",
          "objects":[
                 {
-                 "gid":663,
-                 "height":12776.3364485981,
-                 "id":150,
+                 "gid":664,
+                 "height":12750.5311727547,
+                 "id":151,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":6421.19626168224,
-                 "x":3.86428964109007,
-                 "y":12801.7196261682
+                 "width":6352.20653666575,
+                 "x":15.2727272727274,
+                 "y":12802.9090909091
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -230,7 +230,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1bENADAIAzB6Pl\/zAV0YaGVL+SBRIgAAAAAAAAAAAAAAAAAAAAAAYI88fYB\/2DqTbv\/xSs8Kt34PGQ==",
+         "data":"eJztzMEJACAMALHWkZy0I7uBtOBHSOC+FwEAAAAAAAAAAAAAAAAAAAAAAADwt73mVb6t6\/Y4PJwR8A==",
          "encoding":"base64",
          "height":100,
          "id":6,
@@ -267,7 +267,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAeDBOIAAB",
+         "data":"eJztw7EJAAAIA7D6\/+69fiCCawJJAAAAAAAAAAAAAAAAAAAAAAAAAPjqut0MdREF5w==",
          "encoding":"base64",
          "height":100,
          "id":8,
@@ -319,7 +319,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":151,
+ "nextobjectid":152,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

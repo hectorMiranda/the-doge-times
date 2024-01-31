@@ -88,7 +88,7 @@
  <tile id="71">
   <image width="213" height="73" source="../environment/grass_3.png"/>
  </tile>
- <tile id="74">
+ <tile id="75">
   <image width="1024" height="1024" source="../backgrounds/doge_background_001.png"/>
  </tile>
 </tileset>
