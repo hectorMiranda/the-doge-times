@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="800" tileheight="800" tilecount="29" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="2962" tileheight="1024" tilecount="30" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="31">
   <image width="440" height="400" source="../environment/tree_2.png"/>
@@ -64,9 +64,6 @@
  <tile id="58">
   <image width="320" height="80" source="../environment/grass_2.png"/>
  </tile>
- <tile id="59">
-  <image width="320" height="104" source="../environment/grass_3.png"/>
- </tile>
  <tile id="62">
   <image width="640" height="640" source="../environment/kitchen_000.png"/>
  </tile>
@@ -87,5 +84,11 @@
  </tile>
  <tile id="70">
   <image width="320" height="180" source="../environment/rocket.png"/>
+ </tile>
+ <tile id="71">
+  <image width="213" height="73" source="../environment/grass_3.png"/>
+ </tile>
+ <tile id="73">
+  <image width="2962" height="1024" source="../backgrounds/doge_background_001.png"/>
  </tile>
 </tileset>
