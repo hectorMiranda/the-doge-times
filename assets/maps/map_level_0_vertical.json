@@ -1,6 +1,6 @@
-{ "backgroundcolor":"#000000",
+{ "backgroundcolor":"#749ae2",
  "compressionlevel":-1,
- "height":100,
+ "height":200,
  "infinite":false,
  "layers":[
         {
@@ -18,7 +18,7 @@
                  "visible":true,
                  "width":4221.3301349015,
                  "x":-2.65797424205357,
-                 "y":1293.88596784144
+                 "y":14093.8859678414
                 }, 
                 {
                  "gid":667,
@@ -28,9 +28,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":6402.89253187614,
+                 "width":12810.399234289,
                  "x":4,
-                 "y":12732
+                 "y":25532
                 }, 
                 {
                  "gid":668,
@@ -42,7 +42,30 @@
                  "visible":true,
                  "width":3400.4781844504,
                  "x":2944.29616448911,
-                 "y":1933.75596571565
+                 "y":14733.7559657157
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":20,
+         "name":"background city",
+         "objects":[
+                {
+                 "gid":693,
+                 "height":5405.59563441254,
+                 "id":174,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":7051.89855072464,
+                 "x":5762.73692508221,
+                 "y":15770.039755641
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -52,15 +75,15 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt148KwiAQx\/Hh+7\/DWFSbW9Ar1ghBDnWunc7i+4GD\/si6n96iug4AgHZZc3YHv+thwuX04vnqaj719F6\/mHj5UuvW6jPOcjE65Tw3eoplylnTQo6Q3Iw5auRI0cqinWMRPVjv8f1dY4GZctcolWMWGXwyT2hNzBhYp5UjtZ+h\/oYvM8Ro5DiaYc\/9LK1zOyntQ6xumRk0chxhExlCvWlncD0MFXOE5m2KnNneHo6yXr9bMzWJ92eFz9ci9yI1K\/LsWsoREpstrRxH7+k9SuaQSueSvztK5bCm\/H80re\/WlBo5aiBHW\/4pBwAAAAAAAAAAAAAAAAAAAAAAAADgfC8A8vbr",
+         "data":"eJzt2O1qgzAYgNGS+7+H0rKt2g56i5stgg0x1Rmd6DkQ6Ic\/JI++gocDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwVXX47zOAMr5DerWO0ffGR3iue+f3c+hfXbnjmnXc0b11C2VW6\/5mb\/vaDDlmD5bqkTK01Z4s0SNHk1ele9yivaw7n79+18WsyjrP2OMateiKu6SO6XPZcKNSPXLXd2qfT39ssXUlekxtMWUmNfOw2lDLqddlrsXnwBZ6lFFnWqT2uHSL9hxOejyM6ZGaY1XPPTT2HHiqO\/v+blZV0f9X+1hcfG3mZlB8L+mxjL6ZVaqHZ\/d4c\/aI6TNM\/D5krh518Ewfaol3UHqsix7rose66LEuWgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwHb8ANUq9us=",
          "encoding":"base64",
-         "height":100,
+         "height":200,
          "id":10,
          "name":"Background",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":50,
+         "width":100,
          "x":0,
          "y":0
         }, 
@@ -79,7 +102,7 @@
                  "visible":true,
                  "width":493.333333333333,
                  "x":298.552875695733,
-                 "y":1195.6507936508
+                 "y":13995.6507936508
                 }, 
                 {
                  "gid":654,
@@ -91,7 +114,7 @@
                  "visible":true,
                  "width":251.111111111111,
                  "x":447.441764584622,
-                 "y":1001.20634920635
+                 "y":13801.2063492063
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -114,7 +137,7 @@
                  "visible":true,
                  "width":200,
                  "x":252.035373576436,
-                 "y":428.848067304187
+                 "y":13228.8480673042
                 }, 
                 {
                  "gid":621,
@@ -126,7 +149,7 @@
                  "visible":true,
                  "width":400,
                  "x":3244.48832782272,
-                 "y":-82.0943479056152
+                 "y":12717.9056520944
                 }, 
                 {
                  "gid":621,
@@ -138,7 +161,7 @@
                  "visible":true,
                  "width":300,
                  "x":1928.79583409902,
-                 "y":94.2544901005061
+                 "y":12894.2544901005
                 }, 
                 {
                  "gid":622,
@@ -150,7 +173,7 @@
                  "visible":true,
                  "width":303,
                  "x":796.32678535367,
-                 "y":355.884666286412
+                 "y":13155.8846662864
                 }, 
                 {
                  "height":0,
@@ -161,7 +184,7 @@
                  "visible":true,
                  "width":0,
                  "x":7135.51701991008,
-                 "y":13892.5626204239
+                 "y":26692.5626204239
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -184,7 +207,7 @@
                  "visible":true,
                  "width":92,
                  "x":3433.00686912522,
-                 "y":1030.85798391163
+                 "y":13830.8579839116
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -194,15 +217,15 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt2\/0KgjAUh2Hx\/u+hlIySvogusEaMhjR3nGcnq\/eBA0G07bc5Z39YVfZW9bwCgG\/1K\/ewtlCOxvj+XyqHa9eXlrG5cf0cMsvxny\/BeHthhilrE85LrK7Ka9IrtyfJ4OpskCN2TawFfS8lRyMYg0aWkjlchtR1trQct\/pZ4bj3Bc+nEjmayJ7Q3vPv7JRyxDJsDTJ4Lkf3qGNmnRIZNkZZWqO1L40cL\/6Mk5xpc\/sYe76ak2N4xpXIIjlH5+SItV9yXTytHKk5ssgSkj6DdYNx7QS\/scwydfy5Wcb2qUZeyTPaFJJsU+ZKSjvHp5DDnt9juf\/FliK19wAAAAAAAAAAAAAAAAAAAAAAAAD8n9j7Ral3jyTfWb67dAf9atCw",
+         "data":"eJzt3etKwzAAgNGx938H3XCi84r4gFqk0M2lTbekTdNzICAIbs3Xpsv80c0GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqNX3NjwA1sQamIc5zcv8zsecl0GH9bFvoXTOTXJ6dl5lcbcNjz5z9eh7v3OPud8\/5bBelUWPsuhRFj3KokdZ9ChLzh4+Y4+Xs8d++zdS2fX03QfG0jQ9Xq8cjfbnz86xHyPnY8y1Eprv2LEkX4nf7zHx31tTi8bHBD1Ca819xGunbPGygD65e+wSnMM5r4umUTtKkLNH02Jo\/crRY8lS9Wj\/T9ed\/yk+v+nx3y5wz0h9b7\/kSY8ToRaPE85LLS0ah99jeLtyvA+0eJhofmrqMcWaklstLRq19KjFrT3avV7M3u7W1+j7\/qoWt\/Q43+vlaBKzn9QjPE85r5OWHqeGztkpmnTV1CNmLTicHe+lPdicTdbS47xD15gmfffjFN1q6pFSTKMxzWPpURY9yqLH9Np7UO37j6UYujcBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxF6PlLQ89mivmdZzuN9wN5byZn",
          "encoding":"base64",
-         "height":100,
+         "height":200,
          "id":6,
          "name":"Platforms",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":50,
+         "width":100,
          "x":0,
          "y":0
         }, 
@@ -221,7 +244,7 @@
                  "visible":true,
                  "width":128,
                  "x":1641.80110497238,
-                 "y":11396.8729281768
+                 "y":24196.8729281768
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -231,43 +254,43 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1TEKwDAIBVCT+8+5SC9YQpZmqBAQ2uE9cPoO4qARAPAPV\/96AgA4N\/\/X2w\/LMgDquLeLPQAAAAAAAAAAAAAAAAAALKPtlWXPPMuynuq6ASC7HV8=",
+         "data":"eJzt1iEKACAQRUH1\/tmLeEGDRcuCIIIyAz+9bRZTAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4LZWxnYbAAC8yj\/3L94TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBtqXhe1uUctujm9X3S0Gxyq",
          "encoding":"base64",
-         "height":100,
+         "height":200,
          "id":8,
          "name":"Don't Touch",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":50,
+         "width":100,
          "x":0,
          "y":0
         }, 
         {
          "compression":"zlib",
-         "data":"eJztzrEJADAIAEFx\/yHESV3AxioE7uD7jwCAP1S+Prjr3AMAAAAAAAAAAAAAAAAAAAAAgM0AP80Eew==",
+         "data":"eJzt0TEKACEQBEHx\/48QMwP\/6AUXmooDVsHky3YpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAC1q9fcG7et2Pc8b33\/mP+4YOUfTIokcWPbLoAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGRbmlwnb",
          "encoding":"base64",
-         "height":100,
+         "height":200,
          "id":9,
          "name":"Foreground",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":50,
+         "width":100,
          "x":0,
          "y":0
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1UEKgCAURVFpJe1\/leEgiLCRST47ZwHC\/X2zlPH2LetcsqywB7UhveNs0PG9a8ObLelzqUbMhWz2AGhpvaWJb8ffOtK6nvR+o1nmkLhrLan35i75HwC9Vtl\/HXNZpQMAAAAAAAAAAAAAAACAeR0cowmz",
+         "data":"eJzt10EKgCAURdFoJe1\/ldEgiGiW2ft6zgIEufrFZQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHra1lrrApgvOY4WemQ4W+iRQY8c1xYtm+ib44u+AHfmCwDM6elP6e\/xHz2yzNZj1H1V9fas6dnWyHe\/otHncTUzvJEAPZmrWfTIokcWPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPrZAdyLCbM=",
          "encoding":"base64",
-         "height":100,
+         "height":200,
          "id":7,
          "name":"Coins",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":50,
+         "width":100,
          "x":0,
          "y":0
         }, 
@@ -286,7 +309,7 @@
                  "visible":true,
                  "width":1106.78733031674,
                  "x":27.6915540998689,
-                 "y":1494.63639998462
+                 "y":14294.6363999846
                 }, 
                 {
                  "gid":621,
@@ -298,7 +321,7 @@
                  "visible":true,
                  "width":1350.18737388296,
                  "x":3970.33727298934,
-                 "y":1699.12481983281
+                 "y":14499.1248198328
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -306,8 +329,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":20,
- "nextobjectid":174,
+ "nextlayerid":21,
+ "nextobjectid":175,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -627,8 +650,7 @@
                  "image":"..\/images\/tiles\/ladderTop.png",
                  "imageheight":128,
                  "imagewidth":128
-                },
-            
+                }, 
                 {
                  "id":50,
                  "image":"..\/images\/tiles\/lava.png",
@@ -1652,8 +1674,7 @@
                  "image":"..\/images\/items\/flagGreen1.png",
                  "imageheight":128,
                  "imagewidth":128
-                },
-            
+                }, 
                 {
                  "id":171,
                  "image":"..\/images\/items\/flagGreen2.png",
@@ -2066,8 +2087,7 @@
                  "image":"..\/images\/tiles\/doorClosed_top.png",
                  "imageheight":128,
                  "imagewidth":128
-                },
-            
+                }, 
                 {
                  "id":50,
                  "image":"..\/images\/tiles\/grass.png",
@@ -2797,8 +2817,7 @@
                  "image":"..\/images\/tiles\/stoneCorner_right.png",
                  "imageheight":128,
                  "imagewidth":128
-                },
-            
+                }, 
                 {
                  "id":150,
                  "image":"..\/images\/tiles\/stoneHalf.png",
@@ -3282,5 +3301,5 @@
  "tilewidth":128,
  "type":"map",
  "version":"1.10",
- "width":50
+ "width":100
 }
