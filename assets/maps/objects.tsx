@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="1792" tileheight="1024" tilecount="61" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="1792" tileheight="1024" tilecount="64" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="31">
   <image width="440" height="400" source="../environment/tree_2.png"/>
@@ -183,5 +183,14 @@
  </tile>
  <tile id="111">
   <image width="1792" height="1024" source="../backgrounds/terrain.png"/>
+ </tile>
+ <tile id="112">
+  <image width="1792" height="1024" source="../backgrounds/terrain_background_000.png"/>
+ </tile>
+ <tile id="113">
+  <image width="600" height="1024" source="../backgrounds/terrain_background_001.png"/>
+ </tile>
+ <tile id="114">
+  <image width="432" height="947" source="../backgrounds/terrain_background_002.png"/>
  </tile>
 </tileset>

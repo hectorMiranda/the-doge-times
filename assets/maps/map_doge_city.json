@@ -5,33 +5,9 @@
  "layers":[
         {
          "draworder":"topdown",
-         "id":17,
-         "name":"background",
-         "objects":[
-                {
-                 "gid":644,
-                 "height":633.958069603021,
-                 "id":164,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":4221.3301349015,
-                 "x":-2.65797424205357,
-                 "y":14093.8859678414
-                }, 
-                {
-                 "gid":667,
-                 "height":11574.9169548262,
-                 "id":170,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":12810.399234289,
-                 "x":4,
-                 "y":25532
-                }],
+         "id":22,
+         "name":"background_grass",
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -41,7 +17,7 @@
         {
          "draworder":"topdown",
          "id":14,
-         "name":"buildings",
+         "name":"higher_mountains",
          "objects":[
                 {
                  "gid":621,
@@ -104,15 +80,122 @@
                 }, 
                 {
                  "gid":700,
-                 "height":1880.9863247554,
+                 "height":2857.33914734726,
                  "id":195,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":2318.98331405838,
-                 "x":-30.185842093222,
-                 "y":14179.6216172658
+                 "width":2586.77314181457,
+                 "x":4857.12472650472,
+                 "y":11486.7212236338
+                }, 
+                {
+                 "gid":702,
+                 "height":1941.18889057449,
+                 "id":201,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":910.462319524955,
+                 "x":6074.70574540187,
+                 "y":8924.422071035
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":17,
+         "name":"mountains",
+         "objects":[
+                {
+                 "gid":667,
+                 "height":11574.9169548262,
+                 "id":170,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":19182.4922575448,
+                 "x":4,
+                 "y":25532
+                }, 
+                {
+                 "gid":702,
+                 "height":2059.38111987416,
+                 "id":196,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1361.77003910602,
+                 "x":22.2303722447234,
+                 "y":14030.3148204254
+                }, 
+                {
+                 "gid":702,
+                 "height":2059.38111987416,
+                 "id":203,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1361.77003910602,
+                 "x":11051.9606809734,
+                 "y":14066.5910337981
+                }, 
+                {
+                 "gid":701,
+                 "height":2794.91055589012,
+                 "id":197,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":4576.44791272544,
+                 "x":3630.1685052425,
+                 "y":13990.5004275173
+                }, 
+                {
+                 "gid":703,
+                 "height":1709.5,
+                 "id":198,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":988.25,
+                 "x":1159,
+                 "y":14340.4885685885
+                }, 
+                {
+                 "gid":703,
+                 "height":1697,
+                 "id":199,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1019.5,
+                 "x":2155.02030673104,
+                 "y":14080.267750639
+                }, 
+                {
+                 "gid":703,
+                 "height":1697,
+                 "id":202,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1019.5,
+                 "x":9304.20348837209,
+                 "y":14011.9651162791
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -126,28 +209,16 @@
          "name":"background city",
          "objects":[
                 {
-                 "gid":693,
-                 "height":5405.59563441254,
-                 "id":174,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":7051.89855072464,
-                 "x":5762.73692508221,
-                 "y":15770.039755641
-                }, 
-                {
                  "gid":668,
-                 "height":2065.27,
+                 "height":4146.31208238478,
                  "id":186,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":3400.48,
-                 "x":2564.31566905005,
-                 "y":14319.7654085802
+                 "width":5777.51911564436,
+                 "x":10275.9385657695,
+                 "y":10137.1337469815
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -157,7 +228,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1TEKgDAQRUHJ\/e8gWCl6SAuxCVoIFn\/DDGyxXcgrdpoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg29Ge5zZ3O\/\/Z\/WsUPbLokUWPLIseUfTIoge8c8+z6JFFjyx6ZKnWYy323q+q9eiN3qearV1DBj2y6JFFjyx6ZNECAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADGcQL4hBa\/",
+         "data":"eJzt1iEOwlAQRdHm738VVRA2WVFDamq4IQPnJOOfuGK2DQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADuvda3F\/CLdEVBVxR0RWHXFQFdUdAVMIW\/nYKuKOiKgq4oTOvqMWzvv5rW1ZXOKDzXefBJuqKgKwq6oqArCpoCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4N0BU8sRXA==",
          "encoding":"base64",
          "height":200,
          "id":10,
@@ -165,7 +236,7 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":100,
+         "width":150,
          "x":0,
          "y":0
         }, 
@@ -183,8 +254,8 @@
                  "type":"",
                  "visible":true,
                  "width":92,
-                 "x":3057.87289270507,
-                 "y":13946.0777052407
+                 "x":12134.7959696281,
+                 "y":12035.8212949843
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -194,7 +265,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt2+2KEzEUBuCl938PoiDoqiiy4NfNuUUKtTRtmkkmJ8nzQGB\/7LaT82aSTLp9egIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABm9XJIN4CVmAPbUNO21LcfNY9BDuvx3LKmP4f81up1a7wfbPXRmGvizSHdbhk1j+cb\/d3acrR679z3j+Z50Ou+Z+T7Y0YleUTY98gjFnnEIo\/+zufHVnm8O\/zfHvndnL+5J1IejzyXz3x\/jHhWkZPHl2DXnKPF\/fHj9TV\/vrZfiVx\/33jPLePiWP\/LNppjHp8L29Hp52+B+z5aNt8Huta9XbvnarWUrwvl8WmAvq6UxzXHjE4tgtXziEYesYyex4fC66+x9rYweh6zeT9RHlvPjyKY8SwoddZX8+yvlRnziKB0HYqYx9vM8V1zrO\/5DH5LxDwezSKVx141rCliHvdcyyNibUuMmMelqGtziRn6MkMfTmboywx9mMllHiX7gVSmt76nXvLdj1qvE1nv+6NXPaNmuWVsRxX1ekc++yi1V+1LMl8xD8bUeh4z3tvJ3Seet1Z5zDDH9VrPo9Sr9Bmm93XXlupX7eeymeT0vdfzUQRbxouxBrFtWSdXXGNnU7IXN38D7MsaG8OjdS9dY2ddb3uP3S3nRedt9pz2UiuP3IxkBTC2UfbCNdcz8qlh2h5jT92pKXfvbq+\/j0fubXNBe1vy2HNvYq\/D6ozxeMw9rKLGZ1Kl\/78dZT8ebe\/R8nMQey0iGW3Muf\/6UzNjC46M7Vhqzzfmte3UiJG599d0b94f4XPdqM+Lpd\/frX19nmP+aV2zmWsHrMNcFos8YpFHDPZoADAOa3Fbvc48ua7nOfQ1e\/9PauTvibkXYpJDLLJIS9WlZc3kkVaax5Z6yiJNHrHIIxZ5xNIjD9L+An484Ek=",
+         "data":"eJzt3E1qwzAQBtCS+1+ihUJ\/6K67Xq5kUUhDTGRZY48m74G2pcl8kUaSk6cnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg5\/R\/AAAAAAAAAMCS6zvmWwMAAAAAAIBY7msAAAAeS8uze2sGAMxi9BpoLQQAgH3p4eejBsAjMNcBWZiPyK5nz+ZeB\/q8yzoB5IoIckUEuSKCXBFBroggV0SQKyLIFdDr6xQ3qONTPdnJOWt\/AwBm89a5fumxYT6vhT6PL4Vey+w+CtbinK+WQZyKucrg0fu0jLl6bpxvRs49ztTHypirtZlaypUsHCdjru65lSsZyWXGXF3Tg+dToSYVXkM1FWpS4TWQz3Wuevr+pWx+n9pGq1F\/h3hHz1dysU3Wz9aWuYZYWd93dzLz2itDPdmVK6BH9Ppo\/uGe1v355YjKlbUzj6P69ix17z0DO\/r\/5ral+ow+nySflhoeUecsuZJ77wHAGlv6Yb00WfScgegLAIAs9NKMtDY\/vb20vjq3o+eSLfdxl0PeuDQqV61ZkzkAoKpZziBG9ns8Hlmob4+5QH6grtazH2dFrLFmzbDG0GpLrvbcS9mbAZmYc4hiTQOOMOLZvt7fGXEOMla2vVLkc1j2hsCS2eYA8yGjqH0dPutANuYaIoxex6yX\/FFrYBRrCjO71xfN8Lyyc9NYazKwdM874n1Wu1qiay8DAHCbNZIIckUEuWIke0oAAMhDz00Ld\/xEyPb8yN7f1fe7hfHMTUSSJyLIVH1L9Y2svVzV15urLbmQqfrkighyRQS5IsIRuaK+Xx7FtnA=",
          "encoding":"base64",
          "height":200,
          "id":6,
@@ -202,7 +273,7 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":100,
+         "width":150,
          "x":0,
          "y":0
         }, 
@@ -231,7 +302,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztzbENADAIA0Fn\/z7zMgEKFOnupO+QSQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\/rpnVnf\/2tr+0awCg9Y8wg==",
+         "data":"eJzt0jENAAAIAzDw\/6MXB4Qb2mQCtiwCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgMsqd7lm6jf13+4lv37VNak8wg==",
          "encoding":"base64",
          "height":200,
          "id":8,
@@ -239,13 +310,13 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":100,
+         "width":150,
          "x":0,
          "y":0
         }, 
         {
          "compression":"zlib",
-         "data":"eJztwYEAAAAAw6D5Ux\/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==",
+         "data":"eJztwYEAAAAAw6D5U9\/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==",
          "encoding":"base64",
          "height":200,
          "id":9,
@@ -253,13 +324,13 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":100,
+         "width":150,
          "x":0,
          "y":0
         }, 
         {
          "compression":"zlib",
-         "data":"eJzt1+EKgjAUgFHpSXr\/p4wYotBim1vzpudAv6Jy95uaywIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMz0fJx9BABtXLfieLfQI4a1hR4x6BHHvoUmABzl\/lEnd9+tef3iGDi3h\/9enyKcH2z0iCnC3O2LJMp69UiirPvuPdb1lNY7awZ65NeUW++3Tvv36dOy\/0r78or7dbajPUrf1\/o7JK3X55rZ5T6jR79Rs9JjjNGz0qPP2T3u3K\/m+SPaMV2ZHrHoEd\/IHiOebe5u5vmhR9nM+ehR1jObmmdADdqYE\/Rz7RnD9RwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOC\/vADkiS\/R",
+         "data":"eJzt2EsKg0AURUHJSrL\/VUoPBAeKrenPy7MKMgpJhHvoiMsCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPF8P7OvgJHK3k9ePa6BPGZ21atT5otwXpGPrugpQj\/6ziXKbrrKJcp+usph2+Vqt1Fb6iqHs22Odjvrbf8+FHfOg6tzwvnB5mlXV99393fI5e79S00DR5\/RFZtWm+uKvdab64pidlc6\/H81z6+iXRPx6YoedMUoLbtq8WyMHEaeV7p6j5E76+o9ftm45lmolt7J3kA2\/tPYc78DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABABCsv2C3T",
          "encoding":"base64",
          "height":200,
          "id":7,
@@ -267,7 +338,7 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":100,
+         "width":150,
          "x":0,
          "y":0
         }, 
@@ -285,8 +356,8 @@
                  "type":"",
                  "visible":true,
                  "width":1482.07646580241,
-                 "x":4157.08742358853,
-                 "y":11898.5628172869
+                 "x":3140.8779472793,
+                 "y":9810.03413898271
                 }, 
                 {
                  "gid":621,
@@ -309,8 +380,8 @@
                  "type":"",
                  "visible":true,
                  "width":3810.98,
-                 "x":5088.36620915033,
-                 "y":11373.356503268
+                 "x":7095.84750590843,
+                 "y":10718.7430369338
                 }, 
                 {
                  "gid":621,
@@ -333,8 +404,8 @@
                  "type":"",
                  "visible":true,
                  "width":1810.98,
-                 "x":5907.32045751634,
-                 "y":12808.9120588235
+                 "x":7612.36090555616,
+                 "y":12267.5306026941
                 }, 
                 {
                  "gid":621,
@@ -366,8 +437,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":22,
- "nextobjectid":196,
+ "nextlayerid":23,
+ "nextobjectid":204,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -1202,8 +1273,7 @@
                  "image":"..\/images\/tiles\/signRight.png",
                  "imageheight":128,
                  "imagewidth":128
-                },
-            
+                }, 
                 {
                  "id":100,
                  "image":"..\/images\/tiles\/snow.png",
@@ -1711,7 +1781,8 @@
                  "image":"..\/images\/items\/flagGreen1.png",
                  "imageheight":128,
                  "imagewidth":128
-                }, 
+                },
+            
                 {
                  "id":171,
                  "image":"..\/images\/items\/flagGreen2.png",
@@ -2424,8 +2495,7 @@
                  "image":"..\/images\/tiles\/rock.png",
                  "imageheight":128,
                  "imagewidth":128
-                },
-            
+                }, 
                 {
                  "id":100,
                  "image":"..\/images\/tiles\/sand.png",
@@ -2854,7 +2924,8 @@
                  "image":"..\/images\/tiles\/stoneCorner_right.png",
                  "imageheight":128,
                  "imagewidth":128
-                }, 
+                },
+            
                 {
                  "id":150,
                  "image":"..\/images\/tiles\/stoneHalf.png",
@@ -3338,5 +3409,5 @@
  "tilewidth":128,
  "type":"map",
  "version":"1.10",
- "width":100
+ "width":150
 }
