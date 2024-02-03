@@ -310,13 +310,13 @@ class GameView(BaseView):
             self.player_sprite.change_x = cfg.PLAYER_MOVEMENT_SPEED
             self.player_sprite.isAlive = True
             self.start_timer = True
-        elif key == arcade.key.Z:
-            if self.IsPlayerBig == False:
-                self.IsPlayerBig = True
-                self.player_sprite.zoom_in()
-            self.player_sprite.zoom_in()
-        elif key == arcade.key.X:
-            self.player_sprite.zoom_out()
+        # elif key == arcade.key.Z:
+        #     if self.IsPlayerBig == False:
+        #         self.IsPlayerBig = True
+        #         self.player_sprite.zoom_in()
+        #     self.player_sprite.zoom_in()
+        # elif key == arcade.key.X:
+        #     self.player_sprite.zoom_out()
         elif key == arcade.key.R:
             if self.background_music_player is not None:
                 self.background_music_player.pause()

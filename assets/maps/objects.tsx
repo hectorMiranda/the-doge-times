@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="1792" tileheight="1024" tilecount="67" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="objects" tilewidth="1792" tileheight="1024" tilecount="68" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="31">
   <image width="440" height="400" source="../environment/tree_2.png"/>
@@ -164,7 +164,7 @@
   <image width="1024" height="1024" source="../backgrounds/doge_city.png"/>
  </tile>
  <tile id="105">
-  <image width="1024" height="1024" source="../backgrounds/sky.png"/>
+  <image width="800" height="800" source="../backgrounds/sky.png"/>
  </tile>
  <tile id="106">
   <image width="128" height="128" source="../backgrounds/platform_022.png"/>
@@ -201,5 +201,8 @@
  </tile>
  <tile id="118">
   <image width="349" height="952" source="../backgrounds/ladder.png"/>
+ </tile>
+ <tile id="119">
+  <image width="1792" height="1024" source="../backgrounds/mountain_with_bridge.png"/>
  </tile>
 </tileset>
