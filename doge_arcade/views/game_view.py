@@ -162,7 +162,7 @@ class GameView(BaseView):
         self.gui_camera = arcade.Camera(self.display_width, self.display_height)
         
         map_name = f"{cfg.ASSETS_PATH}/maps/map_doge_mine.json"
-        self.logger.info(f"loading {map_name}")
+        print(f"loading {map_name}")
 
         # if cfg.LOAD_VERTICAL_MAPS == True:  
         #     map_name = f"{cfg.ASSETS_PATH}/maps/map_level_{self.level}_vertical.json"
