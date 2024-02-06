@@ -298,15 +298,15 @@ class GameView(BaseView):
 
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.UP or key == arcade.key.W:
+        if key == arcade.key.UP:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = cfg.PLAYER_REGULAR_JUMP_SPEED
                 self.jump_sound.play(volume=0.2)
-        elif key == arcade.key.DOWN or key == arcade.key.S:
+        elif key == arcade.key.DOWN:
             self.player_sprite.change_y = -cfg.PLAYER_MOVEMENT_SPEED
-        elif key == arcade.key.LEFT or key == arcade.key.A:
+        elif key == arcade.key.LEFT:
             self.player_sprite.change_x = -cfg.PLAYER_MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
+        elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = cfg.PLAYER_MOVEMENT_SPEED
             self.player_sprite.isAlive = True
             self.start_timer = True
@@ -342,14 +342,15 @@ class GameView(BaseView):
         elif key == arcade.key.P:
             pause_view = PauseView()
             self.window.show_view(pause_view)
+    
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.UP or key == arcade.key.W:
+        if key == arcade.key.UP:
             self.player_sprite.change_y = 0
-        elif key == arcade.key.DOWN or key == arcade.key.S:
+        elif key == arcade.key.DOWN:
             self.player_sprite.change_y = 0
-        elif key == arcade.key.LEFT or key == arcade.key.A:
+        elif key == arcade.key.LEFT:
             self.player_sprite.change_x = 0
-        elif key == arcade.key.RIGHT or key == arcade.key.D:
+        elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = 0
 
         

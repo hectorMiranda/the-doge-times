@@ -9,16 +9,16 @@
          "name":"background_super_far",
          "objects":[
                 {
-                 "gid":706,
-                 "height":12808.0548523207,
-                 "id":209,
+                 "gid":721,
+                 "height":7623.66666666667,
+                 "id":233,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":32282.0720466047,
-                 "x":-177.075733043881,
-                 "y":12798.2435990631
+                 "width":13033.3333333333,
+                 "x":8.5265128291212e-14,
+                 "y":12762.3333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -80,15 +80,15 @@
                 }, 
                 {
                  "gid":621,
-                 "height":383.861082737487,
+                 "height":1217.19441607082,
                  "id":36,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":780.081716036771,
-                 "x":2192.4985645405,
-                 "y":11926.6118182596
+                 "width":4880.08171603677,
+                 "x":-140.834768792833,
+                 "y":8559.94515159293
                 }, 
                 {
                  "gid":622,
@@ -522,7 +522,7 @@
          "y":0
         }],
  "nextlayerid":24,
- "nextobjectid":232,
+ "nextobjectid":234,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

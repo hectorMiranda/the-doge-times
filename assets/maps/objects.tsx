@@ -196,9 +196,6 @@
  <tile id="116">
   <image width="800" height="457" source="../backgrounds/sky_002.png"/>
  </tile>
- <tile id="117">
-  <image width="800" height="457" source="../backgrounds/sky_001.png"/>
- </tile>
  <tile id="118">
   <image width="349" height="952" source="../backgrounds/ladder.png"/>
  </tile>
@@ -237,5 +234,8 @@
  </tile>
  <tile id="130">
   <image width="128" height="128" source="../backgrounds/platform_037.png"/>
+ </tile>
+ <tile id="132">
+  <image width="800" height="457" source="../backgrounds/sky_001.png"/>
  </tile>
 </tileset>
