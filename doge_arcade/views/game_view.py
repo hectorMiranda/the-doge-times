@@ -434,6 +434,8 @@ class GameView(BaseView):
         if self.game_over and not self.game_over_sound_played:
             arcade.play_sound(self.game_over_sound)
             self.game_over_sound_played = True  # to prevent replaying
+            if self.background_music_player is not None:
+                self.background_music_player.pause()
 
         
         
