@@ -33,7 +33,8 @@ class GameView(BaseView):
         self.doge_price = "Loading..."
         self.create_status_bar()
         self.setup_game_controller()
-        self.game_over_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
+        self.hurt_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
+        self.game_over_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "game_over.wav"))
         self.collect_coin_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "bark.wav"))
         self.background_music = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "main_theme.wav"))
@@ -53,6 +54,10 @@ class GameView(BaseView):
         self.player_deaths = 0
         self.max_player_deaths = 3
         self.game_over = False
+        self.game_over_alpha = 0  # Start fully transparent
+        self.fade_in_rate = 35  # Alpha increase per second, adjust this value as needed
+        self.game_over_sound_played = False
+
 
 
 
@@ -389,7 +394,8 @@ class GameView(BaseView):
 
         
         if self.game_over:
-            arcade.draw_texture_rectangle(self.window.width / 2, self.window.height / 2, 640, 640, self.game_over_image)
+            arcade.draw_texture_rectangle(self.window.width / 2, self.window.height / 2, 640, 640, self.game_over_image, alpha=self.game_over_alpha)
+
             if self.IsRainEnabled == True:        
                 self.raindrop_list = []
                 for i in range(cfg.RAINDROP_COUNT):
@@ -424,8 +430,22 @@ class GameView(BaseView):
 
         
     def on_update(self, delta_time):
+        
+        if self.game_over and not self.game_over_sound_played:
+            arcade.play_sound(self.game_over_sound)
+            self.game_over_sound_played = True  # to prevent replaying
+
+        
+        
+        
         if self.start_timer:
             self.elapsed_time += delta_time
+            
+        if self.game_over_alpha < 255:
+            self.game_over_alpha += self.fade_in_rate * delta_time
+            if self.game_over_alpha > 255:
+                self.game_over_alpha = 255
+
 
         if self.physics_engine:
              self.physics_engine.update()
@@ -457,7 +477,7 @@ class GameView(BaseView):
             self.player_sprite.center_x = cfg.PLAYER_START_X
             self.player_sprite.center_y = cfg.PLAYER_START_Y
 
-            arcade.play_sound(self.game_over_sound)
+            arcade.play_sound(self.hurt_sound)
             self.player_sprite.isAlive = False
             self.player_deaths += 1
             
@@ -472,7 +492,7 @@ class GameView(BaseView):
                 self.player_sprite.center_x = cfg.PLAYER_START_X
                 self.player_sprite.center_y = cfg.PLAYER_START_Y
 
-                arcade.play_sound(self.game_over)
+                arcade.play_sound(self.hurt_sound)
                 self.player_sprite.isAlive = False
 
         # See if the user got to the end of the level
@@ -487,7 +507,8 @@ class GameView(BaseView):
             self.setup()
 
     def show_game_over(self):
-        self.game_over = True  
+        self.game_over = True
+  
             
     def on_mouse_press(self, x, y, button, modifiers):
         self.logger.debug("--> {}, {}".format(x, y))
