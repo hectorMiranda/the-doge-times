@@ -33,10 +33,11 @@ class GameView(BaseView):
         self.doge_price = "Loading..."
         self.create_status_bar()
         self.setup_game_controller()
-        self.game_over = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
+        self.game_over_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "hurt.wav"))
         self.collect_coin_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "collectable.wav"))
         self.jump_sound = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "bark.wav"))
         self.background_music = arcade.load_sound(str(cfg.ASSETS_PATH / "sounds" / "main_theme.wav"))
+        self.game_over_image = arcade.load_texture(str(cfg.ASSETS_PATH / "UI" / "game_over.png"))    
         self.background_music_player = None
         self.IsPlayerBig = False
         self.player_sprite = None
@@ -48,7 +49,10 @@ class GameView(BaseView):
         self.confetti_list = []
         self.raindrop_list = []
         self.Winner = False
-        self.IsRaining = False
+        self.IsRainEnabled = False
+        self.player_deaths = 0
+        self.max_player_deaths = 3
+        self.game_over = False
 
 
 
@@ -298,6 +302,10 @@ class GameView(BaseView):
 
 
     def on_key_press(self, key, modifiers):
+        
+        if self.game_over and key != arcade.key.R:
+            return    
+        
         if key == arcade.key.UP:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = cfg.PLAYER_REGULAR_JUMP_SPEED
@@ -324,11 +332,11 @@ class GameView(BaseView):
         elif key == arcade.key.M:
             self.toggle_music()
         elif key == arcade.key.L:
-            if self.IsRaining == False:
-                self.IsRaining = True
+            if self.IsRainEnabled == False:
+                self.IsRainEnabled = True
             else:  
-                self.IsRaining = False
-            self.logger.debug(self.IsRaining)
+                self.IsRainEnabled = False
+            self.logger.debug(self.IsRainEnabled)
         elif key == arcade.key.T:
             self.player_sprite.isAlive = False
         elif key == arcade.key.C:
@@ -380,6 +388,21 @@ class GameView(BaseView):
         self.status_bar.draw()
 
         
+        if self.game_over:
+            arcade.draw_texture_rectangle(self.window.width / 2, self.window.height / 2, 640, 640, self.game_over_image)
+            if self.IsRainEnabled == True:        
+                self.raindrop_list = []
+                for i in range(cfg.RAINDROP_COUNT):
+                    x = random.randint(0, self.display_width)
+                    y = random.randint(0, self.display_height)
+                    length = random.randint(10, 20)
+                    color = arcade.color.BLUE_GRAY  
+                    self.raindrop_list.append({"x": x, "y": y-10, "length": length, "color": color})
+                for raindrop in self.raindrop_list:
+                    arcade.draw_line(raindrop["x"], raindrop["y"], 
+                                    raindrop["x"], raindrop["y"] + raindrop["length"], 
+                                    raindrop["color"], 2)
+        
         
         if self.Winner == True:
             self.confetti_list = []
@@ -390,19 +413,11 @@ class GameView(BaseView):
                 self.confetti_list.append({"x": x, "y": y, "color": color})
             for confetti in self.confetti_list:
                 arcade.draw_rectangle_filled(confetti["x"], confetti["y"], 10, 5, confetti["color"])
+                
+                
         
-        if self.IsRaining == True:        
-            self.raindrop_list = []
-            for i in range(cfg.RAINDROP_COUNT):
-                x = random.randint(0, self.display_width)
-                y = random.randint(0, self.display_height)
-                length = random.randint(10, 20)
-                color = arcade.color.BLUE_GRAY  
-                self.raindrop_list.append({"x": x, "y": y, "length": length, "color": color})
-            for raindrop in self.raindrop_list:
-                arcade.draw_line(raindrop["x"], raindrop["y"], 
-                                raindrop["x"], raindrop["y"] + raindrop["length"], 
-                                raindrop["color"], 2)
+        
+        
                     
 
 
@@ -419,7 +434,7 @@ class GameView(BaseView):
         coin_hit_list = arcade.check_for_collision_with_list(
             self.player_sprite, self.scene[cfg.LAYER_NAME_COINS]
         )
-        if self.IsRaining == True:
+        if self.IsRainEnabled == True:
             for raindrop in self.raindrop_list:
                 raindrop["y"] -= 4  # Adjust the speed of the rain
                 if raindrop["y"] < -20:  # Reset raindrop to the top once it falls out of the window
@@ -442,8 +457,12 @@ class GameView(BaseView):
             self.player_sprite.center_x = cfg.PLAYER_START_X
             self.player_sprite.center_y = cfg.PLAYER_START_Y
 
-            arcade.play_sound(self.game_over)
+            arcade.play_sound(self.game_over_sound)
             self.player_sprite.isAlive = False
+            self.player_deaths += 1
+            
+        if self.player_deaths >= self.max_player_deaths:
+            self.show_game_over()
 
         # Did the player touch something they should not?
         if self.level <=2:
@@ -467,6 +486,8 @@ class GameView(BaseView):
             # Load the next level
             self.setup()
 
+    def show_game_over(self):
+        self.game_over = True  
             
     def on_mouse_press(self, x, y, button, modifiers):
         self.logger.debug("--> {}, {}".format(x, y))
