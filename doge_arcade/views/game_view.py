@@ -491,6 +491,7 @@ class GameView(BaseView):
                 self.player_sprite.change_y = 0
                 self.player_sprite.center_x = cfg.PLAYER_START_X
                 self.player_sprite.center_y = cfg.PLAYER_START_Y
+                self.player_deaths += 1
 
                 arcade.play_sound(self.hurt_sound)
                 self.player_sprite.isAlive = False
