@@ -52,6 +52,9 @@ python3 api_server.py
 DogeDataHub offers the following endpoints:
 
 - `/currentPrice`: Fetch the current price of Dogecoin.
+
+
+Coming soon: 
 - `/prices`: Fetches current prices of Bitcoin and Dogecoin.
 - `/priceHistory`: Retrieve historical price data for Dogecoin.
 - `/marketCap`: Access market capitalization details of Dogecoin.
