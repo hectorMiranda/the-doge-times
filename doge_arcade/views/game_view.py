@@ -1,5 +1,6 @@
 import arcade
 import random
+import platform
 import settings.config as cfg
 from utilities.doge_data_hub_client import DogeDataHub  
 from UI.status_bar import StatusBar  
@@ -62,18 +63,23 @@ class GameView(BaseView):
 
 
     def setup_game_controller(self):
-        # Check for game controllers and set up the first one found
-        joysticks = arcade.get_joysticks()
-        if joysticks:
-            self.game_controller = joysticks[0]
-            self.logger.debug(self.game_controller.device.name)
-            self.game_controller.open()
-            self.game_controller.push_handlers(
-                self.on_joybutton_press,
-                self.on_joybutton_release,
-                self.on_joyhat_motion,
-                self.on_joyaxis_motion
-            )
+        # Check if the OS is WSL (Windows Subsystem for Linux)
+        print(platform.uname().release.lower())
+        if 'microsoft' not in platform.uname().release.lower():
+            # Check for game controllers and set up the first one found
+            joysticks = arcade.get_joysticks()
+            if joysticks:
+                self.game_controller = joysticks[0]
+                self.logger.debug(self.game_controller.device.name)
+                self.game_controller.open()
+                self.game_controller.push_handlers(
+                    self.on_joybutton_press,
+                    self.on_joybutton_release,
+                    self.on_joyhat_motion,
+                    self.on_joyaxis_motion
+                )
+        else:
+            self.logger.info("WSL detected, skipping joystick setup")
 
     def on_joybutton_press(self, joystick, button):
         if button == cfg.BUTTON_X:
