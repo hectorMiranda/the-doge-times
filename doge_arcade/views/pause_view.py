@@ -4,10 +4,10 @@ Main Menu
 import arcade
 import arcade.gui
 
-from platformer.views import View
+from views.base_view import BaseView
 
 
-class PauseView(View):
+class PauseView(BaseView):
     def __init__(self):
         super().__init__()
 
